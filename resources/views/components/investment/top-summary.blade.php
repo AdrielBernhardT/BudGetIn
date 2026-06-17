@@ -45,7 +45,7 @@
                     <div class="flex flex-col gap-4 lg:gap-5">
                         @foreach ($datas['targets'] as $target)
                             <div class="flex items-center gap-3 lg:gap-10">
-                                <div class="flex items-center gap-2">
+                                <div class="flex items-center gap-2 w-60 shrink-0">
                                     <i data-lucide="{{ $target->icon }}" class="w-4 h-4 shrink-0 text-gray-900 dark:text-white"></i>
                                     <div class="text-theme-sm whitespace-nowrap text-gray-800 dark:text-white/90">
                                         {{ $target->title }}</div>
