@@ -12,7 +12,7 @@
             chart: {
                 fontFamily: "Inter, sans-serif",
                 type: "donut",
-                height: 300,
+                height: 400,
             },
             series: series,
             labels: labels,
