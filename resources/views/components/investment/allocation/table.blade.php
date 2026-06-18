@@ -1,7 +1,7 @@
 @props(['target'])
 
 <div>
-    <div class="overflow-hidden rounded-xl border border-gray-200 bg-white dark:border-gray-800 dark:bg-white/[0.03]">
+    <div class="w-full overflow-x-auto rounded-xl border border-gray-200 bg-white dark:border-gray-800 dark:bg-white/[0.03]">
         <div class="max-w-full overflow-x-auto custom-scrollbar">
             <table class="w-full">
                 <thead>
@@ -42,15 +42,10 @@
                     @foreach ($target->items as $item)
                     <tr class="border-b border-gray-100 dark:border-gray-800">
                         <td class="px-5 py-4 sm:px-6" colspan="1">
-                            <div class="flex items-center gap-4">
-                                <div class="flex items-center justify-center">
-                                    <i data-lucide="{{ $item->icon }}" class="w-4 h-4 text-gray-900 dark:text-white"></i>
-                                </div>
-                                <div class="text-sm font-medium text-gray-900 dark:text-white">{{ $item->title }}</div>
-                            </div>
+                            <div class="text-sm font-medium text-gray-900 dark:text-white">{{ $item->title }}</div>
                         </td>
                         <td class="px-5 py-4 sm:px-6">
-                            <p class="text-gray-800 text-theme-sm dark:text-white/90">{{ $item->percentage }}%</p>
+                            <p class="text-gray-800 text-theme-sm dark:text-white/90">{{ $item->allocation_percentage }}%</p>
                         </td>
                         <td class="px-5 py-4 sm:px-6">
                             <div class="flex text-sm text-gray-900 dark:text-white gap-1">
@@ -78,7 +73,7 @@
                             <div class="text-sm text-gray-900 dark:text-white">
                                 <div class="flex items-center w-full gap-2">
 
-                                    <a :href="`/category/delete/${category.slug}`"
+                                    <a
                                         class="text-gray-500 hover:text-error-500 dark:text-gray-400 dark:hover:text-error-500"
                                         data-confirm-delete="true" type="submit">
                                         <svg class="fill-current" width="21" height="21" viewBox="0 0 21 21"
@@ -88,7 +83,7 @@
                                                 fill=""></path>
                                         </svg>
                                     </a>
-                                    <button @click="openEditModal(category)"
+                                    <button
                                         class="text-gray-500 hover:text-accent dark:text-gray-400 dark:hover:text-accent">
                                         <svg class="fill-current" width="21" height="21" viewBox="0 0 21 21"
                                             fill="none" xmlns="http://www.w3.org/2000/svg">

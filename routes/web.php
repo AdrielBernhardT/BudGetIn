@@ -3,6 +3,8 @@
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\ResetPasswordController;
+use App\Http\Controllers\Investment\GoalController;
+use App\Http\Controllers\Investment\RecordInvestmentController;
 use App\Http\Controllers\Transaction\CategoryController;
 use App\Http\Controllers\Dashboard\DashboardController;
 use Illuminate\Support\Facades\Route;
@@ -143,7 +145,12 @@ Route::middleware(['auth'])->group(function(){
     });
 
     // Investment
-    Route::get('/investment', [InvestmentController::class, 'index'])->name('investment');
+    Route::prefix('/investment')->as('investment.')->group(function(){
+        Route::get('/', [InvestmentController::class, 'index'])->name('index');
+        Route::post('/store-investment', [InvestmentController::class, 'store'])->name('store');
+        Route::post('/store-goal', [GoalController::class, 'store'])->name('store-goal');
+        Route::post('/store-record-investment', [RecordInvestmentController::class, 'store'])->name('store-record-investment');
+    });
 
     // Report
     Route::get('/report', [ReportController::class, 'index'])->name('report');
