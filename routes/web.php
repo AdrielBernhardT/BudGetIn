@@ -16,7 +16,6 @@ use App\Http\Controllers\User\SettingsController;
 use App\Http\Controllers\Transaction\ExpenseController;
 use App\Http\Controllers\Transaction\IncomeController;
 use App\Http\Controllers\Transaction\TransferController;
-use App\Http\Controllers\Auth\GoogleController;
 
 // // dashboard pages
 // Route::get('/', function () {
