@@ -1,5 +1,15 @@
-<div x-data="{saveProfile(){
+<div x-data="{
+    open: false,
+
+    firstName: 'Musharof',
+    lastName: 'Chowdhury',
+    email: 'randomuser@pimjo.com',
+    phone: '+09 363 398 46',
+    bio: 'Team Manager',
+
+    saveProfile(){
     console.log('Saving profile...');
+    this.saved = true;
 }}">
     <div class="p-5 mb-6 border border-gray-200 rounded-2xl dark:border-gray-800 lg:p-6">
         <div class="flex flex-col gap-6 lg:flex-row lg:items-start lg:justify-between">
@@ -11,36 +21,35 @@
                 <div class="grid grid-cols-1 gap-4 lg:grid-cols-2 lg:gap-7 2xl:gap-x-32">
                     <div>
                         <p class="mb-2 text-xs leading-normal text-gray-500 dark:text-gray-400">First Name</p>
-                        <p class="text-sm font-medium text-gray-800 dark:text-white/90">Musharof</p>
+                        <p class="text-sm font-medium text-gray-800 dark:text-white/90" x-text="firstName"></p>
                     </div>
 
                     <div>
                         <p class="mb-2 text-xs leading-normal text-gray-500 dark:text-gray-400">Last Name</p>
-                        <p class="text-sm font-medium text-gray-800 dark:text-white/90">Chowdhury</p>
+                        <p class="text-sm font-medium text-gray-800 dark:text-white/90" x-text="lastName"></p>
                     </div>
 
                     <div>
                         <p class="mb-2 text-xs leading-normal text-gray-500 dark:text-gray-400">
                             Email address
                         </p>
-                        <p class="text-sm font-medium text-gray-800 dark:text-white/90">
-                            randomuser@pimjo.com
-                        </p>
+                        <p class="text-sm font-medium text-gray-800 dark:text-white/90" x-text="email"></p>
                     </div>
 
                     <div>
                         <p class="mb-2 text-xs leading-normal text-gray-500 dark:text-gray-400">Phone</p>
-                        <p class="text-sm font-medium text-gray-800 dark:text-white/90">+09 363 398 46</p>
+                        <p class="text-sm font-medium text-gray-800 dark:text-white/90" x-text="phone"></p>
                     </div>
 
                     <div>
                         <p class="mb-2 text-xs leading-normal text-gray-500 dark:text-gray-400">Bio</p>
-                        <p class="text-sm font-medium text-gray-800 dark:text-white/90">Team Manager</p>
+                        <p class="text-sm font-medium text-gray-800 dark:text-white/90" x-text="bio"></p>
                     </div>
                 </div>
             </div>
 
-            <button class="edit-button" @click="$dispatch('open-profile-info-modal')">
+            <button @click="$dispatch('open-personal-info-modal')"
+                class="shadow-theme-xs flex w-full items-center justify-center gap-2 rounded-lg border border-gray-300 bg-white px-5 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 hover:text-gray-800 lg:inline-flex lg:w-auto dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-white/[0.03] dark:hover:text-gray-200">
                 <svg class="fill-current" width="18" height="18" viewBox="0 0 18 18" fill="none"
                     xmlns="http://www.w3.org/2000/svg">
                     <path fill-rule="evenodd" clip-rule="evenodd"
@@ -51,4 +60,78 @@
             </button>
         </div>
     </div>
+
+    <!-- Personal Info Modal -->
+    <x-ui.modal x-data="{ open: false }" @open-personal-info-modal.window="open = true" :isOpen="false" class="max-w-[700px]">
+        <div
+            class="no-scrollbar overflow-hidden relative flex w-full max-w-[700px] max-h-[80vh] flex-col rounded-3xl bg-white p-4 dark:bg-gray-900 lg:p-11">
+            <div class="px-2 pr-14">
+                <h4 class="mb-2 text-2xl font-semibold text-gray-800 dark:text-white/90">
+                    Edit Personal Information
+                </h4>
+                <p class="mb-2 text-sm text-gray-500 dark:text-gray-400">
+                    Update your details to keep your profile up-to-date.
+                </p>
+            </div>
+            <form class="mt-2 flex flex-col overflow-y-auto" action="{{ route('profile.update-profile-information') }}" method="POST">
+                @csrf
+                <div class="custom-scrollbar max-h-[40vh] lg:max-h-[60vh] overflow-y-auto p-2">
+                    <div class="mt-5">
+                        <div class="grid grid-cols-1 gap-x-6 gap-y-5 lg:grid-cols-2">
+                            <div class="col-span-2 lg:col-span-1">
+                                <label class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400">
+                                    First Name
+                                </label>
+                                <input type="text" x-model="firstName" name="fname"
+                                    class="dark:bg-dark-900 h-11 w-full rounded-lg border border-gray-300 bg-transparent bg-none px-4 py-2.5 text-sm text-gray-800 shadow-theme-xs placeholder:text-gray-400 focus:border-brand-300 focus:outline-hidden focus:ring-3 focus:ring-brand-500/10 dark:border-gray-700 dark:bg-gray-900 dark:text-white/90 dark:placeholder:text-white/30 dark:focus:border-brand-800" />
+                            </div>
+
+                            <div class="col-span-2 lg:col-span-1">
+                                <label class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400">
+                                    Last Name
+                                </label>
+                                <input type="text" x-model="lastName" name="lname"
+                                    class="dark:bg-dark-900 h-11 w-full rounded-lg border border-gray-300 bg-transparent bg-none px-4 py-2.5 text-sm text-gray-800 shadow-theme-xs placeholder:text-gray-400 focus:border-brand-300 focus:outline-hidden focus:ring-3 focus:ring-brand-500/10 dark:border-gray-700 dark:bg-gray-900 dark:text-white/90 dark:placeholder:text-white/30 dark:focus:border-brand-800" />
+                            </div>
+
+                            <div class="col-span-2 lg:col-span-1">
+                                <label class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400">
+                                    Email Address
+                                </label>
+                                <input type="text" x-model="email" name="email"
+                                    class="dark:bg-dark-900 h-11 w-full appearance-none rounded-lg border border-gray-300 bg-transparent bg-none px-4 py-2.5 text-sm text-gray-800 shadow-theme-xs placeholder:text-gray-400 focus:border-brand-300 focus:outline-hidden focus:ring-3 focus:ring-brand-500/10 dark:border-gray-700 dark:bg-gray-900 dark:text-white/90 dark:placeholder:text-white/30 dark:focus:border-brand-800" />
+                            </div>
+
+                            <div class="col-span-2 lg:col-span-1">
+                                <label class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400">
+                                    Phone
+                                </label>
+                                <input type="text" x-model="phone" name="phone"
+                                    class="dark:bg-dark-900 h-11 w-full appearance-none rounded-lg border border-gray-300 bg-transparent bg-none px-4 py-2.5 text-sm text-gray-800 shadow-theme-xs placeholder:text-gray-400 focus:border-brand-300 focus:outline-hidden focus:ring-3 focus:ring-brand-500/10 dark:border-gray-700 dark:bg-gray-900 dark:text-white/90 dark:placeholder:text-white/30 dark:focus:border-brand-800" />
+                            </div>
+
+                            <div class="col-span-2">
+                                <label class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400">
+                                    Bio
+                                </label>
+                                <textarea rows="4" x-model="bio" name="bio"
+                                class="dark:bg-dark-900 w-full rounded-lg border border-gray-300 bg-transparent px-4 py-3 text-sm text-gray-800 shadow-theme-xs placeholder:text-gray-400 focus:border-brand-300 focus:outline-hidden focus:ring-3 focus:ring-brand-500/10 dark:border-gray-700 dark:bg-gray-900 dark:text-white/90 dark:placeholder:text-white/30 dark:focus:border-brand-800"
+                                    placeholder="Write your bio here..."></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex items-center gap-3 px-2 mt-6 lg:justify-end">
+                    <button @click="open = false" type="button"
+                        class="flex w-full justify-center rounded-lg border border-gray-300 bg-white px-4 py-2.5 text-sm font-medium text-gray-700 hover:bg-gray-50 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-white/[0.03] sm:w-auto">
+                        Close
+                    </button>
+                    <button @click="saveProfile()" type="submit"
+                        class="flex w-full justify-center rounded-lg bg-main px-4 py-2.5 text-sm font-medium text-white hover:bg-main-hover sm:w-auto">
+                        Save Changes
+                    </button>
+                </div>
+            </form>
+        </div>
+    </x-ui.modal>
 </div>

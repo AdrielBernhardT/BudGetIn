@@ -165,6 +165,8 @@ Route::middleware(['auth'])->group(function(){
 
     Route::prefix('/profile')->as('profile.')->group(function(){
         Route::get('/', [ProfileControlller::class, 'index'])->name('index');
+        Route::post('/update-profile-information', [ProfileControlller::class, 'updateProfileInformation'])->name('update-profile-information');
+        Route::post('/update-address-information', [ProfileControlller::class, 'updateAddressInformation'])->name('update-address-information');
     });
-    
+
 });

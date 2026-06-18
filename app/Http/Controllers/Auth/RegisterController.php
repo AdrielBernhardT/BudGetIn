@@ -24,7 +24,8 @@ class RegisterController extends Controller
 
         try {
             $user = User::create([
-                'name' => $attributes['fname']. ' ' .$attributes['lname'],
+                'fname' => $attributes['fname'],
+                'lname' => $attributes['lname'],
                 'email' => $attributes['email'],
                 'password' => Hash::make($attributes['password'])
             ]);
