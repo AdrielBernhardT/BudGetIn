@@ -31,12 +31,21 @@ class SettingsController extends Controller
             'password' => Hash::make($request->newPassword)
         ]);
 
-        return redirect()->back()->with('success', 'Password is updated!');
+        toast()->success('Password updated!');
+        return redirect()->back()->with('success', 'Password updated!');
     }
 
     public function deleteAccount(Request $request){
         // ini nanti kasi minta password biar ga langsung delete
+        $request->validate([
+            'password' => ['required'],
+        ]);
+        
         $user = Auth::user();
+
+        if(!Hash::check($request->password, $user->password)){
+            return back()->withInput()->with('error', 'Current password is incorrect!');
+        }
 
         Auth::logout();
         $request->session()->invalidate();
