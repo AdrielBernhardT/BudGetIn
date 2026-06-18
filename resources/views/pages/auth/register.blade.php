@@ -13,7 +13,7 @@
                         <p class="text-sm text-gray-500 dark:text-gray-400">
                             Enter your email and password to sign up!
                         </p>
-                        
+
                         @if(session('error'))
                         <div class="my-4 rounded-lg bg-red-100 px-4 py-3 text-red-700 text-sm">
                             {{ session('error') }}
@@ -21,7 +21,7 @@
                         @endif
                     </div>
                     <div>
-                        <button
+                        <a href="{{ route('auth.google') }}"
                             class="w-full flex items-center justify-center gap-3 rounded-lg bg-gray-100 px-7 py-3 text-sm font-normal text-gray-700 transition-colors hover:bg-gray-200 hover:text-gray-800 dark:bg-white/5 dark:text-white/90 dark:hover:bg-white/10">
                             <svg width="20" height="20" viewBox="0 0 20 20" fill="none"
                                 xmlns="http://www.w3.org/2000/svg">
@@ -39,7 +39,7 @@
                                     fill="#EB4335" />
                             </svg>
                             Sign up with Google
-                        </button>
+                        </a>
                         <div class="relative py-3 sm:py-5">
                             <div class="absolute inset-0 flex items-center">
                                 <div class="w-full border-t border-gray-200 dark:border-gray-800"></div>
@@ -61,7 +61,7 @@
                                             value="{{ old('fname') }}"
                                             placeholder="Enter your first name"
                                             class="dark:bg-dark-900 shadow-theme-xs focus:border-brand-300 focus:ring-brand-500/10 dark:focus:border-brand-800 h-11 w-full rounded-lg border border-gray-300 bg-transparent px-4 py-2.5 text-sm text-gray-800 placeholder:text-gray-400 focus:ring-3 focus:outline-hidden dark:border-gray-700 dark:bg-gray-900 dark:text-white/90 dark:placeholder:text-white/30" />
-                                        
+
                                         @error('fname')
                                         <p class="text-theme-xs text-error-500 mt-1.5">
                                             {{ $message }}
@@ -77,7 +77,7 @@
                                             placeholder="Enter your last name"
                                             value="{{ old('lname') }}"
                                             class="dark:bg-dark-900 shadow-theme-xs focus:border-brand-300 focus:ring-brand-500/10 dark:focus:border-brand-800 h-11 w-full rounded-lg border border-gray-300 bg-transparent px-4 py-2.5 text-sm text-gray-800 placeholder:text-gray-400 focus:ring-3 focus:outline-hidden dark:border-gray-700 dark:bg-gray-900 dark:text-white/90 dark:placeholder:text-white/30" />
-                                            
+
                                         @error('lname')
                                         <p class="text-theme-xs text-error-500 mt-1.5">
                                             {{ $message }}
@@ -93,7 +93,7 @@
                                     <input type="email" id="email" name="email" placeholder="Enter your email"
                                     value="{{ old('email') }}"
                                         class="dark:bg-dark-900 shadow-theme-xs focus:border-brand-300 focus:ring-brand-500/10 dark:focus:border-brand-800 h-11 w-full rounded-lg border border-gray-300 bg-transparent px-4 py-2.5 text-sm text-gray-800 placeholder:text-gray-400 focus:ring-3 focus:outline-hidden dark:border-gray-700 dark:bg-gray-900 dark:text-white/90 dark:placeholder:text-white/30" />
-                                    
+
                                     @error('email')
                                     <p class="text-theme-xs text-error-500 mt-1.5">
                                         {{ $message }}

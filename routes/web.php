@@ -14,6 +14,7 @@ use App\Http\Controllers\User\SettingsController;
 use App\Http\Controllers\Transaction\ExpenseController;
 use App\Http\Controllers\Transaction\IncomeController;
 use App\Http\Controllers\Transaction\TransferController;
+use App\Http\Controllers\Auth\GoogleController;
 
 // // dashboard pages
 // Route::get('/', function () {
@@ -102,6 +103,10 @@ Route::middleware(['guest'])->group(function(){
     Route::post('/register', [RegisterController::class, 'store'])->name('register.store');
 
     Route::get('/reset-password', [ResetPasswordController::class, 'index'])->name('reset-password');
+
+    // Google OAuth
+    Route::get('/auth/google', [GoogleController::class, 'redirect'])->name('auth.google');
+    Route::get('/auth/google/callback', [GoogleController::class, 'callback'])->name('auth.google.callback');
 });
 
 Route::middleware(['auth'])->group(function(){
