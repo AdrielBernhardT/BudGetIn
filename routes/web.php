@@ -157,6 +157,14 @@ Route::middleware(['auth'])->group(function(){
 
 
     // User
-    Route::get('/settings', [SettingsController::class, 'index'])->name('settings');
-    Route::get('/profile', [ProfileControlller::class, 'index'])->name('profile');
+    Route::prefix('/settings')->as('settings.')->group(function(){
+        Route::get('/', [SettingsController::class, 'index'])->name('index');
+        Route::post('/change-password', [SettingsController::class, 'changePassword'])->name('change-password');
+        Route::delete('/delete-account', [SettingsController::class, 'deleteAccount'])->name('delete-account');
+    });
+
+    Route::prefix('/profile')->as('profile.')->group(function(){
+        Route::get('/', [ProfileControlller::class, 'index'])->name('index');
+    });
+    
 });
