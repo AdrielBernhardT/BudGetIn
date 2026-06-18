@@ -3,9 +3,9 @@
 namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
+use App\Models\Profile;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
-use App\Models\Profile;
 
 class ProfileControlller extends Controller
 {
@@ -15,32 +15,37 @@ class ProfileControlller extends Controller
 
     public function updateProfileInformation(Request $request) {
         $user = Auth::user();
-        $profile = Profile::where('user_id', $user -> id) -> firstOrFail();
+        $profile = Profile::firstOrCreate([
+            'user_id' => $user->id
+        ]);
 
         $user -> update([
-            'fname' => $request -> fname,
-            'lname' => $request -> lname,
-            'email' => $request -> email
+            'fname' => $request->filled('fname') ? $request->fname : $user->fname,
+            'lname' => $request->filled('lname') ? $request->lname : $user->lname,
+            'email' => $request->filled('email') ? $request->email : $user->email
         ]);
 
-        $profile -> update ([
-            'phone' => $request->phone,
-            'bio' => $request->bio
+        $profile -> update([
+            'phone' => $request->filled('phone') ? $request->phone : $profile->phone,
+            'bio' => $request->filled('bio') ? $request->bio : $profile->bio
         ]);
 
-        return redirect()->back()->with('success', 'Profile is update');
+        return redirect()->back()->with('success', 'Profile is updated successfully!');
     }
 
     public function updateAddressInformation(Request $request) {
         $user = Auth::user();
-        $profile = Profile::where('user_id', $user -> id) -> firstOrFail();
 
-        $profile -> update([
-            'country' => $request -> fname,
-            'postal_code' => $request -> lname,
-            'city' => $request -> email
+        $profile = Profile::firstOrCreate([
+            'user_id' => $user->id
         ]);
 
-        return redirect()->back()->with('success', 'Profile is update');
+        $profile -> update([
+            'country' => $request->filled('country') ? $request->country : $profile->country,
+            'postal_code' => $request->filled('postal_code') ? $request->postal_code : $profile->postal_code,
+            'city' => $request->filled('city') ? $request->city : $profile->city,
+        ]);
+
+        return redirect()->back()->with('success', 'Profile is updated successfully!');
     }
 }

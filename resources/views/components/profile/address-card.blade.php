@@ -9,13 +9,13 @@
                 <div class="grid grid-cols-1 gap-4 lg:grid-cols-2 lg:gap-7 2xl:gap-x-32">
                     <div>
                         <p class="mb-2 text-xs leading-normal text-gray-500 dark:text-gray-400">Country</p>
-                        <p class="text-sm font-medium text-gray-800 dark:text-white/90">United States</p>
+                        <p class="text-sm font-medium text-gray-800 dark:text-white/90">{{ auth()->user()->profile?->country ?? '-' }}</p>
                     </div>
 
                     <div>
                         <p class="mb-2 text-xs leading-normal text-gray-500 dark:text-gray-400">City/State</p>
                         <p class="text-sm font-medium text-gray-800 dark:text-white/90">
-                            Phoenix, United States
+                            {{ auth()->user()->profile?->city ?? '-' }}
                         </p>
                     </div>
 
@@ -23,7 +23,7 @@
                         <p class="mb-2 text-xs leading-normal text-gray-500 dark:text-gray-400">
                             Postal Code
                         </p>
-                        <p class="text-sm font-medium text-gray-800 dark:text-white/90">ERT 2489</p>
+                        <p class="text-sm font-medium text-gray-800 dark:text-white/90">{{ auth()->user()->profile?->postal_code ?? '-' }}</p>
                     </div>
                 </div>
             </div>
@@ -52,8 +52,9 @@
                     Update your details to keep your profile up-to-date.
                 </p>
             </div>
-            <form class="flex flex-col overflow-y-auto" action="{{ route('profile.update-address-information') }}" method="POST">
+            <form class="flex flex-col overflow-y-auto" method="POST" action="{{ route('profile.update-address-information') }}">
                 @csrf
+                @method('POST')
                 <div class="custom-scrollbar max-h-[40vh] lg:max-h-[60vh] overflow-y-auto p-2">
                     <div class="mt-5">
                         <div class="grid grid-cols-1 gap-x-6 gap-y-5 lg:grid-cols-2">
@@ -61,7 +62,7 @@
                                 <label class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400">
                                     Country
                                 </label>
-                                <input type="text" value="United States" name="country"
+                                <input type="text" value="{{ old('country') }}" name="country"
                                     class="dark:bg-dark-900 h-11 w-full appearance-none rounded-lg border border-gray-300 bg-transparent bg-none px-4 py-2.5 text-sm text-gray-800 shadow-theme-xs placeholder:text-gray-400 focus:border-brand-300 focus:outline-hidden focus:ring-3 focus:ring-brand-500/10 dark:border-gray-700 dark:bg-gray-900 dark:text-white/90 dark:placeholder:text-white/30 dark:focus:border-brand-800" />
                             </div>
 
@@ -69,7 +70,7 @@
                                 <label class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400">
                                     City/State
                                 </label>
-                                <input type="text" value="Poenix, Arizona, United States" name="city"
+                                <input type="text" value="{{ old('city') }}" name="city"
                                     class="dark:bg-dark-900 h-11 w-full appearance-none rounded-lg border border-gray-300 bg-transparent bg-none px-4 py-2.5 text-sm text-gray-800 shadow-theme-xs placeholder:text-gray-400 focus:border-brand-300 focus:outline-hidden focus:ring-3 focus:ring-brand-500/10 dark:border-gray-700 dark:bg-gray-900 dark:text-white/90 dark:placeholder:text-white/30 dark:focus:border-brand-800" />
                             </div>
 
@@ -77,7 +78,7 @@
                                 <label class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400">
                                     Postal Code
                                 </label>
-                                <input type="text" value="ERT 2489" name="postal_code"
+                                <input type="text" value="{{ old('postal_code') }}" name="postal_code"
                                     class="dark:bg-dark-900 h-11 w-full appearance-none rounded-lg border border-gray-300 bg-transparent bg-none px-4 py-2.5 text-sm text-gray-800 shadow-theme-xs placeholder:text-gray-400 focus:border-brand-300 focus:outline-hidden focus:ring-3 focus:ring-brand-500/10 dark:border-gray-700 dark:bg-gray-900 dark:text-white/90 dark:placeholder:text-white/30 dark:focus:border-brand-800" />
                             </div>
                         </div>
@@ -88,7 +89,7 @@
                         class="flex w-full justify-center rounded-lg border border-gray-300 bg-white px-4 py-2.5 text-sm font-medium text-gray-700 hover:bg-gray-50 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-white/[0.03] sm:w-auto">
                         Close
                     </button>
-                    <button @click="saveProfile" type="submit"
+                    <button type="submit"
                         class="flex w-full justify-center rounded-lg bg-main px-4 py-2.5 text-sm font-medium text-white hover:bg-main-hover sm:w-auto">
                         Save Changes
                     </button>
