@@ -86,9 +86,11 @@
 
                                     <button
                                         @click="$dispatch('edit-investment-item', {
+                                            id: {{ $item->id }},
                                             name: @js($item->title),
                                             amount: {{ $item->target_amount }},
                                             allocation: {{ $item->allocation_percentage }},
+                                            goal_id: {{ $target->id }},
                                             goal: {
                                                 name: @js($target->title),
                                                 target_amount: {{ $target->target_amount }}

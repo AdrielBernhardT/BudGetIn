@@ -150,6 +150,7 @@ Route::middleware(['auth'])->group(function(){
         Route::get('/', [InvestmentController::class, 'index'])->name('index');
         Route::post('/store', [InvestmentController::class, 'store'])->name('store');
         Route::delete('/delete/{id}', [InvestmentController::class, 'destroy'])->name('delete');
+        Route::post('/update/{id}', [InvestmentController::class, 'update'])->name('update');
 
         // Goal
         Route::post('/store/goal', [GoalController::class, 'store'])->name('goal.store');
