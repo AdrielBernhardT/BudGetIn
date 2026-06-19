@@ -17,7 +17,7 @@
             <img src="/images/user/owner.jpg" alt="User"/>
         </span>
 
-       <span class="block mr-1 font-medium text-theme-sm">{{ auth()->user()->name }}</span>
+       <span class="block mr-1 font-medium text-theme-sm">{{ auth()->user()->fname }}</span>
 
         <!-- Chevron Icon -->
         <svg
@@ -45,7 +45,7 @@
     >
         <!-- User Info -->
         <div>
-            <span class="block font-medium text-gray-700 text-theme-sm dark:text-gray-400">{{ auth()->user()->name }}</span>
+            <span class="block font-medium text-gray-700 text-theme-sm dark:text-gray-400">{{ auth()->user()->fname . ' ' . auth()->user()->lname }}</span>
             <span class="mt-0.5 block text-theme-xs text-gray-500 dark:text-gray-400">{{ auth()->user()->email }}</span>
         </div>
 
