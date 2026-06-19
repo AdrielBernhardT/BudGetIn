@@ -3,6 +3,7 @@
 <div>
     <div class="w-full overflow-x-auto rounded-xl border border-gray-200 bg-white dark:border-gray-800 dark:bg-white/[0.03]">
         <div class="max-w-full overflow-x-auto custom-scrollbar">
+            @if ($target->items->isNotEmpty())
             <table class="w-full">
                 <thead>
                     <tr class="border-b border-gray-100 dark:border-gray-800">
@@ -74,6 +75,9 @@
                                 <div class="flex items-center w-full gap-2">
 
                                     <a
+                                         @click="$dispatch('delete-investment-item', {
+                                            title: @js($item->title)
+                                        })"
                                         class="text-gray-500 hover:text-error-500 dark:text-gray-400 dark:hover:text-error-500"
                                         data-confirm-delete="true" type="submit">
                                         <svg class="fill-current" width="21" height="21" viewBox="0 0 21 21"
@@ -84,6 +88,12 @@
                                         </svg>
                                     </a>
                                     <button
+                                        @click="$dispatch('edit-investment-item', {
+                                            title:  @js($item->title),
+                                            allocation_percentage: {{ $item->allocation_percentage }},
+                                            target_amount: {{ $item->target_amount }},
+                                            current_amount: {{ $item->current_amount }}
+                                        })"
                                         class="text-gray-500 hover:text-accent dark:text-gray-400 dark:hover:text-accent">
                                         <svg class="fill-current" width="21" height="21" viewBox="0 0 21 21"
                                             fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -98,7 +108,16 @@
                     </tr>
                     @endforeach
                 </tbody>
-            </table>
+            </table>   
+            @else
+            <div class="rounded-xl border-b border-gray-100 dark:border-gray-800 p-4 text-center">
+                <p class="text-gray-500 text-sm">
+                    No investment item found for this goal.
+                </p>
+            </div>
+            @endif
+            <x-investment.allocation.delete-modal />
+            <x-investment.allocation.edit-modal />
         </div>
     </div>
 </div>
