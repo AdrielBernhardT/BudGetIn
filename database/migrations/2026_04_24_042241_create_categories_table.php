@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('icon');
             $table->string('name');
-            $table->decimal('monthly_budget');
+            $table->unsignedBigInteger('monthly_budget');
             $table->timestamps();
         });
     }

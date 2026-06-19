@@ -25,7 +25,7 @@ return new class extends Migration
             $table->foreignId('category_id')->nullable()->constrained()->nullOnDelete();
 
             $table->string('title');
-            $table->decimal('amount', 15, 2);
+            $table->unsignedBigInteger('amount');
             $table->date('date');
             $table->text('description')->nullable();
 
