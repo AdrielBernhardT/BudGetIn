@@ -954,3 +954,13 @@ pre[class*='language-'] {
 .swal2-actions {
   @apply flex-row-reverse;
 }
+
+input[type="date"]::-webkit-calendar-picker-indicator {
+    opacity: 1 !important;
+    display: block !important;
+    cursor: pointer;
+}
+
+input[type="date"] {
+    color-scheme: light;
+}
