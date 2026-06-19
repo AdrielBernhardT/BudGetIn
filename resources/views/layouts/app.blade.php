@@ -46,7 +46,7 @@
 
             Alpine.store('sidebar', {
                 // Initialize based on screen size
-                isExpanded: window.innerWidth >= 1280, // true for desktop, false for mobile
+                isExpanded: window.innerWidth >= 1536, // true for desktop, false for mobile
                 isMobileOpen: false,
                 isHovered: false,
 
@@ -95,9 +95,9 @@
 
 <body
     x-data="{ 'loaded': true}"
-    x-init="$store.sidebar.isExpanded = window.innerWidth >= 1280;
+    x-init="$store.sidebar.isExpanded = window.innerWidth >= 1536;
     const checkMobile = () => {
-        if (window.innerWidth < 1280) {
+        if (window.innerWidth <= 1536) {
             $store.sidebar.setMobileOpen(false);
             $store.sidebar.isExpanded = false;
         } else {
@@ -105,7 +105,8 @@
             $store.sidebar.isExpanded = true;
         }
     };
-    window.addEventListener('resize', checkMobile);">
+    window.addEventListener('resize', checkMobile);"
+    class="overflow-x-hidden">
 
     {{-- preloader --}}
     <x-common.preloader/>
@@ -115,7 +116,7 @@
         @include('layouts.backdrop')
         @include('layouts.sidebar')
 
-        <div class="flex-1 transition-all duration-300 ease-in-out"
+        <div class="flex-1 min-w-0 transition-all duration-300 ease-in-out"
             :class="{
                 'xl:ml-[290px]': $store.sidebar.isExpanded || $store.sidebar.isHovered,
                 'xl:ml-[90px]': !$store.sidebar.isExpanded && !$store.sidebar.isHovered,
@@ -124,7 +125,7 @@
             <!-- app header start -->
             @include('layouts.app-header')
             <!-- app header end -->
-            <div class="p-4 mx-auto max-w-(--breakpoint-2xl) md:p-6">
+            <div class="w-full min-w-0 p-4 mx-auto max-w-(--breakpoint-2xl) md:p-6">
                 @yield('content')
             </div>
         </div>

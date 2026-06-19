@@ -44,9 +44,21 @@ export const pieChart = () => {
                 lineCap: 'round'
             },
             fill: {
-    type: 'solid',
-    opacity: 1
-}
+                type: 'solid',
+                opacity: 1
+            },
+            states: {
+                hover: {
+                    filter: {
+                        type: "none",
+                    },
+                },
+                active: {
+                    filter: {
+                        type: "none",
+                    },
+                },
+            },
         }
 
         const chart = new ApexCharts(chartElement, option);

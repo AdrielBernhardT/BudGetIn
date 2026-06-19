@@ -80,6 +80,9 @@
                 show: true,
                 // show: false,
                 position: "bottom",
+                // floating: false,
+                
+                // width: "100%",
                 // height: 70,
                 // offsetX: -35,
                 // offsetY: 15,
