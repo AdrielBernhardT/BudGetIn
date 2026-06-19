@@ -75,9 +75,6 @@
                                 <div class="flex items-center w-full gap-2">
 
                                     <a
-                                         @click="$dispatch('delete-investment-item', {
-                                            title: @js($item->title)
-                                        })"
                                         class="text-gray-500 hover:text-error-500 dark:text-gray-400 dark:hover:text-error-500"
                                         data-confirm-delete="true" type="submit">
                                         <svg class="fill-current" width="21" height="21" viewBox="0 0 21 21"
@@ -116,8 +113,6 @@
                 </p>
             </div>
             @endif
-            <x-investment.allocation.delete-modal />
-            <x-investment.allocation.edit-modal />
         </div>
     </div>
 </div>
