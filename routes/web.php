@@ -3,6 +3,8 @@
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\ResetPasswordController;
+use App\Http\Controllers\Investment\GoalController;
+use App\Http\Controllers\Investment\RecordInvestmentController;
 use App\Http\Controllers\Transaction\CategoryController;
 use App\Http\Controllers\Dashboard\DashboardController;
 use Illuminate\Support\Facades\Route;
@@ -14,6 +16,7 @@ use App\Http\Controllers\User\SettingsController;
 use App\Http\Controllers\Transaction\ExpenseController;
 use App\Http\Controllers\Transaction\IncomeController;
 use App\Http\Controllers\Transaction\TransferController;
+use App\Http\Controllers\Auth\GoogleController;
 
 // // dashboard pages
 // Route::get('/', function () {
@@ -102,6 +105,10 @@ Route::middleware(['guest'])->group(function(){
     Route::post('/register', [RegisterController::class, 'store'])->name('register.store');
 
     Route::get('/reset-password', [ResetPasswordController::class, 'index'])->name('reset-password');
+
+    // Google OAuth
+    Route::get('/auth/google', [GoogleController::class, 'redirect'])->name('auth.google');
+    Route::get('/auth/google/callback', [GoogleController::class, 'callback'])->name('auth.google.callback');
 });
 
 Route::middleware(['auth'])->group(function(){
@@ -138,13 +145,28 @@ Route::middleware(['auth'])->group(function(){
     });
 
     // Investment
-    Route::get('/investment', [InvestmentController::class, 'index'])->name('investment');
+    Route::prefix('/investment')->as('investment.')->group(function(){
+        Route::get('/', [InvestmentController::class, 'index'])->name('index');
+        Route::post('/store-investment', [InvestmentController::class, 'store'])->name('store');
+        Route::post('/store-goal', [GoalController::class, 'store'])->name('store-goal');
+        Route::post('/store-record-investment', [RecordInvestmentController::class, 'store'])->name('store-record-investment');
+    });
 
     // Report
     Route::get('/report', [ReportController::class, 'index'])->name('report');
 
 
     // User
-    Route::get('/settings', [SettingsController::class, 'index'])->name('settings');
-    Route::get('/profile', [ProfileControlller::class, 'index'])->name('profile');
+    Route::prefix('/settings')->as('settings.')->group(function(){
+        Route::get('/', [SettingsController::class, 'index'])->name('index');
+        Route::post('/change-password', [SettingsController::class, 'changePassword'])->name('change-password');
+        Route::delete('/delete-account', [SettingsController::class, 'deleteAccount'])->name('delete-account');
+    });
+
+    Route::prefix('/profile')->as('profile.')->group(function(){
+        Route::get('/', [ProfileControlller::class, 'index'])->name('index');
+        Route::post('/update-profile-information', [ProfileControlller::class, 'updateProfileInformation'])->name('update-profile-information');
+        Route::post('/update-address-information', [ProfileControlller::class, 'updateAddressInformation'])->name('update-address-information');
+    });
+    
 });

@@ -29,7 +29,7 @@ class MenuHelper
             [
                 'icon' => 'charts',
                 'name' => 'Investment',
-                'route' => 'investment',
+                'route' => 'investment.index',
             ],
             [
                 'icon' => 'charts',
@@ -72,12 +72,12 @@ class MenuHelper
             [
                 'icon' => 'user-profile',
                 'name' => 'Profile',
-                'route' => 'profile',
+                'route' => 'profile.index',
             ],
             [
                 'icon' => 'user-profile',
                 'name' => 'Settings',
-                'route' => 'settings'
+                'route' => 'settings.index'
             ]
             // [
             //     'icon' => 'charts',

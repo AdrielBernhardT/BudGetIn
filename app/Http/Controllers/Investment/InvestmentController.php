@@ -3,6 +3,11 @@
 namespace App\Http\Controllers\Investment;
 
 use App\Http\Controllers\Controller;
+use App\Models\Account;
+use App\Models\Goal;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use App\Models\Investment;
 
 class InvestmentController extends Controller
 {
@@ -12,22 +17,23 @@ class InvestmentController extends Controller
 
             $items = collect($target->items);
 
-            $target->total_target = $items->sum('target_amount');
             $target->total_current = $items->sum('current_amount');
 
-            $target->percentage = $target->total_target > 0
-                ? round(($target->total_current / $target->total_target) * 100, 0)
+            $target->percentage = $target->target_amount > 0
+                ? round(($target->total_current / $target->target_amount) * 100, 0)
                 : 0;
 
             $target->items = $items->map(function ($item) use ($target) {
+
+                $item->target_amount = round(
+                    $target->target_amount * $item->allocation
+                );
 
                 $item->percentage = $item->target_amount > 0
                     ? round(($item->current_amount / $item->target_amount) * 100, 0)
                     : 0;
 
-                $item->allocation = $target->total_target > 0
-                    ? round(($item->target_amount / $target->total_target) * 100, 0)
-                    : 0;
+                $item->allocation_percentage = round($item->allocation * 100);
 
                 return $item;
             });
@@ -35,12 +41,12 @@ class InvestmentController extends Controller
             return $target;
         });
 
-        $total_target = $targets->sum('total_target');
+        $total_target = $targets->sum('target_amount');
         $total_investment = $targets->sum('total_current');
         $allocation_chart = $targets->map(function ($target) {
             return [
                 'label' => $target->title,
-                'value' => $target->total_target, // pakai target_amount
+                'value' => (float) $target->target_amount,
             ];
         })->values();
 
@@ -60,55 +66,51 @@ class InvestmentController extends Controller
             'targets' => $targets,
             'allocation_chart' => $allocation_chart,
         ];
+        $goals = Goal::where('user_id', Auth::id())->get();
+        $investments = Investment::where('user_id', Auth::id())->get();
+        $accounts = Account::where('user_id', Auth::id())->get();
 
-        return view('pages.investment.investment', compact('datas'));
+        return view('pages.investment.investment', ['title' => 'Investment'], compact('datas', 'goals', 'investments', 'accounts'));
     }
 
     public function getTargets()
     {
-        return [
-            (object) [
-                'title' => 'Emergency Fund',
-                'icon' => 'home',
-                'items' => [
-                    (object) [
-                        'title' => 'Cash',
-                        'icon' => 'home',
-                        'current_amount' => 10000000,
-                        'target_amount' => 20000000,
-                    ],
-                    (object) [
-                        'title' => 'Money Market',
-                        'icon' => 'credit-card',
-                        'current_amount' => 15000000,
-                        'target_amount' => 20000000,
-                    ],
-                ],
-            ],
-            (object) [
-                'title' => 'Monthly Savings',
-                'icon' => 'credit-card',
-                'items' => [
-                    (object) [
-                        'title' => 'blu',
-                        'icon' => 'home',
-                        'current_amount' => 5000000,
-                        'target_amount' => 15000000,
-                    ],
-                    (object) [
-                        'title' => 'blu',
-                        'icon' => 'home',
-                        'current_amount' => 5000000,
-                        'target_amount' => 15000000,
-                    ],
-                    (object) [
-                        'title' => 'blu',
-                        'icon' => 'home',
-                        'current_amount' => 5000000,
-                        'target_amount' => 15000000,
-                    ],
-                ],
-            ],
-        ];
+        $goals = Goal::with(['investments.records'])->where('user_id', Auth::id())->get();
+        
+        return $goals->map(function($goal){
+            return (object) [
+                'title' => $goal->name,
+                'icon' => $goal->icon,
+                'target_amount' => $goal->target_amount,
+                'items' => $goal->investments->map(function($investment){
+                    return (object)[
+                        'title' => $investment->name,
+                        'allocation' => $investment->allocation_percent/100,
+                        'current_amount' => $investment->records->sum('transaction_amount')
+                    ];
+                }),
+            ];
+        });
+    }
+
+    public function store(Request $request){
+        $validated = $request->validateWithBag('investment', [
+            'name' => ['required'],
+            'goal_id' => ['required'],
+            'allocation_percent' => ['required'],
+            'planned_amount' => ['required']
+        ]);
+
+        $user = Auth::user();
+        Investment::create([
+            'user_id' => $user->id,
+            'name' => $validated['name'],
+            'goal_id' => $validated['goal_id'],
+            'allocation_percent' => $validated['allocation_percent'],
+            'planned_amount' => $validated['planned_amount'],
+        ]);
+
+        toast()->success('Investment created!');
+        return redirect()->back()->with('success', 'Investment created!');
     }
 }
