@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();
             $table->string('name'); // BCA, Cash, E-Wallet
-            $table->decimal('balance', 15, 2)->default(0);
+            $table->unsignedBigInteger('balance')->default(0);
             $table->timestamps();
         });
     }
