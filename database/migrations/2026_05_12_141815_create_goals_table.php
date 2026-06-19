@@ -11,11 +11,16 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('accounts', function (Blueprint $table) {
+        Schema::create('goals', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();
-            $table->string('name'); // BCA, Cash, E-Wallet
-            $table->unsignedBigInteger('balance')->default(0);
+
+            $table->string('name');
+            $table->string('icon')->default('home');
+
+            $table->decimal('target_amount', 15, 2); 
+
+            $table->date('target_date')->nullable();
             $table->timestamps();
         });
     }
@@ -25,6 +30,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('accounts');
+        Schema::dropIfExists('goals');
     }
 };

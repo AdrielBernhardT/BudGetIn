@@ -49,7 +49,7 @@
     $icon = $icons[$variant] ?? $icons['info'];
 @endphp
 
-<div class="rounded-xl border p-4 {{ $containerClass }}">
+<div class="rounded-xl border p-2 {{ $containerClass }}">
     <div class="flex items-start gap-3">
         <div class="-mt-0.5 {{ $iconClass }}">
             {!! $icon !!}
