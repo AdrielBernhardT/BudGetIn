@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Auth\OTPController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\ResetPasswordController;
 use App\Http\Controllers\Investment\GoalController;
@@ -104,7 +105,11 @@ Route::middleware(['guest'])->group(function(){
     Route::get('/register', [RegisterController::class, 'index'])->name('register');
     Route::post('/register', [RegisterController::class, 'store'])->name('register.store');
 
-    Route::get('/reset-password', [ResetPasswordController::class, 'index'])->name('reset-password');
+    Route::get('/forgot-password', [ResetPasswordController::class, 'index'])->name('forgot-password');
+    Route::post('/forgot-password', [ResetPasswordController::class, 'sendResetLink'])->name('forgot-password.send-reset-link');
+
+    Route::get('/reset-password/{token}', [ResetPasswordController::class, 'resetForm'])->name('password.reset');
+Route::post('/reset-password', [ResetPasswordController::class, 'resetPassword'])->name('password.update');
 
     // Google OAuth
     Route::get('/auth/google', [GoogleController::class, 'redirect'])->name('auth.google');
@@ -114,6 +119,14 @@ Route::middleware(['guest'])->group(function(){
 Route::middleware(['auth'])->group(function(){
     // Dashboard
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+
+    // Verify Account
+    Route::prefix('/verify-account')->as('verify.')->group(function(){
+        Route::get('/', [OTPController::class, 'index'])->name('index');
+        Route::post('/', [OTPController::class, 'verify']) ->name('verify');
+        Route::post('/send', [OTPController::class, 'send']) ->name('send');
+        Route::post('/resend', [OTPController::class, 'resend'])->name('resend');
+    });
 
     // Transaction
     Route::prefix('/income')->as('income.')->group(function(){
