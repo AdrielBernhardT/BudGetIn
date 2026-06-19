@@ -1,4 +1,4 @@
-@props(['datas'])
+@props(['datas', 'goals'])
 
 <div class="flex flex-col xl:flex-row gap-6 items-start">
     <div
@@ -62,6 +62,6 @@
             @endif
 
         </div>
-        <x-investment.allocation.edit-modal />
+        <x-investment.allocation.edit-modal :goals="$goals" />
     </div>
 </div>

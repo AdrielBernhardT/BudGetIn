@@ -86,10 +86,13 @@
                                     </a>
                                     <button
                                         @click="$dispatch('edit-investment-item', {
-                                            title:  @js($item->title),
-                                            allocation_percentage: {{ $item->allocation_percentage }},
-                                            target_amount: {{ $item->target_amount }},
-                                            current_amount: {{ $item->current_amount }}
+                                            name: @js($item->title),
+                                            amount: {{ $item->target_amount }},
+                                            allocation: {{ $item->allocation_percentage }},
+                                            goal: {
+                                                name: @js($target->title),
+                                                target_amount: {{ $target->target_amount }}
+                                            }
                                         })"
                                         class="text-gray-500 hover:text-accent dark:text-gray-400 dark:hover:text-accent">
                                         <svg class="fill-current" width="21" height="21" viewBox="0 0 21 21"

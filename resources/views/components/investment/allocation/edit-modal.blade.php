@@ -2,33 +2,38 @@
     <x-ui.modal 
     x-data="{ open: false}"
     @edit-investment-item.window="open = true"
-    :isOpen="$errors->goal->any()"
+    :isOpen="$errors->investment->any()"
     class="max-w-[700px]">
         <div x-data="{
-            target: {
-                title: '',
-                target_amount: '',
-                allocation_percentage: ''
+            goals: @js($goals),
+            selectedGoal: null,
+
+            investment: {
+                name: '',
+                goal: '',
+                amount: '',
+                amount_display: '',
+                allocation: ''
             },
 
             fillData(data) {
-                this.target.title = data.title;
-                this.target.target_amount = new Intl.NumberFormat('id-ID').format(data.target_amount);
-                this.target.allocation_percentage = data.allocation_percentage;
-                this.open = true;
+                this.investment.name = data.name;
+                this.investment.goal = data.goal_id;
+                this.investment.amount = data.amount;
+                this.investment.amount_display = new Intl.NumberFormat('id-ID').format(data.amount);
+                this.investment.allocation = data.allocation;
+                this.selectedGoal = data.goal;
             },
 
             resetModal() {
-                this.target = {
+                this.investment = {
                     name: '',
+                    goal: '',
+                    allocation: '',
                     amount: '',
-                    amount_display: '',
-                    icon: 'home',
+                    amount_display: ''
                 };
-                
-                this.$nextTick(() => {
-                    this.$dispatch('target-icon-set', this.target.icon || 'home');
-                });
+                this.selectedGoal = null;
             }
         }" @edit-investment-item.window="fillData($event.detail)"
             class="no-scrollbar relative w-full max-w-[700px] max-h-[80vh] rounded-3xl bg-white p-4 dark:bg-gray-900 lg:p-11 overflow-y-auto">
@@ -49,10 +54,27 @@
                             Investment Name:
                         </label>
                         <div class="relative flex items-center gap-2">
-                            <input type="text" name="title" x-model="target.title"
+                            <input type="text" name="name" x-model="investment.name"
                                 class="dark:bg-dark-900 shadow-theme-xs focus:border-brand-300 focus:ring-brand-500/10 dark:focus:border-brand-800 h-11 w-full rounded-lg border border-gray-300 bg-transparent px-4 py-2.5 text-sm text-gray-800 placeholder:text-gray-400 focus:ring-3 focus:outline-hidden dark:border-gray-700 dark:bg-gray-900 dark:text-white/90 dark:placeholder:text-white/30" />
                             
                         </div>
+                    </div>
+                    <div x-show="selectedGoal">
+                            <x-ui.alert
+                                variant="info"
+                                :showLink="false"
+                            >
+                                <div>
+                                    <p class="font-medium text-blue-800 dark:text-blue-200">
+                                        <span x-text="selectedGoal.name"></span>
+                                        Target Amount:
+                                    </p>
+
+                                    <p class="text-sm text-blue-700 dark:text-blue-300">
+                                        IDR <span x-text="formatRupiah(parseInt(selectedGoal.target_amount))"></span>
+                                    </p>
+                                </div>
+                            </x-ui.alert>
                     </div>
                     <div>
                         <label class="mb-3 block text-sm font-medium text-gray-700 dark:text-gray-400">
@@ -117,7 +139,7 @@
                                         "
                                         class="dark:bg-dark-900 shadow-theme-xs focus:border-brand-300 focus:ring-brand-500/10 dark:focus:border-brand-800 h-11 w-full rounded-lg border border-gray-300 bg-transparent px-4 py-2.5 pl-16 text-sm text-gray-800 placeholder:text-gray-400 focus:ring-3 focus:outline-hidden dark:border-gray-700 dark:bg-gray-900 dark:text-white/90 dark:placeholder:text-white/30" />
                                     <input type="hidden" name="planned_amount" :value="investment.amount" />
-                                    
+
                                 </div>
                                 @error('planned_amount', 'investment')
                                     <p class="mt-1 text-sm text-red-500">{{ $message }}</p>
