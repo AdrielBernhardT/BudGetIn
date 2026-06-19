@@ -11,7 +11,6 @@ import { Calendar } from '@fullcalendar/core';
 import { createIcons, icons } from 'lucide';
 
 
-
 window.Alpine = Alpine;
 window.ApexCharts = ApexCharts;
 window.flatpickr = flatpickr;

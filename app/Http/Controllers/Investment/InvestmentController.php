@@ -85,6 +85,7 @@ class InvestmentController extends Controller
                 'target_amount' => $goal->target_amount,
                 'items' => $goal->investments->map(function($investment){
                     return (object)[
+                        'id' => $investment->id,
                         'title' => $investment->name,
                         'allocation' => $investment->allocation_percent/100,
                         'current_amount' => $investment->records->sum('transaction_amount')
@@ -103,6 +104,31 @@ class InvestmentController extends Controller
         ]);
 
         $user = Auth::user();
+
+        // Percentage validation
+        $goal = Goal::with('investments')->findOrFail($validated['goal_id']);
+        $totalAllocation = $goal->investments()->sum('allocation_percent');
+        $newAllocation = (float) $validated['allocation_percent'];
+
+        if (($totalAllocation + $newAllocation) > 100) {
+            toast()->error('Total allocation cannot exceed 100%. Remaining: ' . (100 - $totalAllocation) . '%');
+            return back()
+                ->withErrors([
+                    'allocation_percent' => 'Total allocation cannot exceed 100%. Remaining: ' . (100 - $totalAllocation) . '%'
+                ])
+                ->withInput();
+        }
+
+        // Nominal validation
+        $totalPlanned = $goal->investments->sum('planned_amount');
+        $newPlanned = (float) $validated['planned_amount'];
+        if (($totalPlanned + $newPlanned) > $goal->target_amount) {
+            toast()->error('Total investment cannot exceed goal target amount.');
+            return back()->withErrors([
+                'planned_amount' => 'Total investment cannot exceed goal target amount.'
+            ])->withInput();
+        }
+
         Investment::create([
             'user_id' => $user->id,
             'name' => $validated['name'],
@@ -113,5 +139,12 @@ class InvestmentController extends Controller
 
         toast()->success('Investment created!');
         return redirect()->back()->with('success', 'Investment created!');
+    }
+
+    public function destroy($id){
+        Investment::where('id', $id)->firstOrFail()->delete();
+
+        toast()->success('Investment deleted!');
+        return redirect()->route('investment.index');
     }
 }

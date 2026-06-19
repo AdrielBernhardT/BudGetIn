@@ -38,7 +38,7 @@
                     Record an investment you have made towards your selected goal.
                 </p>
             </div>
-            <form class="flex flex-col" method="POST" action="{{ route('investment.store-record-investment') }}">
+            <form class="flex flex-col" method="POST" action="{{ route('investment.record-investment.store') }}">
                 @csrf
                 @method('POST')
                 <div class="custom-scrollbar max-h-[40vh] lg:max-h-[60vh] flex flex-col gap-5 overflow-y-auto p-2">
