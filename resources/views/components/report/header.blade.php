@@ -1,3 +1,10 @@
+<style>
+.flatpickr-calendar{
+    transform: scale(0.9) !important;
+    transform-origin: top left !important;
+}
+</style>
+
 <div class="flex flex-col gap-2 px-5 mb-4 sm:flex-row sm:items-center sm:justify-between sm:px-6">
 
     <div class="flex items-center gap-3">
@@ -31,7 +38,6 @@
                 class="h-[42px] appearance-none rounded-lg border border-gray-300 bg-transparent pl-4 pr-8 text-sm text-gray-800 shadow-theme-xs dark:border-gray-700 dark:bg-gray-900 dark:text-white/90">
                 <option value="day">Day</option>
                 <option value="month">Month</option>
-                <option value="year">Year</option>
             </select>
 
             <span
@@ -43,12 +49,45 @@
             </span>
         </div>
 
-        <div x-show="filterType === 'day'">
+        {{-- <div x-show="filterType === 'day'">
             <x-form.date-picker id="report_day" name="report_day" placeholder="Select Date" x-model="selectedDate"
                 defaultDate="{{ now()->format('d-m-Y') }}" />
         </div>
 
-        <input x-show="filterType === 'month'" type="month" x-model="selectedMonth"
+        <div x-show="filterType === 'month'">
+            <x-form.date-picker id="report_month" name="report_month" placeholder="Select Date" x-model="selectedDate"
+                defaultDate="{{ now()->format('d-m-Y') }}" />
+        </div>
+
+        <div x-show="filterType === 'year'">
+            <x-form.date-picker id="report_year" name="report_year" placeholder="Select Date" x-model="selectedDate"
+                defaultDate="{{ now()->format('d-m-Y') }}" />
+        </div> --}}
+        <div x-show="filterType === 'day'">
+            <x-form.date-picker 
+                id="report_day" 
+                name="report_day" 
+                picker="day"
+                placeholder="Select Date"
+                x-model="selectedDate"
+                dateFormat="Y-m-d"
+                altFormat="d F Y"
+                defaultDate="{{ now()->format('Y-m-d') }}" />
+        </div>
+
+        <div x-show="filterType === 'month'">
+            <x-form.date-picker 
+                id="report_month" 
+                name="report_month" 
+                picker="month"
+                placeholder="Select Month"
+                x-model="selectedMonth"
+                dateFormat="Y-m-d"
+                altFormat="F Y"
+                defaultDate="{{ now()->format('Y-m-d') }}" />
+        </div>
+
+        {{-- <input x-show="filterType === 'month'" type="month" x-model="selectedMonth"
             onclick="this.showPicker && this.showPicker()"
             class="h-[42px] w-[165px] rounded-lg border border-gray-300 bg-transparent px-4 text-sm text-gray-800 shadow-theme-xs dark:border-gray-700 dark:bg-gray-900 dark:text-white/90">
 
@@ -86,7 +125,7 @@
                     </template>
                 </div>
             </div>
-        </div>
+        </div> --}}
 
         <button type="button"
             class="inline-flex items-center gap-2 rounded-lg border border-gray-300 bg-main px-4 py-3 text-theme-sm font-medium text-white shadow-theme-xs hover:bg-main-hover hover:text-white/90">
