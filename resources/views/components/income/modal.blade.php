@@ -74,6 +74,10 @@
                     <div class="relative flex items-center gap-2">
                         <input type="text" x-model="income.title" name="title"
                             class="dark:bg-dark-900 shadow-theme-xs focus:border-brand-300 focus:ring-brand-500/10 dark:focus:border-brand-800 h-11 w-full rounded-lg border border-gray-300 bg-transparent px-4 py-2.5 text-sm text-gray-800 placeholder:text-gray-400 focus:ring-3 focus:outline-hidden dark:border-gray-700 dark:bg-gray-900 dark:text-white/90 dark:placeholder:text-white/30" />
+                        
+                            @error('title')
+                                <p class="mt-1 text-sm text-red-500">{{ $message }}</p>
+                            @enderror
                     </div>
                 </div>
 
@@ -90,6 +94,10 @@
                             <input type="text" x-model="income.amount" name="amount"
                                 @input="income.amount = formatRupiah($event.target.value)" placeholder="0"
                                 class="dark:bg-dark-900 shadow-theme-xs focus:border-brand-300 focus:ring-brand-500/10 dark:focus:border-brand-800 h-11 w-full rounded-lg border border-gray-300 bg-transparent px-4 py-2.5 pl-16 text-sm text-gray-800 placeholder:text-gray-400 focus:ring-3 focus:outline-hidden dark:border-gray-700 dark:bg-gray-900 dark:text-white/90 dark:placeholder:text-white/30" />
+
+                            @error('amount')
+                                <p class="mt-1 text-sm text-red-500">{{ $message }}</p>
+                            @enderror
                         </div>
                     </div>
 
@@ -111,6 +119,7 @@
                                 </option>
                                 @endforeach
                             </select>
+
                             <span
                                 class="pointer-events-none absolute top-1/2 right-4 z-30 -translate-y-1/2 text-gray-500 dark:text-gray-400">
                                 <svg class="stroke-current" width="20" height="20" viewBox="0 0 20 20"
@@ -119,6 +128,10 @@
                                         stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
                                 </svg>
                             </span>
+
+                            @error('to_account_id')
+                                <p class="mt-1 text-sm text-red-500">{{ $message }}</p>
+                            @enderror
                         </div>
                     </div>
                 </div>
@@ -132,6 +145,9 @@
                         <x-form.date-picker id="date_pick" name="date" placeholder="Date Picker"
                             x-model="income.date" defaultDate="{{ now()->format('d-m-Y') }}" />
                     </div>
+                    @error('date')
+                        <p class="mt-1 text-sm text-red-500">{{ $message }}</p>
+                    @enderror
                 </div>
 
                 <div>
@@ -140,6 +156,10 @@
                     </label>
                     <textarea x-model="income.description" placeholder="Enter a description..." type="text" rows="6" name="description"
                         class="dark:bg-dark-900 shadow-theme-xs focus:border-brand-300 focus:ring-brand-500/10 dark:focus:border-brand-800 w-full rounded-lg border border-gray-300 bg-transparent px-4 py-2.5 text-sm text-gray-800 placeholder:text-gray-400 focus:ring-3 focus:outline-hidden dark:border-gray-700 dark:bg-gray-900 dark:text-white/90 dark:placeholder:text-white/30"></textarea>
+                
+                    @error('description')
+                        <p class="mt-1 text-sm text-red-500">{{ $message }}</p>
+                    @enderror
                 </div>
 
                 <div class="mt-6 flex items-center gap-3 px-2 lg:justify-end">
