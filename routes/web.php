@@ -146,10 +146,16 @@ Route::middleware(['auth'])->group(function(){
 
     // Investment
     Route::prefix('/investment')->as('investment.')->group(function(){
+        // Investment
         Route::get('/', [InvestmentController::class, 'index'])->name('index');
-        Route::post('/store-investment', [InvestmentController::class, 'store'])->name('store');
-        Route::post('/store-goal', [GoalController::class, 'store'])->name('store-goal');
-        Route::post('/store-record-investment', [RecordInvestmentController::class, 'store'])->name('store-record-investment');
+        Route::post('/store', [InvestmentController::class, 'store'])->name('store');
+        Route::delete('/delete/{id}', [InvestmentController::class, 'destroy'])->name('delete');
+
+        // Goal
+        Route::post('/store/goal', [GoalController::class, 'store'])->name('goal.store');
+
+        // Record
+        Route::post('/store/record-investment', [RecordInvestmentController::class, 'store'])->name('record-investment.store');
     });
 
     // Report
