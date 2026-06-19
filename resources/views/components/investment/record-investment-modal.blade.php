@@ -7,28 +7,40 @@
 
 <div x-data="investmentPage()">
     <x-ui.modal x-data="{ open: {{ $errors->record_investment->any() ? 'true' : 'false' }} }" @record-investment.window="open = true" :isOpen="$errors->record_investment->any()" class="max-w-[700px]">
-        <div x-data="{
+        <div 
+        x-data="{
             investment: {
-                name: '',
-                goal: '',
-                account_bank: '',
-                date: '',
+                investment_id: '',
+                goal: '{{ old("goal_id") ? (string) old("goal_id") : "" }}',
+                account_id: '{{ old("account_id") ? (string) old("account_id") : "" }}',
+                date: '{{ old("date") ? old("date") : "" }}',
                 amount: '',
                 amount_display: '',
-                description: '',
+                description: '{{ old("description") ? old("description") : "" }}',
             },
-        
+
+            goals: @js($goals),
+
+            get filteredInvestments() {
+                const selected = this.goals.find(g =>
+                    String(g.id) === String(this.investment.goal)
+                )
+                return selected ? selected.investments : []
+            },
+
             resetModal() {
                 this.investment = {
-                    name: '',
+                    investment_id: '',
                     goal: '',
-                    account_bank: '',
+                    account_id: '',
+                    date: '',
                     amount: '',
                     amount_display: '',
                     description: '',
                 };
             }
-        }" @record-investment.window="resetModal()"
+        }"
+        @record-investment.window="resetModal()"
             class="no-scrollbar relative w-full max-w-[700px] max-h-[80vh] rounded-3xl bg-white p-4 dark:bg-gray-900 lg:p-11 overflow-y-auto">
             <div class="px-2 pr-14">
                 <h4 class="mb-2 text-2xl font-semibold text-gray-800 dark:text-white/90">
@@ -82,18 +94,16 @@
                         <div x-data="{ isOptionSelected: false }" class="relative z-20 bg-transparent">
                             <select
                                 name="investment_id"
-                                x-model="investment.name"
+                                x-model="investment.investment_id"
                                 class="dark:bg-dark-900 shadow-theme-xs focus:border-brand-300 focus:ring-brand-500/10 dark:focus:border-brand-800 h-11 w-full appearance-none rounded-lg border border-gray-300 bg-transparent bg-none px-4 py-2.5 pr-11 text-sm text-gray-800 placeholder:text-gray-400 focus:ring-3 focus:outline-hidden dark:border-gray-700 dark:bg-gray-900 dark:text-white/90 dark:placeholder:text-white/30"
                                 :class="isOptionSelected && 'text-gray-800 dark:text-white/90'"
                                 @change="isOptionSelected = true">
-                                <option disabled value="" class="text-gray-700 dark:bg-gray-900 dark:text-gray-400">
-                                    Select Option
-                                </option>
-                                @foreach ($investments as $investment)
-                                <option value="{{ $investment->id }}" class="text-gray-700 dark:bg-gray-900 dark:text-gray-400">
-                                    {{ $investment->name }}
-                                </option>
-                                @endforeach
+                                
+                                <option disabled value="">Select Option</option>
+
+                                <template x-for="inv in filteredInvestments" :key="inv.id">
+                                    <option :value="inv.id" x-text="inv.name"></option>
+                                </template>
                             </select>
                             <span
                                 class="pointer-events-none absolute top-1/2 right-4 z-30 -translate-y-1/2 text-gray-500 dark:text-gray-400">
@@ -115,7 +125,7 @@
                         <div x-data="{ isOptionSelected: false }" class="relative z-20 bg-transparent">
                             <select
                                 name="account_id"
-                                x-model="investment.account_bank"
+                                x-model="investment.account_id"
                                 class="dark:bg-dark-900 shadow-theme-xs focus:border-brand-300 focus:ring-brand-500/10 dark:focus:border-brand-800 h-11 w-full appearance-none rounded-lg border border-gray-300 bg-transparent bg-none px-4 py-2.5 pr-11 text-sm text-gray-800 placeholder:text-gray-400 focus:ring-3 focus:outline-hidden dark:border-gray-700 dark:bg-gray-900 dark:text-white/90 dark:placeholder:text-white/30"
                                 :class="isOptionSelected && 'text-gray-800 dark:text-white/90'"
                                 @change="isOptionSelected = true">
@@ -148,7 +158,7 @@
                             </label>
                             <div class="relative w-full">
                                 <x-form.date-picker id="date_pick" name="date" placeholder="Date Picker"
-                                    x-model="income.date" defaultDate="{{ now()->format('d-m-Y') }}" />
+                                    x-model="investment.date" defaultDate="{{ now()->format('d-m-Y') }}" />
                             </div>
                             @error('date', 'record_investment')
                                 <p class="mt-1 text-sm text-red-500">{{ $message }}</p>
