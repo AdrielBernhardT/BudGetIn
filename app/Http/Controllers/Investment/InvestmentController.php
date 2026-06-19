@@ -70,6 +70,7 @@ class InvestmentController extends Controller
         $investments = Investment::where('user_id', Auth::id())->get();
         $accounts = Account::where('user_id', Auth::id())->get();
 
+        confirmDelete('Are you sure you want to delete this investment?');
         return view('pages.investment.investment', ['title' => 'Investment'], compact('datas', 'goals', 'investments', 'accounts'));
     }
 
