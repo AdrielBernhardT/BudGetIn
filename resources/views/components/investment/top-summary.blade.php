@@ -49,6 +49,20 @@
                                     <i data-lucide="{{ $target->icon }}" class="w-4 h-4 shrink-0 text-gray-900 dark:text-white"></i>
                                     <div class="text-theme-sm whitespace-nowrap text-gray-800 dark:text-white/90">
                                         {{ $target->title }}</div>
+                                    @if ($target->target_date)
+                                        @php
+                                            $daysLeft = $target->days_left;
+                                            $badgeClass = $daysLeft < 0
+                                                ? 'bg-red-50 text-red-600 dark:bg-red-500/10 dark:text-red-400'
+                                                : ($daysLeft <= 7
+                                                    ? 'bg-orange-50 text-orange-600 dark:bg-orange-500/10 dark:text-orange-400'
+                                                    : 'bg-gray-100 text-gray-500 dark:bg-gray-800 dark:text-gray-400');
+                                            $badgeLabel = $daysLeft < 0 ? 'Overdue' : ($daysLeft . 'd left');
+                                        @endphp
+                                        <span class="shrink-0 rounded-full px-2 py-0.5 text-[11px] font-medium whitespace-nowrap {{ $badgeClass }}">
+                                            {{ $badgeLabel }}
+                                        </span>
+                                    @endif
                                 </div>
                                 <div class="flex flex-1 items-center gap-4 min-w-0">
                                     <div

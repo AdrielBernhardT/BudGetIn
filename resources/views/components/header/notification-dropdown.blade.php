@@ -1,23 +1,5 @@
 {{-- Notification Dropdown Component --}}
-<div class="relative" x-data="{
-    dropdownOpen: false,
-    notifying: true,
-    toggleDropdown() {
-        this.dropdownOpen = !this.dropdownOpen;
-        this.notifying = false;
-    },
-    closeDropdown() {
-        this.dropdownOpen = false;
-    },
-    handleItemClick() {
-        console.log('Notification item clicked');
-        this.closeDropdown();
-    },
-    handleViewAllClick() {
-        console.log('View All Notifications clicked');
-        this.closeDropdown();
-    }
-}" @click.away="closeDropdown()">
+<div class="relative" x-data="notificationDropdown()" x-init="init()" @click.away="closeDropdown()">
     <!-- Notification Button -->
     <button
         class="relative flex items-center justify-center text-gray-500 transition-colors bg-white border border-gray-200 rounded-full hover:text-dark-900 h-11 w-11 hover:bg-gray-100 hover:text-gray-700 dark:border-gray-800 dark:bg-gray-900 dark:text-gray-400 dark:hover:bg-gray-800 dark:hover:text-white"
@@ -26,7 +8,7 @@
     >
         <!-- Notification Badge -->
         <span
-            x-show="notifying"
+            x-show="unreadCount > 0"
             class="absolute right-0 top-0.5 z-1 h-2 w-2 rounded-full bg-orange-400"
         >
             <span
@@ -68,155 +50,167 @@
         <div class="flex items-center justify-between pb-3 mb-3 border-b border-gray-100 dark:border-gray-800">
             <h5 class="text-lg font-semibold text-gray-800 dark:text-white/90">Notification</h5>
 
-            <button @click="closeDropdown()" class="text-gray-500 dark:text-gray-400" type="button">
-                <svg
-                    class="fill-current"
-                    width="24"
-                    height="24"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
+            <div class="flex items-center gap-3">
+                <button
+                    x-show="unreadCount > 0"
+                    @click="markAllAsRead()"
+                    type="button"
+                    class="text-xs font-medium text-main hover:underline"
                 >
-                    <path
-                        fill-rule="evenodd"
-                        clip-rule="evenodd"
-                        d="M6.21967 7.28131C5.92678 6.98841 5.92678 6.51354 6.21967 6.22065C6.51256 5.92775 6.98744 5.92775 7.28033 6.22065L11.999 10.9393L16.7176 6.22078C17.0105 5.92789 17.4854 5.92788 17.7782 6.22078C18.0711 6.51367 18.0711 6.98855 17.7782 7.28144L13.0597 12L17.7782 16.7186C18.0711 17.0115 18.0711 17.4863 17.7782 17.7792C17.4854 18.0721 17.0105 18.0721 16.7176 17.7792L11.999 13.0607L7.28033 17.7794C6.98744 18.0722 6.51256 18.0722 6.21967 17.7794C5.92678 17.4865 5.92678 17.0116 6.21967 16.7187L10.9384 12L6.21967 7.28131Z"
-                        fill=""
-                    />
-                </svg>
-            </button>
+                    Tandai semua dibaca
+                </button>
+
+                <button @click="closeDropdown()" class="text-gray-500 dark:text-gray-400" type="button">
+                    <svg
+                        class="fill-current"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                    >
+                        <path
+                            fill-rule="evenodd"
+                            clip-rule="evenodd"
+                            d="M6.21967 7.28131C5.92678 6.98841 5.92678 6.51354 6.21967 6.22065C6.51256 5.92775 6.98744 5.92775 7.28033 6.22065L11.999 10.9393L16.7176 6.22078C17.0105 5.92789 17.4854 5.92788 17.7782 6.22078C18.0711 6.51367 18.0711 6.98855 17.7782 7.28144L13.0597 12L17.7782 16.7186C18.0711 17.0115 18.0711 17.4863 17.7782 17.7792C17.4854 18.0721 17.0105 18.0721 16.7176 17.7792L11.999 13.0607L7.28033 17.7794C6.98744 18.0722 6.51256 18.0722 6.21967 17.7794C5.92678 17.4865 5.92678 17.0116 6.21967 16.7187L10.9384 12L6.21967 7.28131Z"
+                            fill=""
+                        />
+                    </svg>
+                </button>
+            </div>
         </div>
 
         <!-- Notification List -->
         <ul class="flex flex-col h-auto overflow-y-auto custom-scrollbar">
-            @php
-                $notifications = [
-                    [
-                        'id' => 1,
-                        'userName' => 'Terry Franci',
-                        'userImage' => '/images/user/user-02.jpg',
-                        'action' => 'requests permission to change',
-                        'project' => 'Project - Nganter App',
-                        'type' => 'Project',
-                        'time' => '5 min ago',
-                        'status' => 'online',
-                    ],
-                    [
-                        'id' => 2,
-                        'userName' => 'Alex Johnson',
-                        'userImage' => '/images/user/user-03.jpg',
-                        'action' => 'requests permission to change',
-                        'project' => 'Project - Nganter App',
-                        'type' => 'Project',
-                        'time' => '10 min ago',
-                        'status' => 'offline',
-                    ],
-                    [
-                        'id' => 3,
-                        'userName' => 'Sarah Williams',
-                        'userImage' => '/images/user/user-04.jpg',
-                        'action' => 'requests permission to change',
-                        'project' => 'Project - Dashboard UI',
-                        'type' => 'Project',
-                        'time' => '15 min ago',
-                        'status' => 'online',
-                    ],
-                    [
-                        'id' => 4,
-                        'userName' => 'Mike Brown',
-                        'userImage' => '/images/user/user-05.jpg',
-                        'action' => 'requests permission to change',
-                        'project' => 'Project - E-commerce',
-                        'type' => 'Project',
-                        'time' => '20 min ago',
-                        'status' => 'online',
-                    ],
-                    [
-                        'id' => 5,
-                        'userName' => 'Emma Davis',
-                        'userImage' => '/images/user/user-06.jpg',
-                        'action' => 'requests permission to change',
-                        'project' => 'Project - Mobile App',
-                        'type' => 'Project',
-                        'time' => '25 min ago',
-                        'status' => 'offline',
-                    ],
-                    [
-                        'id' => 6,
-                        'userName' => 'John Smith',
-                        'userImage' => '/images/user/user-07.jpg',
-                        'action' => 'requests permission to change',
-                        'project' => 'Project - Landing Page',
-                        'type' => 'Project',
-                        'time' => '30 min ago',
-                        'status' => 'online',
-                    ],
-                    [
-                        'id' => 7,
-                        'userName' => 'Lisa Anderson',
-                        'userImage' => '/images/user/user-08.jpg',
-                        'action' => 'requests permission to change',
-                        'project' => 'Project - Blog System',
-                        'type' => 'Project',
-                        'time' => '35 min ago',
-                        'status' => 'online',
-                    ],
-                    [
-                        'id' => 8,
-                        'userName' => 'David Wilson',
-                        'userImage' => '/images/user/user-09.jpg',
-                        'action' => 'requests permission to change',
-                        'project' => 'Project - CRM Dashboard',
-                        'type' => 'Project',
-                        'time' => '40 min ago',
-                        'status' => 'online',
-                    ],
-                ];
-            @endphp
-
-            @foreach ($notifications as $notification)
-                <li @click="handleItemClick()">
+            <template x-for="notification in notifications" :key="notification.id">
+                <li @click="handleItemClick(notification)">
                     <a
-                        class="flex gap-3 rounded-lg border-b border-gray-100 p-3 px-4.5 py-3 hover:bg-gray-100 dark:border-gray-800 dark:hover:bg-white/5"
-                        href="#"
+                        class="flex gap-3 rounded-lg border-b border-gray-100 p-3 px-4.5 py-3 cursor-pointer hover:bg-gray-100 dark:border-gray-800 dark:hover:bg-white/5"
+                        :class="{ 'bg-brand-50/40 dark:bg-white/[0.03]': !notification.read_at }"
                     >
-                        <span class="relative block w-full h-10 rounded-full z-1 max-w-10">
-                            <img src="{{ $notification['userImage'] }}" alt="User" class="overflow-hidden rounded-full" />
+                        <span class="relative flex items-center justify-center w-10 h-10 text-lg rounded-full shrink-0 bg-gray-100 dark:bg-gray-800">
+                            <span x-text="iconFor(notification.data.category)"></span>
                             <span
-                                class="absolute bottom-0 right-0 z-10 h-2.5 w-full max-w-2.5 rounded-full border-[1.5px] border-white dark:border-gray-900 {{ $notification['status'] === 'online' ? 'bg-success-500' : 'bg-error-500' }}"
+                                x-show="!notification.read_at"
+                                class="absolute top-0 right-0 w-2.5 h-2.5 rounded-full bg-orange-400 border-[1.5px] border-white dark:border-gray-900"
                             ></span>
                         </span>
 
                         <span class="block">
-                            <span class="mb-1.5 block text-theme-sm text-gray-500 dark:text-gray-400">
-                                <span class="font-medium text-gray-800 dark:text-white/90">
-                                    {{ $notification['userName'] }}
-                                </span>
-                                {{ $notification['action'] }}
-                                <span class="font-medium text-gray-800 dark:text-white/90">
-                                    {{ $notification['project'] }}
-                                </span>
-                            </span>
+                            <span class="mb-1 block text-theme-sm font-medium text-gray-800 dark:text-white/90" x-text="notification.data.title"></span>
+                            <span class="mb-1.5 block text-theme-sm text-gray-500 dark:text-gray-400" x-text="notification.data.message"></span>
 
                             <span class="flex items-center gap-2 text-gray-500 text-theme-xs dark:text-gray-400">
-                                <span>{{ $notification['type'] }}</span>
-                                <span class="w-1 h-1 bg-gray-400 rounded-full"></span>
-                                <span>{{ $notification['time'] }}</span>
+                                <span x-text="timeAgo(notification.created_at)"></span>
                             </span>
                         </span>
                     </a>
                 </li>
-            @endforeach
+            </template>
+
+            <li x-show="!loading && notifications.length === 0" class="py-10 text-sm text-center text-gray-400 dark:text-gray-500">
+                Belum ada notifikasi
+            </li>
         </ul>
 
         <!-- View All Button -->
         <a
-            href="#"
+            href="{{ route('notifications.index') }}"
             class="mt-3 flex justify-center rounded-lg border border-gray-300 bg-white p-3 text-theme-sm font-medium text-gray-700 shadow-theme-xs hover:bg-gray-50 hover:text-gray-800 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-white/[0.03] dark:hover:text-gray-200"
-            @click.prevent="handleViewAllClick()"
         >
             View All Notification
         </a>
     </div>
     <!-- Dropdown End -->
 </div>
+
+<script>
+function notificationDropdown() {
+    return {
+        dropdownOpen: false,
+        loading: true,
+        notifications: [],
+        unreadCount: 0,
+        pollTimer: null,
+
+        init() {
+            this.fetchFeed();
+            this.pollTimer = setInterval(() => this.fetchFeed(), 30000);
+        },
+
+        async fetchFeed() {
+            try {
+                const { data } = await axios.get('{{ route('notifications.feed') }}');
+                this.notifications = data.notifications;
+                this.unreadCount = data.unread_count;
+            } catch (e) {
+                console.error('Failed to load notifications', e);
+            } finally {
+                this.loading = false;
+            }
+        },
+
+        toggleDropdown() {
+            this.dropdownOpen = !this.dropdownOpen;
+            if (this.dropdownOpen) {
+                this.fetchFeed();
+            }
+        },
+
+        closeDropdown() {
+            this.dropdownOpen = false;
+        },
+
+        async handleItemClick(notification) {
+            this.closeDropdown();
+
+            if (!notification.read_at) {
+                try {
+                    await axios.post(`/notifications/${notification.id}/read`);
+                    notification.read_at = new Date().toISOString();
+                    this.unreadCount = Math.max(0, this.unreadCount - 1);
+                } catch (e) {
+                    console.error('Failed to mark notification as read', e);
+                }
+            }
+
+            if (notification.data && notification.data.url) {
+                window.location.href = notification.data.url;
+            }
+        },
+
+        async markAllAsRead() {
+            try {
+                await axios.post('{{ route('notifications.read-all') }}');
+                const now = new Date().toISOString();
+                this.notifications = this.notifications.map(n => ({ ...n, read_at: n.read_at || now }));
+                this.unreadCount = 0;
+            } catch (e) {
+                console.error('Failed to mark all notifications as read', e);
+            }
+        },
+
+        timeAgo(dateStr) {
+            const seconds = Math.floor((Date.now() - new Date(dateStr).getTime()) / 1000);
+            if (seconds < 60) return 'baru saja';
+            const minutes = Math.floor(seconds / 60);
+            if (minutes < 60) return `${minutes} menit lalu`;
+            const hours = Math.floor(minutes / 60);
+            if (hours < 24) return `${hours} jam lalu`;
+            const days = Math.floor(hours / 24);
+            return `${days} hari lalu`;
+        },
+
+        iconFor(category) {
+            const icons = {
+                goal_reached: '🏆',
+                goal_deadline_approaching: '⏰',
+                goal_missed: '⚠️',
+                monthly_investment_reminder: '💰',
+                transaction_recorded: '📝',
+            };
+            return icons[category] || '🔔';
+        },
+    };
+}
+</script>

@@ -17,6 +17,8 @@ use App\Http\Controllers\Transaction\ExpenseController;
 use App\Http\Controllers\Transaction\IncomeController;
 use App\Http\Controllers\Transaction\TransferController;
 use App\Http\Controllers\Auth\GoogleController;
+use App\Http\Controllers\NotificationController;
+use App\Http\Controllers\PushSubscriptionController;
 
 // // dashboard pages
 // Route::get('/', function () {
@@ -155,6 +157,20 @@ Route::middleware(['auth'])->group(function(){
     // Report
     Route::get('/report', [ReportController::class, 'index'])->name('report');
 
+    // Notifications (in-app bell icon)
+    Route::prefix('/notifications')->as('notifications.')->group(function(){
+        Route::get('/', [NotificationController::class, 'index'])->name('index');
+        Route::get('/feed', [NotificationController::class, 'feed'])->name('feed');
+        Route::post('/{id}/read', [NotificationController::class, 'markAsRead'])->name('read');
+        Route::post('/read-all', [NotificationController::class, 'markAllAsRead'])->name('read-all');
+    });
+
+    // Browser Push (Web Push API) subscriptions
+    Route::prefix('/push-subscriptions')->as('push-subscriptions.')->group(function(){
+        Route::post('/', [PushSubscriptionController::class, 'store'])->name('store');
+        Route::delete('/', [PushSubscriptionController::class, 'destroy'])->name('destroy');
+    });
+
 
     // User
     Route::prefix('/settings')->as('settings.')->group(function(){
@@ -168,5 +184,5 @@ Route::middleware(['auth'])->group(function(){
         Route::post('/update-profile-information', [ProfileControlller::class, 'updateProfileInformation'])->name('update-profile-information');
         Route::post('/update-address-information', [ProfileControlller::class, 'updateAddressInformation'])->name('update-address-information');
     });
-    
+
 });

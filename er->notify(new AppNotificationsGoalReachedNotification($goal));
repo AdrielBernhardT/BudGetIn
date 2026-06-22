@@ -1,0 +1,13 @@
+[90m= [39m[34;4mApp\Models\User[39;24m {#8705
+    [34mid[39m: [35m1[39m,
+    [34mname[39m: [32m"[39m[32mMelissa Gerhold[39m[32m"[39m,
+    [34memail[39m: [32m"[39m[32mjessie.turcotte@example.org[39m[32m"[39m,
+    [34mgoogle_id[39m: [36mnull[39m,
+    [34memail_verified_at[39m: [32m"[39m[32m2026-04-20 08:40:37[39m[32m"[39m,
+    #[33mpassword[39m: [32m"[39m\$[32m2y[39m\$[32m12[39m\$[32mQNR8JGuyvecyNXz6LoJn9.b/Z2gL5hSMeTMirY8IiN.fI0FG.ov2C[39m[32m"[39m,
+    #[33mremember_token[39m: [32m"[39m[32mcfANhZ34mp[39m[32m"[39m,
+    [34mcreated_at[39m: [32m"[39m[32m2026-04-20 08:40:37[39m[32m"[39m,
+    [34mupdated_at[39m: [32m"[39m[32m2026-04-20 08:40:37[39m[32m"[39m,
+    [34mfname[39m: [32m""[39m,
+    [34mlname[39m: [32m""[39m,
+  }

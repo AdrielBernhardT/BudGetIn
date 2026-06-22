@@ -76,12 +76,15 @@ class InvestmentController extends Controller
     public function getTargets()
     {
         $goals = Goal::with(['investments.records'])->where('user_id', Auth::id())->get();
-        
+
         return $goals->map(function($goal){
             return (object) [
+                'id' => $goal->id,
                 'title' => $goal->name,
                 'icon' => $goal->icon,
                 'target_amount' => $goal->target_amount,
+                'target_date' => $goal->target_date,
+                'days_left' => $goal->daysUntilDeadline(),
                 'items' => $goal->investments->map(function($investment){
                     return (object)[
                         'title' => $investment->name,

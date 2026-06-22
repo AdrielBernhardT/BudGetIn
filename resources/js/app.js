@@ -9,6 +9,7 @@ import 'flatpickr/dist/flatpickr.min.css';
 import { Calendar } from '@fullcalendar/core';
 
 import { createIcons, icons } from 'lucide';
+import './push-notifications';
 
 
 
@@ -17,6 +18,11 @@ window.ApexCharts = ApexCharts;
 window.flatpickr = flatpickr;
 window.FullCalendar = Calendar;
 window.createIcons = () => createIcons({ icons });;
+
+// Register the Web Push service worker (subscription itself is opt-in, triggered from Settings)
+if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('/sw.js').catch((err) => console.error('SW registration failed', err));
+}
 
 // initial render
 window.createIcons();
