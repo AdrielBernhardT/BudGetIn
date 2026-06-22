@@ -13,6 +13,11 @@
                     class="pb-2 text-theme-sm font-medium transition-colors duration-300">
                     Allocation
                 </button>
+                <button @click="tab='goals'"
+                    :class="tab === 'goals' ? 'border-b-2 border-main text-main' : 'text-gray-500 dark:text-gray-400'"
+                    class="pb-2 text-theme-sm font-medium transition-colors duration-300">
+                    Goals
+                </button>
                 <button @click="tab='history'"
                     :class="tab === 'history' ? 'border-b-2 border-main text-main' : 'text-gray-500 dark:text-gray-400'"
                     class="pb-2 text-theme-sm font-medium transition-colors duration-300">
@@ -42,7 +47,10 @@
 
         <div class="mt-4">
             <div x-show="tab === 'allocation'">
-                <x-investment.allocation.allocation :datas="$datas" />
+                <x-investment.allocation.allocation :goals="$goals" :datas="$datas" />
+            </div>
+            <div x-show="tab === 'goals'">
+                {{-- <x-investment.goals.goals :datas="$goals" /> --}}
             </div>
             <div x-show="tab === 'history'">
                 Transaction History content goes here...
@@ -51,7 +59,7 @@
 
         <x-investment.add-goal-modal />
         <x-investment.add-investment-modal :goals="$goals" />
-        <x-investment.record-investment-modal :goals="$goals" :investments="$investments" :accounts="$accounts" />
+        <x-investment.record-investment-modal :goals="$goals" :accounts="$accounts" />
     </div>
 
 @endsection

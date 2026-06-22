@@ -1,4 +1,4 @@
-@props(['datas'])
+@props(['datas', 'goals'])
 
 <div class="flex flex-col xl:flex-row gap-6 items-start">
     <div
@@ -8,9 +8,15 @@
                 Investment Allocation
             </h3>
 
-            <div class="flex justify-center items-center">
-                <div id="allocationChart" class="w-full" data-chart='@json($datas['allocation_chart'])'></div>
-            </div>
+            @if (collect($datas['targets'])->isEmpty())
+                <h5 class="flex justify-center text-gray-500">
+                    There is no allocation found
+                </h5>
+            @else
+                <div class="flex justify-center items-center">
+                    <div id="allocationChart" class="w-full" data-chart='@json($datas['allocation_chart'])'></div>
+                </div>
+            @endif
         </div>
     </div>
     <div
@@ -20,34 +26,42 @@
                 Investment List
             </h3>
 
-            @foreach ($datas['targets'] as $target)
-            <div x-data="{ open: false }">
-                <div @click="open = !open" class="flex justify-between items-center cursor-pointer">
-                    <div class="flex items-start gap-4">
-                        <i data-lucide="{{ $target->icon }}" class="w-4 h-4 mt-1 shrink-0 text-gray-900 dark:text-white"></i>
-                        <div class="flex flex-col gap-2">
-                            <div class="text-md font-semibold text-gray-800 dark:text-white/90">
-                                {{ $target->title }}
-                            </div>
-                            <div class="text-theme-xs text-gray-800 dark:text-white/90">
-                                IDR {{ number_format($target->target_amount, 0, ',', '.') }}
-                            </div>
-                            <div class="text-theme-xs text-gray-500 dark:text-gray-400">
-                                {{ count($target->items) }} Investments
+            @if (collect($datas['targets'])->isEmpty())
+                <h5 class="flex justify-center text-gray-500">
+                    There is no investment found
+                </h5>
+            @else
+                @foreach ($datas['targets'] as $target)
+                <div x-data="{ expanded: false }">
+                    <div @click="expanded = !expanded" class="flex justify-between items-center cursor-pointer">
+                        <div class="flex items-start gap-4">
+                            <i data-lucide="{{ $target->icon }}" class="w-4 h-4 mt-1 shrink-0 text-gray-900 dark:text-white"></i>
+                            <div class="flex flex-col gap-2">
+                                <div class="text-md font-semibold text-gray-800 dark:text-white/90">
+                                    {{ $target->title }}
+                                </div>
+                                <div class="text-theme-xs text-gray-800 dark:text-white/90">
+                                    IDR {{ number_format($target->target_amount, 0, ',', '.') }}
+                                </div>
+                                <div class="text-theme-xs text-gray-500 dark:text-gray-400">
+                                    {{ count($target->items) }} Investments
+                                </div>
                             </div>
                         </div>
+
+                        <i data-lucide="chevron-down" :class="expanded ? 'rotate-180' : ''"
+                            class="transition-transform duration-300">
+                        </i>
                     </div>
 
-                    <i data-lucide="chevron-down" :class="open ? 'rotate-180' : ''"
-                        class="transition-transform duration-300">
-                    </i>
+                    <div x-show="expanded" x-transition class="mt-4">
+                        <x-investment.allocation.table :target="$target" />
+                    </div>
                 </div>
+                @endforeach
+            @endif
 
-                <div x-show="open" x-transition class="mt-4">
-                    <x-investment.allocation.table :target="$target" />
-                </div>
-            </div>
-            @endforeach
         </div>
+        <x-investment.allocation.edit-modal :goals="$goals" />
     </div>
 </div>
