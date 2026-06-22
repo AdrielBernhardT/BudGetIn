@@ -35,7 +35,7 @@ class GoalReachedNotification extends Notification implements ShouldQueue
         $amount = number_format((float) $this->goal->target_amount, 0, ',', '.');
 
         return (new MailMessage)
-            ->subject("Goal '{$this->goal->name}' Tercapai! 🎉")
+            ->subject("Goal '{$this->goal->name}' reached! 🎉")
             ->greeting('Congratulations, ' . ($notifiable->fname ?? $notifiable->name) . '!')
             ->line("Your goal \"{$this->goal->name}\" already reached Rp {$amount}.")
             ->line('Great job! Your consistency in saving/investing is paying off.')
