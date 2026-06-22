@@ -16,7 +16,10 @@
         </p>
 
         <div class="flex items-center justify-center gap-0.5 pt-4 xl:justify-end xl:pt-0">
-            <button @click="prevPage" :disabled="currentPage === 1 || totalEntries === 0"
+            <button
+                type="button"
+                @click="prevPage()"
+                :disabled="currentPage === 1 || totalEntries === 0"
                 :class="(currentPage === 1 || totalEntries === 0) ? 'opacity-50 cursor-not-allowed' : ''"
                 class="mr-2.5 flex h-10 w-10 items-center justify-center rounded-lg border border-gray-300 bg-white text-gray-700 shadow-theme-xs hover:bg-gray-50 disabled:opacity-50 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-white/[0.03]">
                 <svg width="20" height="20" viewBox="0 0 20 20" fill="none"
@@ -28,21 +31,32 @@
             </button>
 
             <ul class="hidden items-center gap-0.5 sm:flex">
-                <template x-for="page in displayedPages" :key="page">
+                <template x-for="(page, index) in displayedPages" :key="page === '...' ? `ellipsis-${index}` : page">
                     <li>
-                        <button x-show="page !== '...'" @click="goToPage(page)"
-                            :class="currentPage === page ? 'bg-main text-white' :
-                                'text-gray-700 hover:bg-main/[0.08] hover:text-main dark:text-gray-400 dark:hover:text-main'"
+                        <button
+                            type="button"
+                            x-show="page !== '...'"
+                            @click="goToPage(page)"
+                            :class="currentPage === page
+                                ? 'bg-main text-white'
+                                : 'text-gray-700 hover:bg-main/[0.08] hover:text-main dark:text-gray-400 dark:hover:text-main'"
                             class="flex h-10 w-10 items-center justify-center rounded-lg text-theme-sm font-medium"
-                            x-text="page"></button>
+                            x-text="page">
+                        </button>
 
-                        <span x-show="page === '...'"
-                            class="flex h-10 w-10 items-center justify-center text-gray-500">...</span>
+                        <span
+                            x-show="page === '...'"
+                            class="flex h-10 w-10 items-center justify-center text-gray-500">
+                            ...
+                        </span>
                     </li>
                 </template>
             </ul>
 
-            <button @click="nextPage" :disabled="currentPage === totalPages || totalEntries === 0"
+            <button
+                type="button"
+                @click="nextPage()"
+                :disabled="currentPage === totalPages || totalEntries === 0"
                 :class="(currentPage === totalPages || totalEntries === 0) ? 'opacity-50 cursor-not-allowed' : ''"
                 class="ml-2.5 flex h-10 w-10 items-center justify-center rounded-lg border border-gray-300 bg-white text-gray-700 shadow-theme-xs hover:bg-gray-50 disabled:opacity-50 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-white/[0.03]">
                 <svg width="20" height="20" viewBox="0 0 20 20" fill="none"
