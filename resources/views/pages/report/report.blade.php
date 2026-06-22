@@ -1,16 +1,26 @@
 @extends('layouts.app')
 
 @section('content')
-    <x-common.page-breadcrumb pageTitle="Report" />
+    <div x-data="reportPage()">
+        <x-common.page-breadcrumb pageTitle="Report" />
 
-    <div
-        class="min-h-screen rounded-2xl border border-gray-200 bg-white px-5 py-7 dark:border-gray-800 dark:bg-white/[0.03] xl:px-10 xl:py-12">
-        <div x-data="reportPage()">
-            <div class="rounded-2xl border border-gray-200 bg-white pt-4 dark:border-gray-800 dark:bg-white/[0.03]">
-                <x-report.header />
-                <x-report.table />
-                <x-report.pagination />
+        <div class="mt-8 mb-4 flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
+            <div class="flex gap-10 overflow-x-auto whitespace-nowrap no-scrollbar">
+                <template x-for="type in reportTypes" :key="type.value">
+                    <button type="button" @click="selectedReportType = type.value"
+                        :class="selectedReportType === type.value ?
+                            'border-b-2 border-main text-main' :
+                            'text-gray-500 dark:text-gray-400'"
+                        class="pb-2 text-theme-sm font-medium transition-colors duration-300" x-text="type.label">
+                    </button>
+                </template>
             </div>
+        </div>
+
+        <div class="rounded-2xl border border-gray-200 bg-white pt-4 dark:border-gray-800 dark:bg-white/[0.03]">
+            <x-report.header />
+            <x-report.table />
+            <x-report.pagination />
         </div>
     </div>
 @endsection
@@ -29,7 +39,28 @@
                 itemsPerPage: 5,
                 currentPage: 1,
                 search: '',
+
                 filterType: 'day',
+
+                selectedReportType: 'all',
+
+                reportTypes: [{
+                        label: 'All',
+                        value: 'all'
+                    },
+                    {
+                        label: 'Income',
+                        value: 'income'
+                    },
+                    {
+                        label: 'Expense',
+                        value: 'expense'
+                    },
+                    {
+                        label: 'Transfer',
+                        value: 'transfer'
+                    },
+                ],
 
                 selectedDate: todayString,
                 selectedMonth: monthString,
@@ -37,10 +68,16 @@
 
                 get filteredReports() {
                     return this.reports.filter(r => {
+                        const reportType = (r.type ?? '').toLowerCase();
+
                         const matchSearch = !this.search ||
                             (r.category?.name ?? '').toLowerCase().includes(this.search.toLowerCase()) ||
-                            (r.type ?? '').toLowerCase().includes(this.search.toLowerCase()) ||
+                            reportType.includes(this.search.toLowerCase()) ||
                             (r.amount ?? '').toString().includes(this.search);
+
+                        const matchType =
+                            this.selectedReportType === 'all' ||
+                            reportType === this.selectedReportType;
 
                         const reportDate = new Date(r.date);
                         let matchDate = true;
@@ -67,7 +104,7 @@
                                 reportDate.getFullYear() === Number(this.selectedYear);
                         }
 
-                        return matchSearch && matchDate;
+                        return matchSearch && matchType && matchDate;
                     });
                 },
 
@@ -82,6 +119,7 @@
                 get paginatedReports() {
                     const start = (this.currentPage - 1) * this.itemsPerPage;
                     const end = start + this.itemsPerPage;
+
                     return this.filteredReports.slice(start, end);
                 },
 
@@ -91,6 +129,7 @@
 
                 get end() {
                     const end = this.currentPage * this.itemsPerPage;
+
                     return end > this.totalEntries ? this.totalEntries : end;
                 },
 
@@ -113,11 +152,15 @@
                 },
 
                 prevPage() {
-                    if (this.currentPage > 1) this.currentPage--;
+                    if (this.currentPage > 1) {
+                        this.currentPage--;
+                    }
                 },
 
                 nextPage() {
-                    if (this.currentPage < this.totalPages) this.currentPage++;
+                    if (this.currentPage < this.totalPages) {
+                        this.currentPage++;
+                    }
                 },
 
                 goToPage(page) {
@@ -139,6 +182,10 @@
                         this.currentPage = 1;
                     });
 
+                    this.$watch('selectedReportType', () => {
+                        this.currentPage = 1;
+                    });
+
                     this.$watch('itemsPerPage', () => {
                         this.currentPage = 1;
                     });
@@ -146,12 +193,14 @@
                     this.$watch('filterType', (type) => {
                         if (type === 'month') {
                             const month = this.selectedMonth.split('-')[1] ?? '01';
+
                             this.selectedMonth = `${this.selectedYear}-${month}`;
                         }
 
                         if (type === 'day') {
                             const month = this.selectedMonth.split('-')[1] ?? '01';
                             const day = this.selectedDate.split('-')[2] ?? '01';
+
                             this.selectedDate = `${this.selectedYear}-${month}-${day}`;
                         }
 
