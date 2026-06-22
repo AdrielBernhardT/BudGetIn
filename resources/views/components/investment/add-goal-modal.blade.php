@@ -36,7 +36,7 @@
                     Create a new financial goal to track your savings and investments.
                 </p>
             </div>
-            <form class="flex flex-col" method="POST" action="{{ route('investment.store-goal') }}">
+            <form class="flex flex-col" method="POST" action="{{ route('investment.goal.store') }}">
                 @csrf
                 @method('POST')
                 <div class="custom-scrollbar max-h-[40vh] lg:max-h-[60vh] flex flex-col gap-5 overflow-y-auto p-2">

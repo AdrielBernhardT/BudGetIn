@@ -12,7 +12,6 @@ import { createIcons, icons } from 'lucide';
 import './push-notifications';
 
 
-
 window.Alpine = Alpine;
 window.ApexCharts = ApexCharts;
 window.flatpickr = flatpickr;
