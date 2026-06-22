@@ -57,7 +57,7 @@
                     type="button"
                     class="text-xs font-medium text-main hover:underline"
                 >
-                    Tandai semua dibaca
+                    Mark all as read
                 </button>
 
                 <button @click="closeDropdown()" class="text-gray-500 dark:text-gray-400" type="button">
@@ -109,7 +109,7 @@
             </template>
 
             <li x-show="!loading && notifications.length === 0" class="py-10 text-sm text-center text-gray-400 dark:text-gray-500">
-                Belum ada notifikasi
+                No notifications yet.
             </li>
         </ul>
 
@@ -118,7 +118,7 @@
             href="{{ route('notifications.index') }}"
             class="mt-3 flex justify-center rounded-lg border border-gray-300 bg-white p-3 text-theme-sm font-medium text-gray-700 shadow-theme-xs hover:bg-gray-50 hover:text-gray-800 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-white/[0.03] dark:hover:text-gray-200"
         >
-            View All Notification
+            View All Notifications
         </a>
     </div>
     <!-- Dropdown End -->
@@ -192,13 +192,13 @@ function notificationDropdown() {
 
         timeAgo(dateStr) {
             const seconds = Math.floor((Date.now() - new Date(dateStr).getTime()) / 1000);
-            if (seconds < 60) return 'baru saja';
+            if (seconds < 60) return 'just now';
             const minutes = Math.floor(seconds / 60);
-            if (minutes < 60) return `${minutes} menit lalu`;
+            if (minutes < 60) return `${minutes} minutes ago`;
             const hours = Math.floor(minutes / 60);
-            if (hours < 24) return `${hours} jam lalu`;
+            if (hours < 24) return `${hours} hours ago`;
             const days = Math.floor(hours / 24);
-            return `${days} hari lalu`;
+            return `${days} days ago`;
         },
 
         iconFor(category) {
