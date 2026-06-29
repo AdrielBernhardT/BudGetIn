@@ -36,7 +36,7 @@ class CategoryController extends Controller
 
     public function update(Request $request, $slug){
         $category = Category::where('slug', $slug)->firstOrFail();
-        
+
         $validated = $request->validate([
             'name'=> ['required', 'string', 'max:100', 'unique:categories,name,' . $category->id . ',id,user_id,' . Auth::id()],
             'monthly_budget'=> ['required'],
@@ -62,5 +62,5 @@ class CategoryController extends Controller
         return redirect()->route('category.index');
     }
 
-    
+
 }

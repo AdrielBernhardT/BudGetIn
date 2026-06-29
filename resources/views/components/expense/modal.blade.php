@@ -8,10 +8,10 @@
 <x-ui.modal @open-expense-modal.window="open = true" :isOpen="false" class="max-w-[700px]">
     <div x-data="{
         mode: 'create',
-        income: {
+        expense: {
             id: null,
             title: '',
-            category:'',
+            category: '',
             amount: '',
             account_bank: '',
             date: '',
@@ -22,7 +22,7 @@
             this.expense = detail?.expense ? { ...detail.expense } : {
                 id: null,
                 title: '',
-                category:'',
+                category: '',
                 amount: '',
                 account_bank: '',
                 date: '',
@@ -31,6 +31,19 @@
             if (this.expense.amount) {
                 this.expense.amount = this.formatRupiah(this.expense.amount);
             }
+        },
+        formatRupiah(value) {
+            value = value.toString();
+            let number = value.replace(/[^,\d]/g, '').toString();
+            let split = number.split(',');
+            let sisa = split[0].length % 3;
+            let rupiah = split[0].substr(0, sisa);
+            let ribuan = split[0].substr(sisa).match(/\d{3}/gi);
+            if (ribuan) {
+                let separator = sisa ? '.' : '';
+                rupiah += separator + ribuan.join('.');
+            }
+            return split[1] != undefined ? rupiah + ',' + split[1] : rupiah;
         },
     }" @open-expense-modal.window="openModal($event.detail)"
         class="no-scrollbar relative w-full max-w-[700px] max-h-[80vh] overflow-y-auto rounded-3xl bg-white p-4 dark:bg-gray-900 lg:p-11">
@@ -64,9 +77,9 @@
                 '{{ route('expense.store') }}' :
                 '/expense/update/' + expense.id"
         >
-            @csrf 
+            @csrf
             @method('POST')
-            
+
             <div class="custom-scrollbar max-h-[40vh] lg:max-h-[60vh] flex flex-col gap-5 overflow-y-auto p-2">
                 <div class = "flex lg:flex-row flex-col lg:gap-10 gap-5">
                     <div class="lg:w-2/3">
@@ -76,7 +89,7 @@
                         <div class="relative flex items-center gap-2">
                             <input type="text" x-model="expense.title" name="title"
                                 class="dark:bg-dark-900 shadow-theme-xs focus:border-brand-300 focus:ring-brand-500/10 dark:focus:border-brand-800 h-11 w-full rounded-lg border border-gray-300 bg-transparent px-4 py-2.5 text-sm text-gray-800 placeholder:text-gray-400 focus:ring-3 focus:outline-hidden dark:border-gray-700 dark:bg-gray-900 dark:text-white/90 dark:placeholder:text-white/30" />
-                            
+
                             @error('title')
                                 <p class="mt-1 text-sm text-red-500">{{ $message }}</p>
                             @enderror
@@ -91,10 +104,10 @@
                             <select
                                 name="category_id"
                                 x-model="expense.category"
-                                class="dark:bg-dark-900 shadow-theme-xs focus:border-brand-300 focus:ring-brand-500/10 
-                                dark:focus:border-brand-800 h-11 w-full appearance-none rounded-lg border border-gray-300 
-                                bg-transparent px-4 py-2.5 pr-11 text-sm text-gray-800 placeholder:text-gray-400 
-                                focus:ring-3 focus:outline-hidden dark:border-gray-700 dark:bg-gray-900 
+                                class="dark:bg-dark-900 shadow-theme-xs focus:border-brand-300 focus:ring-brand-500/10
+                                dark:focus:border-brand-800 h-11 w-full appearance-none rounded-lg border border-gray-300
+                                bg-transparent px-4 py-2.5 pr-11 text-sm text-gray-800 placeholder:text-gray-400
+                                focus:ring-3 focus:outline-hidden dark:border-gray-700 dark:bg-gray-900
                                 dark:text-white/90 dark:placeholder:text-white/30"
                                 :class="isOptionSelected && 'text-gray-800 dark:text-white/90'"
                                 @change="isOptionSelected = true">
@@ -104,7 +117,7 @@
                                 @endforeach
                             </select>
 
-                            
+
                             <span
                                 class="pointer-events-none absolute top-1/2 right-4 -translate-y-1/2 text-gray-500 dark:text-gray-400">
                                 <svg class="stroke-current" width="20" height="20" viewBox="0 0 20 20" fill="none">
@@ -133,7 +146,7 @@
                             <input type="text" x-model="expense.amount" name="amount"
                                 @input="expense.amount = formatRupiah($event.target.value)" placeholder="0"
                                 class="dark:bg-dark-900 shadow-theme-xs focus:border-brand-300 focus:ring-brand-500/10 dark:focus:border-brand-800 h-11 w-full rounded-lg border border-gray-300 bg-transparent px-4 py-2.5 pl-16 text-sm text-gray-800 placeholder:text-gray-400 focus:ring-3 focus:outline-hidden dark:border-gray-700 dark:bg-gray-900 dark:text-white/90 dark:placeholder:text-white/30" />
-                            
+
                                 @error('amount')
                                     <p class="mt-1 text-sm text-red-500">{{ $message }}</p>
                                 @enderror
@@ -196,20 +209,20 @@
                     </label>
                     <textarea name="description" x-model="expense.description" placeholder="Enter a description..." type="text" rows="6"
                         class="dark:bg-dark-900 shadow-theme-xs focus:border-brand-300 focus:ring-brand-500/10 dark:focus:border-brand-800 w-full rounded-lg border border-gray-300 bg-transparent px-4 py-2.5 text-sm text-gray-800 placeholder:text-gray-400 focus:ring-3 focus:outline-hidden dark:border-gray-700 dark:bg-gray-900 dark:text-white/90 dark:placeholder:text-white/30"></textarea>
-                    
+
                     @error('description')
                         <p class="mt-1 text-sm text-red-500">{{ $message }}</p>
                     @enderror
                 </div>
 
                 <div class="mt-6 flex items-center gap-3 px-2 lg:justify-end">
-                    <button type="submit"
+                    <button type="button" @click="$dispatch('modal-closed'); open = false"
                         class="flex w-full justify-center rounded-lg border border-gray-300 bg-white px-4 py-2.5 text-sm font-medium text-gray-700 hover:bg-gray-50 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-white/[0.03] sm:w-auto">
                         Close
                     </button>
                     <button type="submit"
                         class="flex w-full justify-center rounded-lg bg-main px-4 py-2.5 text-sm font-medium text-white hover:bg-main-hover sm:w-auto">
-                        <span x-text="mode === 'create' ? 'Save Changes' : 'Update Income'"></span>
+                        <span x-text="mode === 'create' ? 'Save Changes' : 'Update Expense'"></span>
                     </button>
                 </div>
             </div>
