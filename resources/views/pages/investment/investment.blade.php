@@ -50,7 +50,7 @@
                 <x-investment.allocation.allocation :goals="$goals" :datas="$datas" />
             </div>
             <div x-show="tab === 'goals'">
-                {{-- <x-investment.goals.goals :datas="$goals" /> --}}
+                <x-investment.goals.goals :goals="$goals" />
             </div>
             <div x-show="tab === 'history'">
                 Transaction History content goes here...
