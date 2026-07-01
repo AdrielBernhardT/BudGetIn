@@ -1,14 +1,16 @@
 <?php
 
 namespace App\Http\Controllers\Report;
-
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
+
+use App\Models\Transaction;
 
 class ReportController extends Controller
 {
     public function index()
-{
-        return view('pages.report.report', ['title' => 'Report']);
+    {
+        $reports = Transaction::with('category')->get();
+
+        return view('pages.report.report', compact('reports'));
     }
 }

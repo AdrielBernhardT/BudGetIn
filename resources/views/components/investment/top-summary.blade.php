@@ -43,27 +43,33 @@
                 <h3 class="text-gray-800 dark:text-white/90 font-semibold text-lg">Progress Target</h3>
                 <div class="overflow-x-auto custom-scrollbar pb-2">
                     <div class="flex flex-col gap-4 lg:gap-5">
-                        @foreach ($datas['targets'] as $target)
-                            <div class="flex items-center gap-3 lg:gap-10">
-                                <div class="flex items-center gap-2 w-60 shrink-0">
-                                    <i data-lucide="{{ $target->icon }}" class="w-4 h-4 shrink-0 text-gray-900 dark:text-white"></i>
-                                    <div class="text-theme-sm whitespace-nowrap text-gray-800 dark:text-white/90">
-                                        {{ $target->title }}</div>
-                                </div>
-                                <div class="flex flex-1 items-center gap-4 min-w-0">
-                                    <div
-                                        class="relative flex-1 min-w-[100px] h-2 rounded-sm bg-gray-200 dark:bg-gray-800">
-                                        <div class="absolute left-0 top-0 flex h-full items-center justify-center rounded-sm bg-main"
-                                            style="width: {{ $target->percentage }}%"></div>
+                        @if (collect($datas['targets'])->isEmpty())
+                            <h5 class="flex justify-center text-gray-500">
+                                There is no target found
+                            </h5>
+                        @else
+                            @foreach ($datas['targets'] as $target)
+                                <div class="flex items-center gap-3 lg:gap-10">
+                                    <div class="flex items-center gap-2 w-60 shrink-0">
+                                        <i data-lucide="{{ $target->icon }}" class="w-4 h-4 shrink-0 text-gray-900 dark:text-white"></i>
+                                        <div class="text-theme-sm whitespace-nowrap text-gray-800 dark:text-white/90">
+                                            {{ $target->title }}</div>
                                     </div>
-                                    <p
-                                        class="w-[220px] shrink-0 text-theme-sm font-medium text-gray-800 dark:text-white/90 whitespace-nowrap">
-                                        IDR {{ number_format($target->total_current, 0, ',', '.') }} / IDR
-                                        {{ number_format($target->target_amount, 0, ',', '.') }}
-                                    </p>
+                                    <div class="flex flex-1 items-center gap-4 min-w-0">
+                                        <div
+                                            class="relative flex-1 min-w-[100px] h-2 rounded-sm bg-gray-200 dark:bg-gray-800">
+                                            <div class="absolute left-0 top-0 flex h-full items-center justify-center rounded-sm bg-main"
+                                                style="width: {{ $target->percentage }}%"></div>
+                                        </div>
+                                        <p
+                                            class="w-[220px] shrink-0 text-theme-sm font-medium text-gray-800 dark:text-white/90 whitespace-nowrap">
+                                            IDR {{ number_format($target->total_current, 0, ',', '.') }} / IDR
+                                            {{ number_format($target->target_amount, 0, ',', '.') }}
+                                        </p>
+                                    </div>
                                 </div>
-                            </div>
-                        @endforeach
+                            @endforeach
+                        @endif
                     </div>
                 </div>
             </div>
