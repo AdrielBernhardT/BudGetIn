@@ -2,6 +2,10 @@
 
 namespace App\Providers;
 
+use App\Models\RecordInvestment;
+use App\Models\Transaction;
+use App\Observers\RecordInvestmentObserver;
+use App\Observers\TransactionObserver;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\ServiceProvider;
 
@@ -24,5 +28,8 @@ class AppServiceProvider extends ServiceProvider
         // if (app()->environment('local')) {
         //     URL::forceScheme('https');
         // }
+
+        Transaction::observe(TransactionObserver::class);
+        RecordInvestment::observe(RecordInvestmentObserver::class);
     }
 }

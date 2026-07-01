@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Auth\OTPController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\ResetPasswordController;
 use App\Http\Controllers\Investment\GoalController;
@@ -17,6 +18,8 @@ use App\Http\Controllers\Transaction\ExpenseController;
 use App\Http\Controllers\Transaction\IncomeController;
 use App\Http\Controllers\Transaction\TransferController;
 use App\Http\Controllers\Auth\GoogleController;
+use App\Http\Controllers\NotificationController;
+use App\Http\Controllers\PushSubscriptionController;
 
 // // dashboard pages
 // Route::get('/', function () {
@@ -104,7 +107,11 @@ Route::middleware(['guest'])->group(function(){
     Route::get('/register', [RegisterController::class, 'index'])->name('register');
     Route::post('/register', [RegisterController::class, 'store'])->name('register.store');
 
-    Route::get('/reset-password', [ResetPasswordController::class, 'index'])->name('reset-password');
+    Route::get('/forgot-password', [ResetPasswordController::class, 'index'])->name('forgot-password');
+    Route::post('/forgot-password', [ResetPasswordController::class, 'sendResetLink'])->name('forgot-password.send-reset-link');
+
+    Route::get('/reset-password/{token}', [ResetPasswordController::class, 'resetForm'])->name('password.reset');
+Route::post('/reset-password', [ResetPasswordController::class, 'resetPassword'])->name('password.update');
 
     // Google OAuth
     Route::get('/auth/google', [GoogleController::class, 'redirect'])->name('auth.google');
@@ -114,6 +121,14 @@ Route::middleware(['guest'])->group(function(){
 Route::middleware(['auth'])->group(function(){
     // Dashboard
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+
+    // Verify Account
+    Route::prefix('/verify-account')->as('verify.')->group(function(){
+        Route::get('/', [OTPController::class, 'index'])->name('index');
+        Route::post('/', [OTPController::class, 'verify']) ->name('verify');
+        Route::post('/send', [OTPController::class, 'send']) ->name('send');
+        Route::post('/resend', [OTPController::class, 'resend'])->name('resend');
+    });
 
     // Transaction
     Route::prefix('/income')->as('income.')->group(function(){
@@ -162,6 +177,20 @@ Route::middleware(['auth'])->group(function(){
     // Report
     Route::get('/report', [ReportController::class, 'index'])->name('report');
 
+    // Notifications (in-app bell icon)
+    Route::prefix('/notifications')->as('notifications.')->group(function(){
+        Route::get('/', [NotificationController::class, 'index'])->name('index');
+        Route::get('/feed', [NotificationController::class, 'feed'])->name('feed');
+        Route::post('/{id}/read', [NotificationController::class, 'markAsRead'])->name('read');
+        Route::post('/read-all', [NotificationController::class, 'markAllAsRead'])->name('read-all');
+    });
+
+    // Browser Push (Web Push API) subscriptions
+    Route::prefix('/push-subscriptions')->as('push-subscriptions.')->group(function(){
+        Route::post('/', [PushSubscriptionController::class, 'store'])->name('store');
+        Route::delete('/', [PushSubscriptionController::class, 'destroy'])->name('destroy');
+    });
+
 
     // User
     Route::prefix('/settings')->as('settings.')->group(function(){
@@ -175,5 +204,5 @@ Route::middleware(['auth'])->group(function(){
         Route::post('/update-profile-information', [ProfileControlller::class, 'updateProfileInformation'])->name('update-profile-information');
         Route::post('/update-address-information', [ProfileControlller::class, 'updateAddressInformation'])->name('update-address-information');
     });
-    
+
 });
