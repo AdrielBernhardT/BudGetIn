@@ -23,7 +23,7 @@ class GoalMissedNotification extends Notification implements ShouldQueue
      */
     public function via(object $notifiable): array
     {
-        return ['mail', 'database', WebPushChannel::class];
+        return ['database', WebPushChannel::class, 'mail'];
     }
 
     public function toMail(object $notifiable): MailMessage
