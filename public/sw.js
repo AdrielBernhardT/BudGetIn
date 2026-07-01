@@ -1,4 +1,5 @@
 // Service worker for Web Push notifications (BudGetIn)
+// console.log('swjs loaded');
 
 self.addEventListener('install', () => {
     self.skipWaiting();
@@ -17,18 +18,20 @@ self.addEventListener('push', (event) => {
     try {
         payload = event.data.json();
     } catch (e) {
-        payload = { notification: { title: 'BudGetIn', body: event.data.text() } };
+        payload = { title: 'BudGetIn', body: event.data.text() };
     }
 
-    const notification = payload.notification || {};
-    const title = notification.title || 'BudGetIn';
+    const title = payload.title || 'BudGetIn';
+    // console.log(payload);
     const options = {
-        body: notification.body || '',
-        icon: notification.icon || '/images/logo/logo-icon.png',
-        badge: notification.badge || '/images/logo/logo-icon.png',
-        data: notification.data || {},
-        tag: notification.tag || undefined,
-        requireInteraction: notification.requireInteraction || false,
+        body: payload.body || '',
+        icon: payload.icon || '/images/logo/logo-icon.png',
+        badge: payload.badge || '/images/logo/logo-icon.png',
+        image: payload.image || undefined,
+        actions: payload.actions || [],
+        data: payload.data || {},
+        tag: payload.tag || undefined,
+        requireInteraction: payload.requireInteraction || false,
     };
 
     event.waitUntil(self.registration.showNotification(title, options));

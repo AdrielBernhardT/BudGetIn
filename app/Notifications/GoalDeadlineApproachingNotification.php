@@ -23,7 +23,7 @@ class GoalDeadlineApproachingNotification extends Notification implements Should
      */
     public function via(object $notifiable): array
     {
-        return ['mail', 'database', WebPushChannel::class];
+        return ['database', WebPushChannel::class, 'mail'];
     }
 
     protected function dayLabel(): string
