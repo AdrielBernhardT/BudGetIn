@@ -60,6 +60,7 @@
         <x-investment.add-goal-modal />
         <x-investment.add-investment-modal :goals="$goals" />
         <x-investment.record-investment-modal :goals="$goals" :accounts="$accounts" />
+        <x-investment.allocation.edit-modal :goals="$goals" />
     </div>
 
 @endsection
