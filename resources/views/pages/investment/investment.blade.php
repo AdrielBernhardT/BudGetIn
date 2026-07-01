@@ -53,7 +53,7 @@
                 <x-investment.goals.goals :goals="$goals" />
             </div>
             <div x-show="tab === 'history'">
-                Transaction History content goes here...
+                <x-investment.history.history :histories="[]" />
             </div>
         </div>
 
