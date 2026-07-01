@@ -17,6 +17,8 @@
         'month' => 'F Y',
         default => 'd F Y',
     };
+
+    $defaultDate = $defaultDate ?? now()->format($finalDateFormat);
 @endphp
 
 <div x-data="{

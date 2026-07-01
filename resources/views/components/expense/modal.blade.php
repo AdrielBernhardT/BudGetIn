@@ -71,7 +71,7 @@
                 <div class = "flex lg:flex-row flex-col lg:gap-10 gap-5">
                     <div class="lg:w-2/3">
                         <label class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400">
-                            Expense Title
+                            Expense Title<span class="text-red-500">*</span>
                         </label>
                         <div class="relative flex items-center gap-2">
                             <input type="text" x-model="expense.title" name="title"
@@ -85,7 +85,7 @@
 
                     <div class="lg:w-1/3">
                         <label class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400">
-                            Category
+                            Category<span class="text-red-500">*</span>
                         </label>
                         <div x-data="{ isOptionSelected: false }" class="relative z-20 bg-transparent">
                             <select
@@ -123,7 +123,7 @@
                 <div class="flex lg:flex-row flex-col lg:gap-10 gap-5">
                     <div class="lg:w-2/3">
                         <label class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400">
-                            Amount
+                            Amount<span class="text-red-500">*</span>
                         </label>
                         <div class="relative">
                             <span
@@ -142,7 +142,7 @@
 
                     <div class="lg:w-1/3">
                         <label class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400">
-                            Account Bank
+                            Account Bank<span class="text-red-500">*</span>
                         </label>
                         <div x-data="{ isOptionSelected: false }" class="relative z-20 bg-transparent">
                             <select
