@@ -11,66 +11,118 @@ use Illuminate\Http\Request;
 
 class RecordInvestmentController extends Controller
 {
-    public function store(Request $request){
-        $validated = $request->validateWithBag('record_investment', [
-            'investment_id' => ['required'],
-            'goal_id' => ['required'],
-            'account_id' => ['required'],
-            'date' => ['required'],
-            'transaction_amount' => ['required'],
-            'description' => ['nullable', 'string', 'max:200'],
-        ]);
+    public function store(Request $request)
+    {
+        try {
 
-        $goal = Goal::with('investments.records')->findOrFail($validated['goal_id']);
+            $validated = $request->validateWithBag('record_investment', [
+                'investment_id' => ['required', 'integer'],
+                'goal_id'       => ['required', 'integer'],
+                'account_id'    => ['required', 'integer'],
+                'date' => ['required'],
+                'transaction_amount' => ['required', 'numeric', 'min:1'],
+                'description' => ['nullable', 'string', 'max:200'],
+            ]);
 
-        $investment = Investment::with('records')
-            ->where('id', $validated['investment_id'])
-            ->where('goal_id', $validated['goal_id'])
-            ->firstOrFail();
+            $userId = auth()->id();
 
-        $newAmount = (float) $validated['transaction_amount'];
+            $goal = Goal::with('investments.records')
+                ->where('id', $validated['goal_id'])
+                ->where('user_id', $userId)
+                ->firstOrFail();
 
-        $investmentCurrent = $investment->records->sum('transaction_amount');
-        $investmentRemaining = $investment->planned_amount - $investmentCurrent;
+            $investment = Investment::with('records')
+                ->where('id', $validated['investment_id'])
+                ->where('goal_id', $goal->id)
+                ->where('user_id', $userId)
+                ->firstOrFail();
 
-        if ($newAmount > $investmentRemaining) {
+            $accountExists = \App\Models\Account::where('id', $validated['account_id'])
+                ->where('user_id', $userId)
+                ->exists();
+
+            if (!$accountExists) {
+                toast()->error('Invalid account selected.');
+
+                return back()
+                    ->withErrors([
+                        'account_id' => 'Invalid account selected.'
+                    ], 'record_investment')
+                    ->withInput();
+            }
+
+            $newAmount = (float) $validated['transaction_amount'];
+
+            $investmentCurrent = $investment->records->sum('transaction_amount');
+            $investmentRemaining = $investment->planned_amount - $investmentCurrent;
+
+            if ($newAmount > $investmentRemaining) {
+
+                toast()->error(
+                    'Exceeds investment limit. Remaining: ' .
+                    number_format($investmentRemaining, 0, ',', '.')
+                );
+
+                return back()
+                    ->withErrors([
+                        'transaction_amount' =>
+                            'Exceeds investment limit. Remaining: ' .
+                            number_format($investmentRemaining, 0, ',', '.')
+                    ], 'record_investment')
+                    ->withInput();
+            }
+
+            $totalCurrentGoal = $goal->investments
+                ->flatMap->records
+                ->sum('transaction_amount');
+
+            $goalRemaining = $goal->target_amount - $totalCurrentGoal;
+
+            if ($newAmount > $goalRemaining) {
+
+                toast()->error(
+                    'Exceeds goal remaining budget: ' .
+                    number_format($goalRemaining, 0, ',', '.')
+                );
+
+                return back()
+                    ->withErrors([
+                        'transaction_amount' =>
+                            'Exceeds goal remaining budget: ' .
+                            number_format($goalRemaining, 0, ',', '.')
+                    ], 'record_investment')
+                    ->withInput();
+            }
+
+            RecordInvestment::create([
+                'investment_id' => $investment->id,
+                'goal_id' => $goal->id,
+                'account_id' => $validated['account_id'],
+                'date' => Carbon::createFromFormat(
+                    'd-m-Y',
+                    $validated['date']
+                )->format('Y-m-d'),
+                'transaction_amount' => $validated['transaction_amount'],
+                'description' => $validated['description'],
+            ]);
+
+            toast()->success('Record investment created!');
+
+            return redirect()->back();
+
+        } catch (\Throwable $th) {
+
+            report($th);
+
             toast()->error(
-                'Exceeds investment limit. Remaining for this investment: ' . number_format($investmentRemaining, 0, ',', '.')
+                app()->environment('local')
+                    ? $th->getMessage()
+                    : 'Failed to create investment record.'
             );
 
-            return back()
-                ->withErrors([
-                    'transaction_amount' =>
-                        'Exceeds investment limit. Remaining: ' . number_format($investmentRemaining, 0, ',', '.')
-                ], 'record_investment')
+            return redirect()
+                ->back()
                 ->withInput();
         }
-
-        $totalCurrentGoal = $goal->investments
-            ->flatMap->records
-            ->sum('transaction_amount');
-        $goalRemaining = $goal->target_amount - $totalCurrentGoal;
-        if ($newAmount > $goalRemaining) {
-            toast()->error('Exceeds goal remaining budget: ' . number_format($goalRemaining, 0, ',', '.'));
-
-            return back()
-                ->withErrors([
-                    'transaction_amount' =>
-                        'Exceeds goal remaining budget: ' . number_format($goalRemaining, 0, ',', '.')
-                ], 'record_investment')
-                ->withInput();
-        }
-
-        RecordInvestment::create([
-            'investment_id' => $validated['investment_id'],
-            'goal_id' => $validated['goal_id'],
-            'account_id' => $validated['account_id'],
-            'date' => Carbon::createFromFormat('d-m-Y', $validated['date'])->format('Y-m-d'),
-            'transaction_amount' => $validated['transaction_amount'],
-            'description' => $validated['description'],
-        ]);
-
-        toast()->success('Record Investment created!');
-        return redirect()->back()->with('success', 'Record Investment created!');
     }
 }
