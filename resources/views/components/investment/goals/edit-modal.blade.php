@@ -7,6 +7,7 @@
     >
         <div
             x-data="{
+                baseUrl: '{{ url('/investment/update/goal') }}',
                 action: '',
                 goal: {
                     id: '',
@@ -34,7 +35,13 @@
                         target_date: data.target_date ?? '',
                     };
 
-                    this.action = '';
+                    this.action = `${this.baseUrl}/${data.id}`;
+                    this.$nextTick(() => {
+                        const input = document.getElementById('edit_goal_target_date');
+                        if (input && input._flatpickr) {
+                            input._flatpickr.setDate(this.goal.target_date, true);
+                        }
+                    });
 
                     this.$nextTick(() => {
                         this.$dispatch('target-icon-set', this.goal.icon || 'home');
@@ -56,7 +63,7 @@
 
             <form class="flex flex-col" method="POST" :action="action">
                 @csrf
-                @method('PUT')
+                @method('POST')
 
                 <input type="hidden" name="id" x-model="goal.id">
 

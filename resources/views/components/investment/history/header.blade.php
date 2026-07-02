@@ -90,6 +90,7 @@
 
         <button
             type="button"
+            @click="printHistory()"
             class="inline-flex items-center gap-2 rounded-lg border border-gray-300 bg-main px-4 py-3 text-theme-sm font-medium text-white shadow-theme-xs hover:bg-main-hover hover:text-white/90"
         >
             Print History

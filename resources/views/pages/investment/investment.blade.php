@@ -50,10 +50,10 @@
                 <x-investment.allocation.allocation :goals="$goals" :datas="$datas" />
             </div>
             <div x-show="tab === 'goals'">
-                <x-investment.goals.goals :goals="$goals" />
+                <x-investment.goals.goals :targets="$datas['targets']" />
             </div>
             <div x-show="tab === 'history'">
-                <x-investment.history.history :histories="[]" />
+                <x-investment.history.history :histories="$histories" />
             </div>
         </div>
 
@@ -68,8 +68,24 @@
 @push('scripts')
     <script>
         function investmentPage() {
+            const today = new Date();
             return {
                 tab: 'allocation',
+                filterType: 'day',
+                selectedDate: today.toISOString().slice(0, 10),
+                selectedMonth: today.toISOString().slice(0, 7),
+                printHistory() {
+                    const params = new URLSearchParams({
+                        filter: this.filterType,
+                        date: this.selectedDate,
+                        month: this.selectedMonth,
+                    });
+
+                    window.open(
+                        `/investment/print/record-investment?${params.toString()}`,
+                        "_blank"
+                    );
+                },
                 formatRupiah(value) {
                     value = value.toString();
                     let number = value.replace(/[^,\d]/g, '').toString();

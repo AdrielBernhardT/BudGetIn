@@ -157,8 +157,14 @@
                                 Date
                             </label>
                             <div class="relative w-full">
-                                <x-form.date-picker id="date_pick" name="date" placeholder="Date Picker"
-                                    x-model="investment.date" defaultDate="{{ now()->format('d-m-Y') }}" />
+                                <x-form.date-picker 
+                                id="date_pick" 
+                                name="date" 
+                                placeholder="Date Picker"
+                                x-model="investment.date" 
+                                dateFormat="Y-m-d"
+                                altFormat="d F Y"
+                                defaultDate="{{ now()->format('Y-m-d') }}"/>
                             </div>
                             @error('date', 'record_investment')
                                 <p class="mt-1 text-sm text-red-500">{{ $message }}</p>
