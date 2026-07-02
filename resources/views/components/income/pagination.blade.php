@@ -4,14 +4,14 @@
             class="pb-3 text-sm font-medium text-center text-gray-500 border-b border-gray-100 dark:border-gray-800 dark:text-gray-400 xl:border-b-0 xl:pb-0 xl:text-left">
             <template x-if="totalEntries > 0">
                 <span>
-                    Showing <span x-text="start"></span>
-                    to <span x-text="end"></span>
-                    of <span x-text="totalEntries"></span> categories
+                    {{ __('pagination.Showing') }} <span x-text="start"></span>
+                    {{ __('pagination.to') }} <span x-text="end"></span>
+                    {{ __('pagination.of') }} <span x-text="totalEntries"></span> {{ __('nav.categories') }}
                 </span>
             </template>
 
             <template x-if="totalEntries === 0">
-                <span>No categories available</span>
+                <span>{{ __('common.no_categories_available') }}</span>
             </template>
         </p>
         <div class="flex items-center justify-center gap-0.5 pt-4 xl:justify-end xl:pt-0">

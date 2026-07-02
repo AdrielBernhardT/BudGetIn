@@ -205,4 +205,14 @@ Route::middleware(['auth'])->group(function(){
         Route::post('/update-address-information', [ProfileControlller::class, 'updateAddressInformation'])->name('update-address-information');
     });
 
-});
+
+    });
+
+// Locale Switcher
+Route::get('/locale/{locale}', function (string $locale) {
+    if (in_array($locale, ['en', 'id'], true)) {
+        session(['locale' => $locale]);
+    }
+
+    return back();
+})->name('locale.switch');

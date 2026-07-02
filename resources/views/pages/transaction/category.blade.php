@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <x-common.page-breadcrumb pageTitle="Category" />
+    <x-common.page-breadcrumb pageTitle="{{ __('nav.categories') }}" />
     <div
         class="min-h-screen rounded-2xl border border-gray-200 bg-white px-5 py-7 dark:border-gray-800 dark:bg-white/[0.03] xl:px-10 xl:py-12">
         <div x-data="categoryPage()">
@@ -140,7 +140,7 @@
                     return this.categories.filter(t => {
                         return (
                             (t.name ?? '').toLowerCase().includes(this.search.toLowerCase()) ||
-                            (t.monthly_budget ?? '').toString().includes(this.search) 
+                            (t.monthly_budget ?? '').toString().includes(this.search)
                         );
                     });
                 },

@@ -77,7 +77,7 @@
                                     fill="" />
                             </svg>
                         </span>
-                        <input type="text" placeholder="Search or type command..."
+                        <input type="text" placeholder="{{ __('common.search_placeholder') }}"
                             class="dark:bg-dark-900 h-11 w-full rounded-lg border border-gray-200 bg-transparent py-2.5 pl-12 pr-14 text-sm text-gray-800 shadow-theme-xs placeholder:text-gray-400 focus:border-brand-300 focus:outline-hidden focus:ring-3 focus:ring-brand-500/10 dark:border-gray-800 dark:bg-white/3 dark:text-white/90 dark:placeholder:text-white/30 dark:focus:border-brand-800 xl:w-[430px]" />
                         <button
                             class="absolute right-2.5 top-1/2 inline-flex -translate-y-1/2 items-center gap-0.5 rounded-lg border border-gray-200 bg-gray-50 px-[7px] py-[4.5px] text-xs -tracking-[0.2px] text-gray-500 dark:border-gray-800 dark:bg-white/[0.03] dark:text-gray-400">
@@ -110,6 +110,26 @@
                             fill="currentColor" />
                     </svg>
                 </button>
+
+                <!-- Language Switcher -->
+                <div class="relative" x-data="{ langOpen: false }" @click.away="langOpen = false">
+                    <button @click="langOpen = !langOpen" type="button"
+                        class="flex items-center justify-center gap-1 text-gray-500 transition-colors bg-white border border-gray-200 rounded-full hover:text-gray-700 h-11 px-3 dark:border-gray-800 dark:bg-gray-900 dark:text-gray-400 dark:hover:text-white">
+                        <span class="text-xs font-semibold uppercase">{{ app()->getLocale() }}</span>
+                    </button>
+
+                    <div x-show="langOpen" x-transition style="display: none;"
+                        class="absolute right-0 mt-2 w-36 rounded-lg border border-gray-200 bg-white p-1 shadow-theme-lg dark:border-gray-800 dark:bg-gray-dark z-50">
+                        <a href="{{ route('locale.switch', 'en') }}"
+                            class="block px-3 py-2 rounded-md text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-white/5">
+                            English
+                        </a>
+                        <a href="{{ route('locale.switch', 'id') }}"
+                            class="block px-3 py-2 rounded-md text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-white/5">
+                            Bahasa Indonesia
+                        </a>
+                    </div>
+                </div>
 
                 <!-- Notification Dropdown -->
                 <x-header.notification-dropdown />
