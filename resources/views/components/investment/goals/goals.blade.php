@@ -1,7 +1,7 @@
-@props(['goals'])
+@props(['targets'])
 
 <div x-data>
-    @if ($goals->isEmpty())
+    @if ($targets->isEmpty())
         <div class="rounded-xl border border-dashed border-gray-300 p-10 text-center">
             <p class="text-gray-500">
                 No Goals Found
@@ -10,7 +10,7 @@
     @else
         <div class="max-h-[700px] overflow-y-auto custom-scrollbar">
             <div class="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-3">
-                @foreach ($goals as $goal)
+                @foreach ($targets as $goal)
                     <div
                         class="rounded-2xl border border-gray-200 bg-white h-40 p-5 dark:border-gray-800 dark:bg-white/[0.03] md:p-5">
 
@@ -40,7 +40,7 @@
                                                 'name' => $goal->name,
                                                 'icon' => $goal->icon,
                                                 'target_amount' => $goal->target_amount,
-                                                'target_date' => $goal->target_date,
+                                                'target_date' => $goal->target_date?->format('Y-m-d'),
                                             ])
                                         }
                                     }))"
@@ -48,7 +48,7 @@
                                     Edit
                                 </button>
 
-                                <form method="POST" class="js-delete-form"
+                                <form action="{{ route('investment.goal.delete', $goal->id) }}" method="POST" class="js-delete-form"
                                     data-confirm-title="Are you sure you want to delete this goal?">
                                     @csrf
                                     @method('DELETE')
@@ -77,7 +77,7 @@
                             </div>
 
                             <p class="mt-3 text-sm font-medium text-gray-800 dark:text-white/90">
-                                IDR {{ number_format($goal->current_amount, 0, ',', '.') }}
+                                IDR {{ number_format($goal->total_current, 0, ',', '.') }}
                                 /
                                 IDR {{ number_format($goal->target_amount, 0, ',', '.') }}
                             </p>

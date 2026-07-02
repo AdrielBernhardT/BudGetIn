@@ -15,76 +15,113 @@
             </thead>
 
             <tbody>
-                <template x-for="(history, index) in paginatedHistories" :key="`${history.type ?? 'history'}-${history.id ?? index}`">
+                <template x-for="(history, index) in paginatedHistories" :key="history.id">
+
                     <tr>
-                        <td :class="index === paginatedHistories.length - 1 ? 'px-4 py-4 whitespace-nowrap' : 'px-4 py-4 whitespace-nowrap border-b border-gray-200 dark:border-gray-700'">
-                            <div
-                                class="text-sm text-gray-500 dark:text-gray-400"
-                                x-text="(currentPage - 1) * itemsPerPage + index + 1">
-                            </div>
-                        </td>
+                        <!-- No -->
+                        <td
+                            :class="index === paginatedHistories.length - 1
+                                ? 'px-4 py-4 whitespace-nowrap'
+                                : 'px-4 py-4 whitespace-nowrap border-b border-gray-200 dark:border-gray-700'">
 
-                        <td :class="index === paginatedHistories.length - 1 ? 'px-4 py-4 whitespace-nowrap' : 'px-4 py-4 whitespace-nowrap border-b border-gray-200 dark:border-gray-700'">
-                            <div
-                                class="text-sm text-gray-900 dark:text-white"
-                                x-text="formatDate(history.date ?? history.created_at)">
-                            </div>
-                        </td>
-
-                        <td :class="index === paginatedHistories.length - 1 ? 'px-4 py-4 whitespace-nowrap' : 'px-4 py-4 whitespace-nowrap border-b border-gray-200 dark:border-gray-700'">
                             <span
-                                :class="{
-                                    'bg-green-50 text-green-600 dark:bg-green-500/15 dark:text-green-500': (history.type ?? '').toLowerCase() === 'investment',
-                                    'bg-blue-50 text-blue-600 dark:bg-blue-500/15 dark:text-blue-500': (history.type ?? '').toLowerCase() === 'goal',
-                                    'bg-orange-50 text-orange-600 dark:bg-orange-500/15 dark:text-orange-500': (history.type ?? '').toLowerCase() === 'record',
-                                    'bg-gray-100 text-gray-600 dark:bg-gray-500/15 dark:text-gray-400': !['investment', 'goal', 'record'].includes((history.type ?? '').toLowerCase())
-                                }"
-                                class="rounded-full px-2 py-1 text-xs font-medium"
-                                x-text="history.type ?? '-'">
+                                class="text-sm text-gray-500"
+                                x-text="(currentPage - 1) * itemsPerPage + index + 1">
                             </span>
                         </td>
 
-                        <td :class="index === paginatedHistories.length - 1 ? 'px-4 py-4 whitespace-nowrap' : 'px-4 py-4 whitespace-nowrap border-b border-gray-200 dark:border-gray-700'">
-                            <div
+                        <!-- Date -->
+                        <td
+                            :class="index === paginatedHistories.length - 1
+                                ? 'px-4 py-4 whitespace-nowrap'
+                                : 'px-4 py-4 whitespace-nowrap border-b border-gray-200 dark:border-gray-700'">
+
+                            <span
                                 class="text-sm text-gray-900 dark:text-white"
-                                x-text="history.goal?.name ?? history.goal_name ?? '-'">
-                            </div>
+                                x-text="formatDate(history.date)">
+                            </span>
                         </td>
 
-                        <td :class="index === paginatedHistories.length - 1 ? 'px-4 py-4 whitespace-nowrap' : 'px-4 py-4 whitespace-nowrap border-b border-gray-200 dark:border-gray-700'">
-                            <div
-                                class="text-sm font-medium text-gray-900 dark:text-white"
-                                x-text="history.title ?? history.name ?? '-'">
-                            </div>
+                        <!-- Investment -->
+                        <td
+                            :class="index === paginatedHistories.length - 1
+                                ? 'px-4 py-4 whitespace-nowrap'
+                                : 'px-4 py-4 whitespace-nowrap border-b border-gray-200 dark:border-gray-700'">
+
+                            <span
+                                class="text-sm text-gray-900 dark:text-white"
+                                x-text="history.investment?.name ?? '-'">
+                            </span>
                         </td>
 
-                        <td :class="index === paginatedHistories.length - 1 ? 'px-4 py-4 whitespace-nowrap' : 'px-4 py-4 whitespace-nowrap border-b border-gray-200 dark:border-gray-700'">
-                            <div
+                        <!-- Goal -->
+                        <td
+                            :class="index === paginatedHistories.length - 1
+                                ? 'px-4 py-4 whitespace-nowrap'
+                                : 'px-4 py-4 whitespace-nowrap border-b border-gray-200 dark:border-gray-700'">
+
+                            <span
                                 class="text-sm text-gray-900 dark:text-white"
-                                x-text="formatRupiah(history.amount)">
-                            </div>
+                                x-text="history.investment?.goal?.name ?? '-'">
+                            </span>
                         </td>
 
-                        <td :class="index === paginatedHistories.length - 1 ? 'px-4 py-4 whitespace-nowrap' : 'px-4 py-4 whitespace-nowrap border-b border-gray-200 dark:border-gray-700'">
-                            <div
+                        <!-- Name -->
+                        <td
+                            :class="index === paginatedHistories.length - 1
+                                ? 'px-4 py-4 whitespace-nowrap'
+                                : 'px-4 py-4 whitespace-nowrap border-b border-gray-200 dark:border-gray-700'">
+
+                            <span
                                 class="text-sm text-gray-900 dark:text-white"
-                                x-text="history.account?.name ?? history.account_name ?? '-'">
-                            </div>
+                                x-text="history.investment?.name ?? '-'">
+                            </span>
                         </td>
 
-                        <td :class="index === paginatedHistories.length - 1 ? 'px-4 py-4 whitespace-nowrap' : 'px-4 py-4 whitespace-nowrap border-b border-gray-200 dark:border-gray-700'">
-                            <div
+                        <!-- Amount -->
+                        <td
+                            :class="index === paginatedHistories.length - 1
+                                ? 'px-4 py-4 whitespace-nowrap'
+                                : 'px-4 py-4 whitespace-nowrap border-b border-gray-200 dark:border-gray-700'">
+
+                            <span
+                                class="text-sm font-medium text-green-600"
+                                x-text="formatRupiah(history.transaction_amount)">
+                            </span>
+                        </td>
+
+                        <!-- Account -->
+                        <td
+                            :class="index === paginatedHistories.length - 1
+                                ? 'px-4 py-4 whitespace-nowrap'
+                                : 'px-4 py-4 whitespace-nowrap border-b border-gray-200 dark:border-gray-700'">
+
+                            <span
                                 class="text-sm text-gray-900 dark:text-white"
-                                x-text="history.description ?? '-'">
-                            </div>
+                                x-text="history.account?.name ?? '-'">
+                            </span>
+                        </td>
+
+                        <!-- Description -->
+                        <td
+                            :class="index === paginatedHistories.length - 1
+                                ? 'px-4 py-4'
+                                : 'px-4 py-4 border-b border-gray-200 dark:border-gray-700'">
+
+                            <span
+                                class="text-sm text-gray-600 dark:text-gray-300"
+                                x-text="history.description || '-'">
+                            </span>
                         </td>
                     </tr>
+
                 </template>
 
                 <template x-if="paginatedHistories.length === 0">
                     <tr>
-                        <td colspan="8" class="py-8 text-center text-gray-500 dark:text-gray-400">
-                            No histories found
+                        <td colspan="8"
+                            class="py-8 text-center text-gray-500 dark:text-gray-400">
+                            No investment history found.
                         </td>
                     </tr>
                 </template>
