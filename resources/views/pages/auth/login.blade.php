@@ -9,10 +9,10 @@
                     <div>
                         <div class="mb-5 sm:mb-8">
                             <h1 class="text-title-sm sm:text-title-md mb-2 font-semibold text-gray-800 dark:text-white/90">
-                                Sign In
+                                {{ __('common.sign_in') }}
                             </h1>
                             <p class="text-sm text-gray-500 dark:text-gray-400">
-                                Enter your email and password to sign in!
+                                {{ __('common.enter_email_password_sign_in') }}
                             </p>
 
                             @if(session('error'))
@@ -39,14 +39,14 @@
                                         d="M10.1789 4.63331C11.8554 4.63331 12.9864 5.34303 13.6312 5.93612L16.1511 3.525C14.6035 2.11528 12.5895 1.25 10.1789 1.25C6.68676 1.25 3.67088 3.21387 2.20264 6.07218L5.08953 8.26943C5.81381 6.15972 7.81776 4.63331 10.1789 4.63331Z"
                                         fill="#EB4335" />
                                 </svg>
-                                Sign in with Google
+                                {{ __('common.sign_in_with_google') }}
                             </a>
                             <div class="relative py-3 sm:py-5">
                                 <div class="absolute inset-0 flex items-center">
                                     <div class="w-full border-t border-gray-200 dark:border-gray-800"></div>
                                 </div>
                                 <div class="relative flex justify-center text-sm">
-                                    <span class="bg-white p-2 text-gray-400 sm:px-5 sm:py-2 dark:bg-gray-900">Or</span>
+                                    <span class="bg-white p-2 text-gray-400 sm:px-5 sm:py-2 dark:bg-gray-900">{{ __('common.or') }}</span>
                                 </div>
                             </div>
                             <form role="form" method="POST" action="{{ route('login.store') }}">
@@ -55,33 +55,33 @@
                                     <!-- Email -->
                                     <div>
                                         <label class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-white/90">
-                                            Email<span class="text-error-500">*</span>
+                                            {{ __('common.email') }}<span class="text-error-500">*</span>
                                         </label>
-                                        <input type="email" id="email" name="email" placeholder="info@gmail.com"
+                                        <input type="email" id="email" name="email" placeholder="{{ __('common.enter_email') }}"
                                             value="{{ old('email') }}"
                                             class="dark:bg-dark-900 shadow-theme-xs focus:border-brand-300 focus:ring-brand-500/10 dark:focus:border-brand-800 h-11 w-full rounded-lg border border-gray-300 bg-transparent px-4 py-2.5 text-sm text-gray-800 placeholder:text-gray-400 focus:ring-3 focus:outline-hidden dark:border-gray-700 dark:bg-gray-900 dark:text-white/90 dark:placeholder:text-white/30" />
                                         @error('email')
-                                        <span class="absolute top-1/2 right-3.5 -translate-y-1/2">
-                                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
-                                                xmlns="http://www.w3.org/2000/svg">
-                                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                                    d="M2.58325 7.99967C2.58325 5.00813 5.00838 2.58301 7.99992 2.58301C10.9915 2.58301 13.4166 5.00813 13.4166 7.99967C13.4166 10.9912 10.9915 13.4163 7.99992 13.4163C5.00838 13.4163 2.58325 10.9912 2.58325 7.99967ZM7.99992 1.08301C4.17995 1.08301 1.08325 4.17971 1.08325 7.99967C1.08325 11.8196 4.17995 14.9163 7.99992 14.9163C11.8199 14.9163 14.9166 11.8196 14.9166 7.99967C14.9166 4.17971 11.8199 1.08301 7.99992 1.08301ZM7.09932 5.01639C7.09932 5.51345 7.50227 5.91639 7.99932 5.91639H7.99999C8.49705 5.91639 8.89999 5.51345 8.89999 5.01639C8.89999 4.51933 8.49705 4.11639 7.99999 4.11639H7.99932C7.50227 4.11639 7.09932 4.51933 7.09932 5.01639ZM7.99998 11.8306C7.58576 11.8306 7.24998 11.4948 7.24998 11.0806V7.29627C7.24998 6.88206 7.58576 6.54627 7.99998 6.54627C8.41419 6.54627 8.74998 6.88206 8.74998 7.29627V11.0806C8.74998 11.4948 8.41419 11.8306 7.99998 11.8306Z"
-                                                    fill="#F04438" />
-                                            </svg>
-                                        </span>
-                                        <p class="text-theme-xs text-error-500 mt-1.5">
-                                            {{ $message }}
-                                        </p>
+                                            <span class="absolute top-1/2 right-3.5 -translate-y-1/2">
+                                                <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
+                                                    xmlns="http://www.w3.org/2000/svg">
+                                                    <path fill-rule="evenodd" clip-rule="evenodd"
+                                                        d="M2.58325 7.99967C2.58325 5.00813 5.00838 2.58301 7.99992 2.58301C10.9915 2.58301 13.4166 5.00813 13.4166 7.99967C13.4166 10.9912 10.9915 13.4163 7.99992 13.4163C5.00838 13.4163 2.58325 10.9912 2.58325 7.99967ZM7.99992 1.08301C4.17995 1.08301 1.08325 4.17971 1.08325 7.99967C1.08325 11.8196 4.17995 14.9163 7.99992 14.9163C11.8199 14.9163 14.9166 11.8196 14.9166 7.99967C14.9166 4.17971 11.8199 1.08301 7.99992 1.08301ZM7.09932 5.01639C7.09932 5.51345 7.50227 5.91639 7.99932 5.91639H7.99999C8.49705 5.91639 8.89999 5.51345 8.89999 5.01639C8.89999 4.51933 8.49705 4.11639 7.99999 4.11639H7.99932C7.50227 4.11639 7.09932 4.51933 7.09932 5.01639ZM7.99998 11.8306C7.58576 11.8306 7.24998 11.4948 7.24998 11.0806V7.29627C7.24998 6.88206 7.58576 6.54627 7.99998 6.54627C8.41419 6.54627 8.74998 6.88206 8.74998 7.29627V11.0806C8.74998 11.4948 8.41419 11.8306 7.99998 11.8306Z"
+                                                        fill="#F04438" />
+                                                </svg>
+                                            </span>
+                                            <p class="text-theme-xs text-error-500 mt-1.5">
+                                                {{ $message }}
+                                            </p>
                                         @enderror
                                     </div>
-                                    <!-- Password -->
+
                                     <div>
                                         <label class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-white/90">
-                                            Password<span class="text-error-500">*</span>
+                                            {{ __('common.password') }}<span class="text-error-500">*</span>
                                         </label>
                                         <div x-data="{ showPassword: false }" class="relative">
                                             <input :type="showPassword ? 'text' : 'password'"
-                                                placeholder="Enter your password"
+                                                placeholder="{{ __('common.enter_password') }}"
                                                 name="password"
                                                 class="dark:bg-dark-900 shadow-theme-xs focus:border-brand-300 focus:ring-brand-500/10 dark:focus:border-brand-800 h-11 w-full rounded-lg border border-gray-300 bg-transparent py-2.5 pr-11 pl-4 text-sm text-gray-800 placeholder:text-gray-400 focus:ring-3 focus:outline-hidden dark:border-gray-700 dark:bg-gray-900 dark:text-white/90 dark:placeholder:text-white/30" />
                                             <span @click="showPassword = !showPassword"
@@ -108,14 +108,15 @@
                                             @enderror
                                         </div>
                                     </div>
-                                    <!-- Checkbox -->
+
                                     <div class="flex items-center justify-between">
                                         <div x-data="{ checkboxToggle: false }">
                                             <label for="checkboxLabelOne"
                                                 class="flex cursor-pointer items-center text-sm font-normal text-gray-700 select-none dark:text-white/80">
                                                 <div class="relative">
-                                                    <input type="checkbox" id="checkboxLabelOne" class="sr-only"
+                                                    <input name="remember" value="1" type="checkbox" id="checkboxLabelOne" class="sr-only"
                                                         @change="checkboxToggle = !checkboxToggle" />
+
                                                     <div :class="checkboxToggle ? 'border-main bg-main' :
                                                         'bg-transparent border-gray-300 dark:border-gray-700'"
                                                         class="mr-3 flex h-5 w-5 items-center justify-center rounded-md border-[1.25px]">
@@ -129,28 +130,28 @@
                                                         </span>
                                                     </div>
                                                 </div>
-                                                Keep me logged in
+                                                {{ __('common.remember_me') }}
                                             </label>
                                         </div>
-                                        <a href="{{ route('reset-password') }}"
+                                        <a href="{{ route('forgot-password') }}"
                                             class="text-main hover:text-main-hover dark:text-second text-sm">
-                                            Forgot password?
+                                            {{ __('common.forgot_password') }}
                                         </a>
                                     </div>
-                                    <!-- Button -->
+
                                     <div>
                                         <button
                                             class="bg-main shadow-theme-xs hover:bg-main-hover flex w-full items-center justify-center rounded-lg px-4 py-3 text-sm font-medium text-white transition">
-                                                Sign In
+                                                {{ __('common.sign_in') }}
                                         </button>
                                     </div>
                                 </div>
                             </form>
                             <div class="mt-5">
                                 <p class="text-center text-sm font-normal text-gray-700 sm:text-start dark:text-gray-400">
-                                    Don't have an account?
+                                    {{ __('common.dont_have_account') }}
                                     <a href="{{ route('register') }}"
-                                        class="text-main hover:text-main-hover dark:text-second">Sign Up</a>
+                                        class="text-main hover:text-main-hover dark:text-second">{{ __('common.sign_up') }}</a>
                                 </p>
                             </div>
                         </div>
@@ -165,11 +166,17 @@
                             <img src="./images/logo/logo.png" alt="Logo" class="w-80" />
                         </a>
                         <p class="text-center text-gray-500 dark:text-white/60">
-                            Track your income, manage expenses, and plan your financial future with a simple yet powerful
-                            platform.
+                            {{ __('common.track_income') }}
                         </p>
                     </div>
                 </div>
+            </div>
+            <!-- Language Toggler -->
+            <div class="fixed right-24 bottom-6 z-50">
+                <a href="{{ route('locale.switch', app()->getLocale() === 'id' ? 'en' : 'id') }}"
+                    class="bg-main-hover hover:bg-main inline-flex size-14 items-center justify-center rounded-full text-xs font-bold uppercase text-white transition-colors">
+                    {{ app()->getLocale() === 'id' ? 'EN' : 'ID' }}
+                </a>
             </div>
             <!-- Toggler -->
             <div class="fixed right-6 bottom-6 z-50">

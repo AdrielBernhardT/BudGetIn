@@ -5,28 +5,28 @@
                 <tr class="border-gray-200 border-y dark:border-gray-700">
                     <th scope="col"
                         class="px-4 py-3 font-normal text-gray-900 dark:text-white text-start text-theme-sm">
-                        No</th>
+                        {{ __('common.no') }}</th>
                     <th scope="col"
                         class="px-4 py-3 font-normal text-gray-900 dark:text-white text-start text-theme-sm">
-                        Title</th>
+                        {{ __('common.title') }}</th>
                     <th scope="col"
                         class="px-4 py-3 font-normal text-gray-900 dark:text-white text-start text-theme-sm">
-                        Amount</th>
+                        {{ __('common.amount') }}</th>
                     <th scope="col"
                         class="px-4 py-3 font-normal text-gray-900 dark:text-white text-start text-theme-sm">
-                        Account Bank</th>
+                        {{ __('common.account_bank') }}</th>
                     <th scope="col"
                         class="px-4 py-3 font-normal text-gray-900 dark:text-white text-start text-theme-sm">
-                        Category</th>
+                        {{ __('nav.category') }}</th>
                     <th scope="col"
                         class="px-4 py-3 font-normal text-gray-900 dark:text-white text-start text-theme-sm">
-                        Date</th>
+                        {{ __('common.date') }}</th>
                     <th scope="col"
                         class="px-4 py-3 font-normal text-gray-900 dark:text-white text-start text-theme-sm">
-                        Description</th>
+                        {{ __('common.description') }}</th>
                     <th scope="col"
                         class="px-4 py-3 font-normal text-gray-900 dark:text-white text-start text-theme-sm">
-                        Actions</th>
+                        {{ __('common.actions') }}</th>
                 </tr>
             </thead>
             <tbody>
@@ -50,7 +50,7 @@
                             :class="index === paginatedexpenses.length - 1 ? 'px-4 py-4 whitespace-nowrap' :
                                 'px-4 py-4 whitespace-nowrap border-b border-gray-200 dark:border-gray-700'">
                             <div class="flex text-sm text-gray-900 dark:text-white gap-1">
-                                IDR <span x-text="formatRupiah(expense.amount)"></span>
+                                {{ __('common.idr') }} <span x-text="formatRupiah(expense.amount)"></span>
                             </div>
                         </td>
                         <td
@@ -111,7 +111,7 @@
                 <template x-if="paginatedexpenses.length === 0">
                     <tr>
                         <td colspan="8" class="py-8 text-center text-gray-500">
-                            No Expenses found
+                            {{ __('common.no_expenses_available') }}
                         </td>
                     </tr>
                 </template>

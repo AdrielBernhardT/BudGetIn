@@ -1,6 +1,6 @@
 <div class="flex flex-col gap-2 px-5 mb-4 sm:flex-row sm:items-center sm:justify-between sm:px-6">
     <div class="flex items-center gap-3">
-        <span class="text-gray-500 dark:text-gray-400 ">Show</span>
+        <span class="text-gray-500 dark:text-gray-400 ">{{ __('pagination.show') }}</span>
         <div class="relative">
             <select x-model.number="itemsPerPage" @change="currentPage = 1"
                 class="w-full py-2 pl-3 pr-8 appearance-none text-sm text-gray-800 bg-transparent border border-gray-300 rounded-lg dark:bg-dark-900 h-9 bg-none shadow-theme-xs placeholder:text-gray-400 focus:border-brand-300 focus:outline-hidden focus:ring-3 focus:ring-brand-500/10 dark:border-gray-700 dark:bg-gray-900 dark:text-white/90 dark:placeholder:text-white/30 dark:focus:border-brand-800">
@@ -18,7 +18,7 @@
                 </svg>
             </span>
         </div>
-        <span class="text-gray-500 dark:text-gray-400 ">transfers</span>
+        <span class="text-gray-500 dark:text-gray-400 ">{{ __('nav.transfers') }}</span>
     </div>
     <div class="flex flex-col gap-3 sm:flex-row sm:items-center">
         <form>
@@ -31,14 +31,14 @@
                             fill="" />
                     </svg>
                 </button>
-                <input type="text" placeholder="Search..."
+                <input type="text" placeholder="{{ __('common.search') }}..."
                     x-model="search"
                     class="h-[42px] w-full rounded-lg border border-gray-300 bg-transparent py-2.5 pl-[42px] pr-4 text-sm text-gray-800 shadow-theme-xs placeholder:text-gray-400 focus:border-blue-300 focus:outline-none focus:ring-2 focus:ring-blue-500/10 dark:border-gray-700 dark:bg-gray-900 dark:text-white/90 dark:placeholder:text-white/30 dark:focus:border-blue-800 xl:w-[300px]" />
             </div>
         </form>
         <button @click="openCreateModal()"
             class="inline-flex items-center gap-2 rounded-lg border border-gray-300 bg-main px-4 py-3 text-theme-sm font-medium text-white shadow-theme-xs hover:bg-main-hover hover:text-white/90 dark:border-gray-700 dark:bg-main dark:text-white dark:hover:bg-main-hover dark:hover:text-white/90">
-            Add Transfer
+            {{ __('common.add_transfer') }}
         </button>
     </div>
 </div>
