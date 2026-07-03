@@ -34,7 +34,7 @@ class MenuHelper
             [
                 'icon' => 'report',
                 'name' => 'Report',
-                'route' => 'report',
+                'route' => 'report.index',
             ]
             // [
             //     'icon' => 'calendar',
