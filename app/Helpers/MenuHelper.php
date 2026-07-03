@@ -9,31 +9,31 @@ class MenuHelper
         return [
             [
                 'icon' => 'dashboard',
-                'name' => 'Dashboard',
+                'name' => __('nav.dashboard'),
                 'route' => 'dashboard'
             ],
             [
                 'icon' => 'transaction',
-                'name' => 'Transactions',
+                'name' => __('nav.transactions'),
                 'subItems' => [
-                    ['name' => 'Income', 'route' => 'income.index', 'pro' => false],
-                    ['name' => 'Expense', 'route' => 'expense.index', 'pro' => false],
-                    ['name' => 'Transfer', 'route' => 'transfer.index', 'pro' => false]
+                    ['name' => __('nav.income'), 'route' => 'income.index', 'pro' => false],
+                    ['name' => __('nav.expense'), 'route' => 'expense.index', 'pro' => false],
+                    ['name' => __('nav.transfer'), 'route' => 'transfer.index', 'pro' => false]
                 ]
             ],
             [
                 'icon' => 'calendar',
-                'name' => 'Category',
+                'name' => __('nav.category'),
                 'route' => 'category.index',
             ],
             [
                 'icon' => 'charts',
-                'name' => 'Investment',
+                'name' => __('nav.investment'),
                 'route' => 'investment.index',
             ],
             [
                 'icon' => 'report',
-                'name' => 'Report',
+                'name' => __('nav.report'),
                 'route' => 'report.index',
             ]
             // [
@@ -71,12 +71,12 @@ class MenuHelper
         return [
             [
                 'icon' => 'user-profile',
-                'name' => 'Profile',
+                'name' => __('nav.profile'),
                 'route' => 'profile.index',
             ],
             [
                 'icon' => 'settings',
-                'name' => 'Settings',
+                'name' => __('nav.settings'),
                 'route' => 'settings.index'
             ]
             // [
@@ -115,11 +115,11 @@ class MenuHelper
     {
         return [
             [
-                'title' => 'Menu',
+                'title' => __('nav.group_menu'),
                 'items' => self::getMainNavItems()
             ],
             [
-                'title' => 'Others',
+                'title' => __('nav.group_others'),
                 'items' => self::getOthersItems()
             ]
         ];

@@ -1,5 +1,5 @@
 <div x-data="investmentPage()">
-    <x-ui.modal 
+    <x-ui.modal
         x-data="{
             open: {{ $errors->investment->any() ? 'true' : 'false' }},
             showErrors: {{ $errors->investment->any() ? 'true' : 'false' }},
@@ -51,10 +51,10 @@
     >
         <div class="px-2 pr-14">
             <h4 class="mb-2 text-2xl font-semibold text-gray-800 dark:text-white/90">
-                Edit Investment List
+                {{ __('common.edit_investment') }}
             </h4>
             <p class="mb-2 text-sm text-gray-500 dark:text-gray-400 lg:mb-7">
-                Edit your investment list to track your savings and investments.
+                {{ __('common.edit_investment_description')     }}
             </p>
         </div>
 
@@ -66,7 +66,7 @@
 
                 <div>
                     <label class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400">
-                        Investment Name:
+                        {{ __('common.investment_name') }}:
                     </label>
                     <input type="text" name="name" x-model="investment.name"
                         class="dark:bg-dark-900 shadow-theme-xs focus:border-brand-300 focus:ring-brand-500/10 h-11 w-full rounded-lg border border-gray-300 bg-transparent px-4 py-2.5 text-sm text-gray-800 dark:border-gray-700 dark:text-white/90"
@@ -77,10 +77,10 @@
                     <x-ui.alert variant="info" :showLink="false">
                         <div>
                             <p class="font-medium text-blue-800 dark:text-blue-200">
-                                <span x-text="selectedGoal.name"></span> Target Amount:
+                                <span x-text="selectedGoal.name"></span> {{ __('common.target_amount') }}:
                             </p>
                             <p class="text-sm text-blue-700 dark:text-blue-300">
-                                IDR <span x-text="formatRupiah(parseInt(selectedGoal.target_amount))"></span>
+                                {{ __('common.idr') }} <span x-text="formatRupiah(parseInt(selectedGoal.target_amount))"></span>
                             </p>
                         </div>
                     </x-ui.alert>
@@ -91,7 +91,7 @@
 
                         <div>
                             <label class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400">
-                                Allocation (%)
+                                {{ __('common.allocation') }} (%)
                             </label>
 
                             <div class="relative">
@@ -129,12 +129,12 @@
 
                         <div>
                             <label class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400">
-                                Allocation Amount
+                                {{ __('common.allocation_amount') }}
                             </label>
 
                             <div class="relative">
                                 <span class="absolute left-0 top-1/2 -translate-y-1/2 border-r px-3 text-gray-500">
-                                    IDR
+                                    {{ __('common.idr') }}
                                 </span>
 
                                 <input type="text"
@@ -172,12 +172,12 @@
                 <div class="flex items-center gap-3 px-2 mt-6 lg:justify-end">
                     <button type="button" @click="open = false; resetErrors()"
                         class="flex w-full justify-center rounded-lg border border-gray-300 bg-white px-4 py-2.5 text-sm font-medium text-gray-700 sm:w-auto">
-                        Close
+                        {{ __('common.close') }}
                     </button>
 
                     <button type="submit"
                         class="flex w-full justify-center rounded-lg bg-main px-4 py-2.5 text-sm font-medium text-white sm:w-auto">
-                        Save Changes
+                        {{ __('common.save_changes') }}
                     </button>
                 </div>
 

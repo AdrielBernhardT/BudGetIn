@@ -11,17 +11,17 @@
                 <button @click="tab='allocation'"
                     :class="tab === 'allocation' ? 'border-b-2 border-main text-main' : 'text-gray-500 dark:text-gray-400'"
                     class="pb-2 text-theme-sm font-medium transition-colors duration-300">
-                    Allocation
+                    {{ __('common.allocation') }}
                 </button>
                 <button @click="tab='goals'"
                     :class="tab === 'goals' ? 'border-b-2 border-main text-main' : 'text-gray-500 dark:text-gray-400'"
                     class="pb-2 text-theme-sm font-medium transition-colors duration-300">
-                    Goals
+                    {{ __('common.goals') }}
                 </button>
                 <button @click="tab='history'"
                     :class="tab === 'history' ? 'border-b-2 border-main text-main' : 'text-gray-500 dark:text-gray-400'"
                     class="pb-2 text-theme-sm font-medium transition-colors duration-300">
-                    History
+                    {{ __('common.history') }}
                 </button>
             </div>
             <div class="flex flex-col gap-2 lg:flex-row lg:w-auto">
@@ -29,18 +29,18 @@
                     <button @click="$dispatch('add-goal')"
                         class="w-full lg:w-auto whitespace-nowrap justify-center inline-flex items-center gap-3 rounded-lg border border-gray-300 bg-white/90 px-4 py-2 text-theme-xs md:text-theme-sm font-medium text-gray-800 shadow-theme-xs hover:bg-gray-50 hover:text-gray-800 dark:border-gray-700 dark:bg-white/[0.03] dark:text-white dark:hover:bg-white/[0.07] dark:hover:text-white/90">
                         <i data-lucide="goal" class="w-3 h-3 md:w-4 md:h-4 shrink-0 text-gray-800 dark:text-white"></i>
-                        Add Goal
+                        {{ __('common.add_goal') }}
                     </button>
                     <button @click="$dispatch('add-investment')"
                         class="w-full lg:w-auto whitespace-nowrap justify-center inline-flex items-center gap-3 rounded-lg border border-gray-300 bg-white/90 px-4 py-2 text-theme-xs md:text-theme-sm font-medium text-gray-800 shadow-theme-xs hover:bg-gray-50 hover:text-gray-800 dark:border-gray-700 dark:bg-white/[0.03] dark:text-white dark:hover:bg-white/[0.07] dark:hover:text-white/90">
                         <i data-lucide="plus" class="w-3 h-3 md:w-4 md:h-4 shrink-0 text-gray-800 dark:text-white"></i>
-                        Add Investment
+                        {{ __('common.add_investment') }}
                     </button>
                 </div>
                 <button @click="$dispatch('record-investment')"
                     class="w-full lg:w-auto whitespace-nowrap justify-center inline-flex items-center gap-3 rounded-lg border border-gray-300 bg-main px-4 py-2 text-theme-xs md:text-theme-sm font-medium text-white shadow-theme-xs hover:bg-main-hover hover:text-white/90 dark:border-gray-700 dark:bg-main dark:text-white dark:hover:bg-main-hover dark:hover:text-white/90">
                     <i data-lucide="pencil-line" class="w-3 h-3 md:w-4 md:h-4 shrink-0 text-white dark:text-white"></i>
-                    Record Investment
+                    {{ __('common.record_investment') }}
                 </button>
             </div>
         </div>
