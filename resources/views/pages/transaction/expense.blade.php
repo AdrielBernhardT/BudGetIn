@@ -5,8 +5,25 @@
     <div
         class="min-h-screen rounded-2xl border border-gray-200 bg-white px-5 py-7 dark:border-gray-800 dark:bg-white/[0.03] xl:px-10 xl:py-12">
         <div x-data="expensePage()">
+            @if ($categories->isEmpty())
+                <div class="mb-4 rounded-lg border border-yellow-300 bg-yellow-50 px-5 py-4 dark:border-yellow-700 dark:bg-yellow-900/20">
+                    <div class="flex items-center gap-3">
+                        <svg class="h-5 w-5 text-yellow-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M12 9v2m0 4h.01M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z" />
+                        </svg>
+                        <p class="text-sm font-medium text-yellow-700 dark:text-yellow-400">
+                            You don't have any categories yet.
+                            <a href="{{ route('category.index') }}" class="underline font-semibold hover:text-yellow-900">
+                                Create a category first
+                            </a>
+                            before adding an expense.
+                        </p>
+                    </div>
+                </div>
+            @endif
             <div class="rounded-2xl border border-gray-200 bg-white pt-4 dark:border-gray-800 dark:bg-white/[0.03]">
-                <x-expense.header />
+                <x-expense.header :categories="$categories" />
                 <x-expense.table />
                 <x-expense.pagination />
             </div>
@@ -20,6 +37,7 @@
         function expensePage() {
             return {
                 expenses: @js($expenses),
+                categories: @js($categories),
                 itemsPerPage: 5,
                 currentPage: 1,
                 dropdownOpen: null,
@@ -76,9 +94,8 @@
                     this.dropdownOpen = this.dropdownOpen === id ? null : id;
                 },
                 openCreateModal() {
-                    this.$dispatch('open-expense-modal', {
-                        mode: 'create'
-                    });
+                    if (this.categories.length === 0) return;
+                    this.$dispatch('open-expense-modal', { mode: 'create' });
                 },
                 openEditModal(expense) {
                     this.$dispatch('open-expense-modal', {
