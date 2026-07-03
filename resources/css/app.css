@@ -416,6 +416,10 @@
   @apply !fill-gray-800 !font-semibold dark:!fill-white/90;
 }
 
+.apexcharts-text {
+  @apply !fill-gray-800 dark:!fill-white/90;
+}
+
 #chartSixteen .apexcharts-legend {
   @apply !p-0 !pl-6;
 }
