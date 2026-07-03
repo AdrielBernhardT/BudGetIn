@@ -20,4 +20,14 @@ class RecordInvestment extends Model
     {
         return $this->belongsTo(Investment::class);
     }
+
+    public function goal()
+    {
+        return $this->belongsTo(Goal::class);
+    }
+
+    public function account()
+    {
+        return $this->belongsTo(Account::class);
+    }
 }

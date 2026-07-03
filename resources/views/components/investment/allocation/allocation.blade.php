@@ -62,6 +62,5 @@
             @endif
 
         </div>
-        <x-investment.allocation.edit-modal :goals="$goals" />
     </div>
 </div>

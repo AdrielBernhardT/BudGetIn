@@ -76,10 +76,10 @@
                         <label class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400">
                             Deadline (Optional)
                         </label>
-                        <x-form.date-picker id="goal_target_date" name="target_date" placeholder="Pilih deadline goal"
+                        <x-form.date-picker id="goal_target_date" name="target_date" placeholder="Select goal deadline"
                             x-model="target.target_date" />
                         <p class="mt-1 text-xs text-gray-400">
-                            Dipakai untuk reminder progress &amp; notifikasi mendekati deadline.
+                            Used for progress reminders &amp;  notifications when the deadline is approaching.
                         </p>
                         @error('target_date', 'goal')
                             <p class="mt-1 text-sm text-red-500">{{ $message }}</p>

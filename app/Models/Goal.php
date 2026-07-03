@@ -40,6 +40,11 @@ class Goal extends Model
         return $this->hasMany(Investment::class);
     }
 
+    public function investmentRecords()
+    {
+        return $this->hasMany(RecordInvestment::class);
+    }
+
     /**
      * Total amount actually invested toward this goal so far.
      * Relies on `investments.records` being eager-loaded for performance;
