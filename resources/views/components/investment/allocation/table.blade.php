@@ -9,32 +9,32 @@
                     <tr class="border-b border-gray-100 dark:border-gray-800">
                         <th class="px-5 py-3 text-left sm:px-6">
                             <p class="font-medium text-gray-500 text-theme-xs dark:text-gray-400">
-                                Name
+                                {{ __('common.name') }}
                             </p>
                         </th>
                         <th class="px-5 py-3 text-left sm:px-6">
                             <p class="font-medium text-gray-500 text-theme-xs dark:text-gray-400">
-                                Allocation
+                                {{ __('common.allocation') }}
                             </p>
                         </th>
                         <th class="px-5 py-3 text-left sm:px-6">
                             <p class="font-medium text-gray-500 text-theme-xs dark:text-gray-400">
-                                Target Amount
+                                {{ __('common.target_amount') }}
                             </p>
                         </th>
                         <th class="px-5 py-3 text-left sm:px-6">
                             <p class="font-medium text-gray-500 text-theme-xs dark:text-gray-400">
-                                Current Amount
+                                {{ __('common.current_amount') }}
                             </p>
                         </th>
                         <th class="px-5 py-3 text-left sm:px-6">
                             <p class="font-medium text-gray-500 text-theme-xs dark:text-gray-400">
-                                Progress
+                                {{ __('common.progress') }}
                             </p>
                         </th>
                         <th class="px-5 py-3 text-left sm:px-6">
                             <p class="font-medium text-gray-500 text-theme-xs dark:text-gray-400">
-                                Action
+                                {{ __('common.actions') }}
                             </p>
                         </th>
                     </tr>
@@ -50,12 +50,12 @@
                         </td>
                         <td class="px-5 py-4 sm:px-6">
                             <div class="flex text-sm text-gray-900 dark:text-white gap-1">
-                                IDR <span>{{ number_format($item->target_amount, 0, ',', '.') }}</span>
+                                {{ __('common.idr') }} <span>{{ number_format($item->target_amount, 0, ',', '.') }}</span>
                             </div>
                         </td>
                         <td class="px-5 py-4 sm:px-6">
                             <div class="flex text-sm text-gray-900 dark:text-white gap-1">
-                                IDR <span>{{ number_format($item->current_amount, 0, ',', '.') }}</span>
+                                {{ __('common.idr') }} <span>{{ number_format($item->current_amount, 0, ',', '.') }}</span>
                             </div>
                         </td>
                         <td class="px-5 py-4 sm:px-6">
@@ -110,11 +110,11 @@
                     </tr>
                     @endforeach
                 </tbody>
-            </table>   
+            </table>
             @else
             <div class="rounded-xl border-b border-gray-100 dark:border-gray-800 p-4 text-center">
                 <p class="text-gray-500 text-sm">
-                    No investment item found for this goal.
+                    {{ __('common.no_investment_items_found') }}
                 </p>
             </div>
             @endif

@@ -2,7 +2,7 @@
     <!-- Elements -->
     <div>
         <label class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400">
-            Input
+            {{ __('common.input') }}
         </label>
         <input type="text"
             class="dark:bg-dark-900 shadow-theme-xs focus:border-brand-300 focus:ring-brand-500/10 dark:focus:border-brand-800 h-11 w-full rounded-lg border border-gray-300 bg-transparent px-4 py-2.5 text-sm text-gray-800 placeholder:text-gray-400 focus:ring-3 focus:outline-hidden dark:border-gray-700 dark:bg-gray-900 dark:text-white/90 dark:placeholder:text-white/30" />
@@ -11,7 +11,7 @@
     <!-- Elements -->
     <div>
         <label class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400">
-            Input with Placeholder
+            {{ __('common.input_with_placeholder') }}
         </label>
         <input type="text" placeholder="info@gmail.com"
             class="dark:bg-dark-900 shadow-theme-xs focus:border-brand-300 focus:ring-brand-500/10 dark:focus:border-brand-800 h-11 w-full rounded-lg border border-gray-300 bg-transparent px-4 py-2.5 text-sm text-gray-800 placeholder:text-gray-400 focus:ring-3 focus:outline-hidden dark:border-gray-700 dark:bg-gray-900 dark:text-white/90 dark:placeholder:text-white/30" />
@@ -20,23 +20,23 @@
     <!-- Elements -->
     <div>
         <label class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400">
-            Select Input
+            {{ __('common.select_input') }}
         </label>
         <div x-data="{ isOptionSelected: false }" class="relative z-20 bg-transparent">
             <select
                 class="dark:bg-dark-900 shadow-theme-xs focus:border-brand-300 focus:ring-brand-500/10 dark:focus:border-brand-800 h-11 w-full appearance-none rounded-lg border border-gray-300 bg-transparent bg-none px-4 py-2.5 pr-11 text-sm text-gray-800 placeholder:text-gray-400 focus:ring-3 focus:outline-hidden dark:border-gray-700 dark:bg-gray-900 dark:text-white/90 dark:placeholder:text-white/30"
                 :class="isOptionSelected && 'text-gray-800 dark:text-white/90'" @change="isOptionSelected = true">
                 <option value="" class="text-gray-700 dark:bg-gray-900 dark:text-gray-400">
-                    Select Option
+                    {{ __('common.select_option') }}
                 </option>
                 <option value="" class="text-gray-700 dark:bg-gray-900 dark:text-gray-400">
-                    Marketing
+                    {{ __('common.marketing') }}
                 </option>
                 <option value="" class="text-gray-700 dark:bg-gray-900 dark:text-gray-400">
-                    Template
+                    {{ __('common.template') }}
                 </option>
                 <option value="" class="text-gray-700 dark:bg-gray-900 dark:text-gray-400">
-                    Development
+                    {{ __('common.development') }}
                 </option>
             </select>
             <span
@@ -53,7 +53,7 @@
     <!-- Elements -->
     <div>
         <label class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400">
-            Password Input
+            {{ __('common.password_input') }}
         </label>
         <div x-data="{ showPassword: false }" class="relative">
             <input :type="showPassword ? 'text' : 'password'" placeholder="Enter your password"
@@ -78,21 +78,21 @@
     <!-- Elements -->
     <div>
         <label class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400">
-            Date Picker Input
+            {{ __('common.date_picker_input') }}
         </label>
 
-        <x-form.date-picker 
-            id="date_pick" 
+        <x-form.date-picker
+            id="date_pick"
             name="date_pick"
-            placeholder="Date Picker" 
-            defaultDate="{{ now()->format('Y-m-d') }}" 
+            placeholder="Date Picker"
+            defaultDate="{{ now()->format('Y-m-d') }}"
         />
     </div>
 
     <!-- Elements -->
     <div>
         <label class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400">
-            Time Select Input
+            {{ __('common.time_select_input') }}
         </label>
         <div class="relative">
             <input type="time" placeholder="12:00 AM" onclick="this.showPicker()"
@@ -111,7 +111,7 @@
     <!-- Elements -->
     <div>
         <label class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400">
-            Input with Payment
+            {{ __('common.input_with_payment') }}
         </label>
 
         <div class="relative">

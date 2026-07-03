@@ -5,22 +5,22 @@
                 <tr class="border-gray-200 border-y dark:border-gray-700">
                     <th scope="col"
                         class="px-4 py-3 font-normal text-gray-900 dark:text-white text-start text-theme-sm">
-                        No</th>
+                        {{ __('common.no') }}</th>
                     <th scope="col"
                         class="px-4 py-3 font-normal text-gray-900 dark:text-white text-start text-theme-sm">
-                        Name</th>
+                        {{ __('common.name') }}</th>
                     <th scope="col"
                         class="px-4 py-3 font-normal text-gray-900 dark:text-white text-start text-theme-sm">
-                        Monthly Budget</th>
+                        {{ __('common.monthly_budget') }}</th>
                     <th scope="col"
                         class="px-4 py-3 font-normal text-gray-900 dark:text-white text-start text-theme-sm">
-                        Expense This Month</th>
+                        {{ __('common.expense_this_month') }}</th>
                     <th scope="col"
                         class="px-4 py-3 font-normal text-gray-900 dark:text-white text-start text-theme-sm">
-                        Usage</th>
+                        {{ __('common.usage') }}</th>
                     <th scope="col"
                         class="px-4 py-3 font-normal text-gray-900 dark:text-white text-start text-theme-sm">
-                        Actions</th>
+                        {{ __('common.actions') }}</th>
                 </tr>
             </thead>
             <tbody>
@@ -47,14 +47,14 @@
                             :class="index === paginatedcategories.length - 1 ? 'px-4 py-4 whitespace-nowrap' :
                                 'px-4 py-4 whitespace-nowrap border-b border-gray-200 dark:border-gray-700'">
                             <div class="flex text-sm text-gray-900 dark:text-white gap-1">
-                                IDR <span x-text="formatRupiah(category.monthly_budget)"></span>
+                                {{ __('common.idr') }} <span x-text="formatRupiah(category.monthly_budget)"></span>
                             </div>
                         </td>
                         <td
                             :class="index === paginatedcategories.length - 1 ? 'px-4 py-4 whitespace-nowrap' :
                                 'px-4 py-4 whitespace-nowrap border-b border-gray-200 dark:border-gray-700'">
                             <div class="flex text-sm text-gray-900 dark:text-white gap-1">
-                                IDR <span x-text="formatRupiah(category.expense_this_month)"></span>
+                                {{ __('common.idr') }} <span x-text="formatRupiah(category.expense_this_month)"></span>
                             </div>
                         </td>
                         <td
@@ -68,7 +68,7 @@
                                 'px-4 py-4 whitespace-nowrap border-b border-gray-200 dark:border-gray-700'">
                             <div class="text-sm text-gray-900 dark:text-white">
                                 <div class="flex items-center w-full gap-2">
-                                    
+
                                     <a
                                         :href="`/category/delete/${category.slug}`"
                                         class="text-gray-500 hover:text-error-500 dark:text-gray-400 dark:hover:text-error-500"
@@ -99,7 +99,7 @@
                 <template x-if="paginatedcategories.length === 0">
                     <tr>
                         <td colspan="6" class="py-8 text-center text-gray-500">
-                            No categories found
+                            {{ __('common.No_categories_available') }}
                         </td>
                     </tr>
                 </template>

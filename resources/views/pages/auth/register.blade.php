@@ -8,10 +8,10 @@
                 <div class="mx-auto flex w-full max-w-md flex-1 flex-col justify-center">
                     <div class="mb-5 sm:mb-8">
                         <h1 class="text-title-sm sm:text-title-md mb-2 font-semibold text-gray-800 dark:text-white/90">
-                            Sign Up
+                            {{ __('common.sign_up') }}
                         </h1>
                         <p class="text-sm text-gray-500 dark:text-gray-400">
-                            Enter your email and password to sign up!
+                            {{ __('common.enter_email_password_sign_up') }}
                         </p>
 
                         @if(session('error'))
@@ -38,14 +38,14 @@
                                     d="M10.1789 4.63331C11.8554 4.63331 12.9864 5.34303 13.6312 5.93612L16.1511 3.525C14.6035 2.11528 12.5895 1.25 10.1789 1.25C6.68676 1.25 3.67088 3.21387 2.20264 6.07218L5.08953 8.26943C5.81381 6.15972 7.81776 4.63331 10.1789 4.63331Z"
                                     fill="#EB4335" />
                             </svg>
-                            Sign up with Google
+                            {{ __('common.sign_up_with_google') }}
                         </a>
                         <div class="relative py-3 sm:py-5">
                             <div class="absolute inset-0 flex items-center">
                                 <div class="w-full border-t border-gray-200 dark:border-gray-800"></div>
                             </div>
                             <div class="relative flex justify-center text-sm">
-                                <span class="bg-white p-2 text-gray-400 sm:px-5 sm:py-2 dark:bg-gray-900">Or</span>
+                                <span class="bg-white p-2 text-gray-400 sm:px-5 sm:py-2 dark:bg-gray-900">{{ __('common.or') }}</span>
                             </div>
                         </div>
                         <form role="form" method="POST" action="{{ route('register.store') }}">
@@ -55,11 +55,11 @@
                                     <!-- First Name -->
                                     <div class="sm:col-span-1">
                                         <label class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-white/90">
-                                            First Name<span class="text-error-500">*</span>
+                                            {{ __('common.first_name') }}<span class="text-error-500">*</span>
                                         </label>
                                         <input type="text" id="fname" name="fname"
                                             value="{{ old('fname') }}"
-                                            placeholder="Enter your first name"
+                                            placeholder="{{ __('common.enter_first_name') }}"
                                             class="dark:bg-dark-900 shadow-theme-xs focus:border-brand-300 focus:ring-brand-500/10 dark:focus:border-brand-800 h-11 w-full rounded-lg border border-gray-300 bg-transparent px-4 py-2.5 text-sm text-gray-800 placeholder:text-gray-400 focus:ring-3 focus:outline-hidden dark:border-gray-700 dark:bg-gray-900 dark:text-white/90 dark:placeholder:text-white/30" />
 
                                         @error('fname')
@@ -72,10 +72,10 @@
                                     <!-- Last Name -->
                                     <div class="sm:col-span-1">
                                         <label class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-white/90">
-                                            Last Name<span class="text-error-500">*</span>
+                                            {{ __('common.last_name') }}<span class="text-error-500">*</span>
                                         </label>
                                         <input type="text" id="lname" name="lname"
-                                            placeholder="Enter your last name"
+                                            placeholder="{{ __('common.enter_last_name') }}"
                                             value="{{ old('lname') }}"
                                             class="dark:bg-dark-900 shadow-theme-xs focus:border-brand-300 focus:ring-brand-500/10 dark:focus:border-brand-800 h-11 w-full rounded-lg border border-gray-300 bg-transparent px-4 py-2.5 text-sm text-gray-800 placeholder:text-gray-400 focus:ring-3 focus:outline-hidden dark:border-gray-700 dark:bg-gray-900 dark:text-white/90 dark:placeholder:text-white/30" />
 
@@ -90,9 +90,9 @@
                                 <!-- Email -->
                                 <div>
                                     <label class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-white/90">
-                                        Email<span class="text-error-500">*</span>
+                                        {{ __('common.email') }}<span class="text-error-500">*</span>
                                     </label>
-                                    <input type="email" id="email" name="email" placeholder="Enter your email"
+                                    <input type="email" id="email" name="email" placeholder="{{ __('common.enter_email') }}"
                                     value="{{ old('email') }}"
                                         class="dark:bg-dark-900 shadow-theme-xs focus:border-brand-300 focus:ring-brand-500/10 dark:focus:border-brand-800 h-11 w-full rounded-lg border border-gray-300 bg-transparent px-4 py-2.5 text-sm text-gray-800 placeholder:text-gray-400 focus:ring-3 focus:outline-hidden dark:border-gray-700 dark:bg-gray-900 dark:text-white/90 dark:placeholder:text-white/30" />
 
@@ -106,10 +106,10 @@
                                 <!-- Password -->
                                 <div>
                                     <label class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-white/90">
-                                        Password<span class="text-error-500">*</span>
+                                        {{ __('common.password') }}<span class="text-error-500">*</span>
                                     </label>
                                     <div x-data="{ showPassword: false }" class="relative">
-                                        <input :type="showPassword ? 'text' : 'password'" name="password" placeholder="Enter your password"
+                                        <input :type="showPassword ? 'text' : 'password'" name="password" placeholder="{{ __('common.enter_password') }}"
                                             class="dark:bg-dark-900 shadow-theme-xs focus:border-brand-300 focus:ring-brand-500/10 dark:focus:border-brand-800 h-11 w-full rounded-lg border border-gray-300 bg-transparent py-2.5 pr-11 pl-4 text-sm text-gray-800 placeholder:text-gray-400 focus:ring-3 focus:outline-hidden dark:border-gray-700 dark:bg-gray-900 dark:text-white/90 dark:placeholder:text-white/30" />
                                         <span @click="showPassword = !showPassword"
                                             class="absolute top-1/2 right-4 z-30 -translate-y-1/2 cursor-pointer text-gray-500 dark:text-gray-400">
@@ -137,10 +137,10 @@
                                 <!-- Password Confirmation -->
                                 <div>
                                     <label class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-white/90">
-                                        Password Confirmation<span class="text-error-500">*</span>
+                                        {{ __('common.password_confirmation') }}<span class="text-error-500">*</span>
                                     </label>
                                     <div x-data="{ showPassword: false }" class="relative">
-                                        <input :type="showPassword ? 'text' : 'password'" name="password_confirmation" placeholder="Enter your password confirmation"
+                                        <input :type="showPassword ? 'text' : 'password'" name="password_confirmation" placeholder="{{ __('common.enter_password_confirmation') }}"
                                             class="dark:bg-dark-900 shadow-theme-xs focus:border-brand-300 focus:ring-brand-500/10 dark:focus:border-brand-800 h-11 w-full rounded-lg border border-gray-300 bg-transparent py-2.5 pr-11 pl-4 text-sm text-gray-800 placeholder:text-gray-400 focus:ring-3 focus:outline-hidden dark:border-gray-700 dark:bg-gray-900 dark:text-white/90 dark:placeholder:text-white/30" />
                                         <span @click="showPassword = !showPassword"
                                             class="absolute top-1/2 right-4 z-30 -translate-y-1/2 cursor-pointer text-gray-500 dark:text-gray-400">
@@ -187,14 +187,14 @@
                                                 </div>
                                             </div>
                                             <p class="inline-block font-normal text-gray-500 dark:text-gray-400">
-                                                By creating an account means you agree to the
-                                                <span class="text-gray-800 dark:text-white/90">
-                                                    Terms and Conditions,
-                                                </span>
-                                                and our
-                                                <span class="text-gray-800 dark:text-white">
-                                                    Privacy Policy
-                                                </span>
+                                                {!! str_replace(
+                                                    [':terms', ':privacy'],
+                                                    [
+                                                        '<span class="text-gray-800 dark:text-white/90">' . __('common.terms_and_conditions') . '</span>',
+                                                        '<span class="text-gray-800 dark:text-white">' . __('common.privacy_policy') . '</span>',
+                                                    ],
+                                                    __('common.agree_terms')
+                                                ) !!}
                                             </p>
                                         </label>
                                     </div>
@@ -203,16 +203,15 @@
                                 <div>
                                     <button
                                         class="bg-main shadow-theme-xs hover:bg-main-hover flex w-full items-center justify-center rounded-lg px-4 py-3 text-sm font-medium text-white transition">
-                                            Sign Up
+                                            {{ __('common.sign_up') }}
                                     </button>
                                 </div>
                             </div>
                         </form>
                         <div class="mt-5">
                             <p class="text-center text-sm font-normal text-gray-700 sm:text-start dark:text-gray-400">
-                                Already have an account?
-                                <a href="{{ route('login') }}" class="text-main hover:text-main-hover dark:text-second">Sign
-                                    In</a>
+                                {{ __('common.already_have_account') }}
+                                <a href="{{ route('login') }}" class="text-main hover:text-main-hover dark:text-second">{{ __('common.sign_in') }}</a>
                             </p>
                         </div>
                     </div>
@@ -225,11 +224,19 @@
                             <img src="./images/logo/logo.png" alt="Logo" class="w-80"/>
                         </a>
                         <p class="text-center text-gray-500 dark:text-white/60">
-                            Track your income, manage expenses, and plan your financial future with a simple yet powerful platform.
+                            {{ __('common.track_income') }}
                         </p>
                     </div>
                 </div>
             </div>
+            <!-- Language Toggler -->
+            <div class="fixed right-24 bottom-6 z-50">
+                <a href="{{ route('locale.switch', app()->getLocale() === 'id' ? 'en' : 'id') }}"
+                    class="bg-main-hover hover:bg-main inline-flex size-14 items-center justify-center rounded-full text-xs font-bold uppercase text-white transition-colors">
+                    {{ app()->getLocale() === 'id' ? 'EN' : 'ID' }}
+                </a>
+            </div>
+            
             <!-- Toggler -->
             <div class="fixed right-6 bottom-6 z-50">
                 <button
