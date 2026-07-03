@@ -1,5 +1,5 @@
 <div x-data="investmentPage()">
-    <x-ui.modal 
+    <x-ui.modal
     x-data="{ open: {{ $errors->goal->any() ? 'true' : 'false' }} }"
     @add-goal.window="open = true"
     :isOpen="$errors->goal->any()"
@@ -10,6 +10,7 @@
                 amount: '',
                 amount_display: '',
                 icon: 'home',
+                target_date: '',
             },
 
             resetModal() {
@@ -18,8 +19,9 @@
                     amount: '',
                     amount_display: '',
                     icon: 'home',
+                    target_date: '',
                 };
-                
+
                 this.$nextTick(() => {
                     this.$dispatch('target-icon-set', this.target.icon || 'home');
                 });
@@ -34,7 +36,7 @@
                     Create a new financial goal to track your savings and investments.
                 </p>
             </div>
-            <form class="flex flex-col" method="POST" action="{{ route('investment.store-goal') }}">
+            <form class="flex flex-col" method="POST" action="{{ route('investment.goal.store') }}">
                 @csrf
                 @method('POST')
                 <div class="custom-scrollbar max-h-[40vh] lg:max-h-[60vh] flex flex-col gap-5 overflow-y-auto p-2">
@@ -46,7 +48,7 @@
                             <x-icon.icon-picker @target-icon-set.window="selected = $event.detail; refresh()" />
                             <input type="text" name="name" x-model="target.name"
                                 class="dark:bg-dark-900 shadow-theme-xs focus:border-brand-300 focus:ring-brand-500/10 dark:focus:border-brand-800 h-11 w-full rounded-lg border border-gray-300 bg-transparent px-4 py-2.5 text-sm text-gray-800 placeholder:text-gray-400 focus:ring-3 focus:outline-hidden dark:border-gray-700 dark:bg-gray-900 dark:text-white/90 dark:placeholder:text-white/30" />
-                            
+
                         </div>
                         @error('name', 'goal')
                             <p class="mt-1 text-sm text-red-500">{{ $message }}</p>
@@ -67,6 +69,19 @@
                             <input type="hidden" name="target_amount" :value="target.amount" />
                         </div>
                         @error('target_amount', 'goal')
+                            <p class="mt-1 text-sm text-red-500">{{ $message }}</p>
+                        @enderror
+                    </div>
+                    <div>
+                        <label class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400">
+                            Deadline (Optional)
+                        </label>
+                        <x-form.date-picker id="goal_target_date" name="target_date" placeholder="Select goal deadline"
+                            x-model="target.target_date" />
+                        <p class="mt-1 text-xs text-gray-400">
+                            Used for progress reminders &amp;  notifications when the deadline is approaching.
+                        </p>
+                        @error('target_date', 'goal')
                             <p class="mt-1 text-sm text-red-500">{{ $message }}</p>
                         @enderror
                     </div>

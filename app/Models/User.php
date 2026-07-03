@@ -6,11 +6,15 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use App\Models\Profile;
+use App\Models\Goal;
+// Requires `composer require laravel-notification-channels/webpush` (see notification backend setup notes).
+use NotificationChannels\WebPush\HasPushSubscriptions;
 
 class User extends Authenticatable
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
-    use HasFactory, Notifiable;
+    use HasFactory, Notifiable, HasPushSubscriptions;
 
     /**
      * The attributes that are mass assignable.
@@ -24,8 +28,10 @@ class User extends Authenticatable
         'email',
         'password',
         'google_id',
+        'email_verified_at',
+        'remember_token'
     ];
-    
+
 
     /**
      * The attributes that should be hidden for serialization.
@@ -53,5 +59,15 @@ class User extends Authenticatable
     public function profile()
     {
         return $this->hasOne(Profile::class);
+    }
+
+    public function goals()
+    {
+        return $this->hasMany(Goal::class);
+    }
+
+    public function transactions()
+    {
+        return $this->hasMany(Transaction::class);
     }
 }
