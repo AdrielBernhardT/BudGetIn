@@ -16,7 +16,6 @@ class InvestmentSeeder extends Seeder
      */
     public function run(): void
     {
-        // ambil user pertama
         $user = User::first();
 
         if (!$user) {

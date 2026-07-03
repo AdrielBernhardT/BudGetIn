@@ -169,13 +169,21 @@ Route::middleware(['auth'])->group(function(){
 
         // Goal
         Route::post('/store/goal', [GoalController::class, 'store'])->name('goal.store');
+        Route::post('/update/goal/{id}', [GoalController::class, 'update'])
+        ->name('goal.update');
+        Route::delete('/delete/goal/{id}', [GoalController::class, 'destroy'])
+            ->name('goal.delete');
 
         // Record
         Route::post('/store/record-investment', [RecordInvestmentController::class, 'store'])->name('record-investment.store');
+        Route::get('/print/record-investment', [RecordInvestmentController::class, 'print'])->name('record-investment.print');
     });
 
     // Report
-    Route::get('/report', [ReportController::class, 'index'])->name('report');
+    Route::prefix('/report')->as('report.')->group(function () {
+        Route::get('/', [ReportController::class, 'index'])->name('index');
+        Route::get('/print', [ReportController::class, 'print'])->name('print');
+    });
 
     // Notifications (in-app bell icon)
     Route::prefix('/notifications')->as('notifications.')->group(function(){
