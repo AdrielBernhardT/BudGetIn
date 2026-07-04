@@ -1,5 +1,9 @@
+@props(['budgetAlert'])
+
+@if($budgetAlert && $budgetAlert['show'])
 <div class="h-full rounded-2xl bg-accent p-6 lg:p-12">
     <div class="flex flex-col items-center gap-6 lg:gap-7">
+
         <svg width="61" height="61" viewBox="0 0 61 61" fill="none" xmlns="http://www.w3.org/2000/svg">
             <ellipse cx="30.0555" cy="29.4542" rx="9.61776" ry="17.4322" fill="#F44336" />
             <path
@@ -7,11 +11,14 @@
                 fill="white" />
         </svg>
 
-        <h3 class="text-white font-semibold text-2xl text-center">Budget Alert</h3>
+        <h3 class="text-white font-semibold text-2xl text-center">
+            {{ $budgetAlert['title'] }}
+        </h3>
 
         <p class="text-center text-lg text-white lg:mt-4">
-            Only IDR {{ number_format(1000000000, 0, ',', '.') }} left from your Food & Beverange budget.
+            {{ $budgetAlert['message'] }}
         </p>
-    </div>
 
+    </div>
 </div>
+@endif

@@ -1,4 +1,4 @@
-@props(['incomes'])
+@props(['recentTransactions'])
 
 <div class="rounded-2xl border border-gray-200 bg-white p-5 dark:border-gray-800 dark:bg-white/[0.03] md:p-6">
     <div x-data="allRecent()">
@@ -21,14 +21,19 @@
         </div>
 
         <div class="mt-4">
-            <div x-show="tab === 'incomes'">
-                <x-dashboard.recent.incomes :incomes="$incomes" />
+            <div x-show="tab === 'incomes'" x-cloak>
+                <x-dashboard.recent.incomes
+                    :transactions="$recentTransactions['incomes']" />
             </div>
-            <div x-show="tab === 'expenses'">
-                <x-dashboard.recent.expenses :incomes="$incomes" />
+
+            <div x-show="tab === 'expenses'" x-cloak>
+                <x-dashboard.recent.expenses
+                    :transactions="$recentTransactions['expenses']" />
             </div>
-            <div x-show="tab === 'transfers'">
-                <x-dashboard.recent.transfers :incomes="$incomes" />
+
+            <div x-show="tab === 'transfers'" x-cloak>
+                <x-dashboard.recent.transfers
+                    :transactions="$recentTransactions['transfers']" />
             </div>
         </div>
     </div>

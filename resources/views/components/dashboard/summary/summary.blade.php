@@ -1,3 +1,5 @@
+@props(['summary'])
+
 <div class="h-full rounded-2xl border border-gray-200 bg-white p-5 dark:border-gray-800 dark:bg-white/[0.03] md:p-6">
     <div class="flex flex-col gap-4">
         <div class="flex items-center justify-between">
@@ -6,7 +8,7 @@
                     Current Balance
                 </h3>
                 <h2 class="text-gray-800 dark:text-white/90 font-semibold text-lg md:text-xl">
-                    IDR {{ number_format(1000000000, 0, ',', '.') }}
+                    IDR {{ number_format($summary['current_balance'], 0, ',', '.') }}
                 </h2>
             </div>
     
@@ -18,24 +20,17 @@
     
         <div class="overflow-x-auto custom-scrollbar">
             <div class="flex gap-2 pb-2">
-                <div class="min-w-56 max-w-56">
-                    <x-dashboard.summary.account/>
-                </div>
-                <div class="min-w-56 max-w-56">
-                    <x-dashboard.summary.account/>
-                </div>
-                <div class="min-w-56 max-w-56">
-                    <x-dashboard.summary.account/>
-                </div>
-                <div class="min-w-56 max-w-56">
-                    <x-dashboard.summary.account/>
-                </div>
-                <div class="min-w-56 max-w-56">
-                    <x-dashboard.summary.account/>
-                </div>
-                <div class="min-w-56 max-w-56">
-                    <x-dashboard.summary.account/>
-                </div>
+                @forelse($summary['accounts'] as $account)
+                    <div class="min-w-56 max-w-56">
+                        <x-dashboard.summary.account :account="$account"/>
+                    </div>
+                @empty
+                    <div class="flex items-center justify-center w-full h-32">
+                        <span class="text-gray-500">
+                            No accounts found.
+                        </span>
+                    </div>
+                @endforelse
             </div>
         </div>
 
@@ -70,21 +65,24 @@
                 Quick Actions
             </h3>
             <div class="grid grid-cols-3 gap-4">
-            <a class="flex flex-col items-center justify-center group rounded-2xl border border-gray-200 bg-gray-50 hover:bg-main dark:hover:bg-main p-3 dark:border-gray-800 dark:bg-gray-800 md:p-4">
+            <a href="{{ route('income.index') }}"
+            class="flex flex-col items-center justify-center group rounded-2xl border border-gray-200 bg-gray-50 hover:bg-main dark:hover:bg-main p-3 dark:border-gray-800 dark:bg-gray-800 md:p-4">
                 <div class="flex flex-col items-center gap-2">
                     <i data-lucide="arrow-down" class="w-7 h-7 shrink-0 text-gray-900 group-hover:text-white dark:text-white/90"></i>
                     <span class="text-gray-800 group-hover:text-white dark:text-white/90 text-theme-sm md:text-md font-normal">Income</span>
                 </div>
             </a>
 
-            <a class="flex flex-col items-center justify-center group rounded-2xl border border-gray-200 bg-gray-50 hover:bg-main dark:hover:bg-main p-3 dark:border-gray-800 dark:bg-gray-800 md:p-4">
+            <a href="{{ route('expense.index') }}"
+            class="flex flex-col items-center justify-center group rounded-2xl border border-gray-200 bg-gray-50 hover:bg-main dark:hover:bg-main p-3 dark:border-gray-800 dark:bg-gray-800 md:p-4">
                 <div class="flex flex-col items-center gap-2">
                     <i data-lucide="arrow-up" class="w-7 h-7 shrink-0 text-gray-900 group-hover:text-white dark:text-white/90"></i>
                     <span class="text-gray-800 group-hover:text-white dark:text-white/90 text-theme-sm md:text-md font-normal">Expense</span>
                 </div>
             </a>
 
-            <a class="flex flex-col items-center justify-center group rounded-2xl border border-gray-200 bg-gray-50 hover:bg-main dark:hover:bg-main p-3 dark:border-gray-800 dark:bg-gray-800 md:p-4">
+            <a href="{{ route('transfer.index') }}"
+            class="flex flex-col items-center justify-center group rounded-2xl border border-gray-200 bg-gray-50 hover:bg-main dark:hover:bg-main p-3 dark:border-gray-800 dark:bg-gray-800 md:p-4">
                 <div class="flex flex-col items-center gap-2">
                     <i data-lucide="arrow-left-right" class="w-7 h-7 shrink-0 text-gray-900 group-hover:text-white dark:text-white/90"></i>
                     <span class="text-gray-800 group-hover:text-white dark:text-white/90 text-theme-sm md:text-md font-normal">Transfer</span>
