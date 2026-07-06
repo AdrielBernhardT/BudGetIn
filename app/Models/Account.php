@@ -22,4 +22,9 @@ class Account extends Model
     public function transaction(){
         return $this->hasMany(Transaction::class);
     }
+
+    public function investmentRecords()
+    {
+        return $this->hasMany(RecordInvestment::class);
+    }
 }

@@ -173,9 +173,14 @@ Route::middleware(['auth'])->group(function(){
 
         // Goal
         Route::post('/store/goal', [GoalController::class, 'store'])->name('goal.store');
+        Route::post('/update/goal/{id}', [GoalController::class, 'update'])
+        ->name('goal.update');
+        Route::delete('/delete/goal/{id}', [GoalController::class, 'destroy'])
+            ->name('goal.delete');
 
         // Record
         Route::post('/store/record-investment', [RecordInvestmentController::class, 'store'])->name('record-investment.store');
+        Route::get('/print/record-investment', [RecordInvestmentController::class, 'print'])->name('record-investment.print');
     });
 
     // Report

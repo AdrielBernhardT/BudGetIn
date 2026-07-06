@@ -76,7 +76,7 @@
                         <label class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400">
                             {{ __('common.deadline') }} ({{ __('common.optional') }})
                         </label>
-                        <x-form.date-picker id="goal_target_date" name="target_date" placeholder="Pilih deadline goal"
+                        <x-form.date-picker id="goal_target_date" name="target_date" placeholder="Select goal deadline"
                             x-model="target.target_date" />
                         <p class="mt-1 text-xs text-gray-400">
                             {{ __('common.deadline_description') }}
