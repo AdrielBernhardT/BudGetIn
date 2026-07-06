@@ -8,10 +8,10 @@
 <x-ui.modal @open-expense-modal.window="open = true" :isOpen="false" class="max-w-[700px]">
     <div x-data="{
         mode: 'create',
-        income: {
+        expense: {
             id: null,
             title: '',
-            category:'',
+            category: '',
             amount: '',
             account_bank: '',
             date: '',
@@ -22,7 +22,7 @@
             this.expense = detail?.expense ? { ...detail.expense } : {
                 id: null,
                 title: '',
-                category:'',
+                category: '',
                 amount: '',
                 account_bank: '',
                 date: '',
@@ -31,6 +31,19 @@
             if (this.expense.amount) {
                 this.expense.amount = this.formatRupiah(this.expense.amount);
             }
+        },
+        formatRupiah(value) {
+            value = value.toString();
+            let number = value.replace(/[^,\d]/g, '').toString();
+            let split = number.split(',');
+            let sisa = split[0].length % 3;
+            let rupiah = split[0].substr(0, sisa);
+            let ribuan = split[0].substr(sisa).match(/\d{3}/gi);
+            if (ribuan) {
+                let separator = sisa ? '.' : '';
+                rupiah += separator + ribuan.join('.');
+            }
+            return split[1] != undefined ? rupiah + ',' + split[1] : rupiah;
         },
     }" @open-expense-modal.window="openModal($event.detail)"
         class="no-scrollbar relative w-full max-w-[700px] max-h-[80vh] overflow-y-auto rounded-3xl bg-white p-4 dark:bg-gray-900 lg:p-11">
@@ -203,13 +216,13 @@
                 </div>
 
                 <div class="mt-6 flex items-center gap-3 px-2 lg:justify-end">
-                    <button type="submit"
+                    <button type="button" @click="$dispatch('modal-closed'); open = false"
                         class="flex w-full justify-center rounded-lg border border-gray-300 bg-white px-4 py-2.5 text-sm font-medium text-gray-700 hover:bg-gray-50 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-white/[0.03] sm:w-auto">
                         {{ __('common.close') }}
                     </button>
                     <button type="submit"
                         class="flex w-full justify-center rounded-lg bg-main px-4 py-2.5 text-sm font-medium text-white hover:bg-main-hover sm:w-auto">
-                        <span x-text="mode === 'create' ? '{{ __('common.save_changes') }}' : '{{ __('common.update_expense') }}'"></span>
+                        <span x-text="mode === 'create' ? 'Save Changes' : 'Update Expense'"></span>
                     </button>
                 </div>
             </div>

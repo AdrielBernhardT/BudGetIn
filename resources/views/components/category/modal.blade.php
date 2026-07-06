@@ -91,7 +91,11 @@
                             {{ __('common.idr') }}
                         </span>
                         <input type="text" x-model="category.monthly_budget_display"
-                            @input="category.monthly_budget_display = formatRupiah($event.target.value); category.monthly_budget = $event.target.value.replace(/\D/g, '');"
+                            @input="
+                                let raw = $event.target.value.replace(/\D/g, '');
+                                category.monthly_budget = raw;
+                                category.monthly_budget_display = formatRupiah(raw);
+                            "
                             class="dark:bg-dark-900 shadow-theme-xs focus:border-brand-300 focus:ring-brand-500/10 dark:focus:border-brand-800 h-11 w-full rounded-lg border border-gray-300 bg-transparent px-4 py-2.5 pl-16 text-sm text-gray-800 placeholder:text-gray-400 focus:ring-3 focus:outline-hidden dark:border-gray-700 dark:bg-gray-900 dark:text-white/90 dark:placeholder:text-white/30" />
                         <input type="hidden" name="monthly_budget" :value="category.monthly_budget" />
                         @error('monthly_budget')
