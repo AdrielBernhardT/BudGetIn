@@ -82,11 +82,12 @@
                                         stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
                                 </svg>
                             </span>
-                            @error('goal_id', 'record_investment')
-                                <p class="mt-1 text-sm text-red-500">{{ $message }}</p>
-                            @enderror
                         </div>
+                        @error('goal_id', 'record_investment')
+                            <p class="mt-1 text-sm text-red-500">{{ $message }}</p>
+                        @enderror
                     </div>
+
                     <div>
                         <label class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400">
                             {{ __('common.investment_name') }}
@@ -113,11 +114,12 @@
                                         stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
                                 </svg>
                             </span>
-                            @error('investment_id', 'record_investment')
-                                <p class="mt-1 text-sm text-red-500">{{ $message }}</p>
-                            @enderror
                         </div>
+                        @error('investment_id', 'record_investment')
+                            <p class="mt-1 text-sm text-red-500">{{ $message }}</p>
+                        @enderror
                     </div>
+
                     <div>
                         <label class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400">
                             {{ __('common.account_bank') }}
@@ -146,22 +148,23 @@
                                         stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
                                 </svg>
                             </span>
-                            @error('account_id', 'record_investment')
-                                <p class="mt-1 text-sm text-red-500">{{ $message }}</p>
-                            @enderror
                         </div>
+                        @error('account_id', 'record_investment')
+                            <p class="mt-1 text-sm text-red-500">{{ $message }}</p>
+                        @enderror
                     </div>
-                    <div class="grid grid-cols-2 gap-4">
+
+                    <div class="grid grid-cols-2 gap-4 items-start">
                         <div>
                             <label class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400">
                                 {{ __('common.date') }}
                             </label>
                             <div class="relative w-full">
-                                <x-form.date-picker 
-                                id="date_pick" 
-                                name="date" 
+                                <x-form.date-picker
+                                id="date_pick"
+                                name="date"
                                 placeholder="Date Picker"
-                                x-model="investment.date" 
+                                x-model="investment.date"
                                 dateFormat="Y-m-d"
                                 altFormat="d F Y"
                                 defaultDate="{{ now()->format('Y-m-d') }}"/>
@@ -202,7 +205,6 @@
                             <p class="mt-1 text-sm text-red-500">{{ $message }}</p>
                         @enderror
                     </div>
-
 
                     <div class="flex items-center gap-3 px-2 mt-6 lg:justify-end">
                         <button @click="open = false" type="button"

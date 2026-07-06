@@ -24,6 +24,18 @@ class RecordInvestmentController extends Controller
                 'transaction_amount' => ['required', 'numeric', 'min:1'],
                 'description' => ['nullable', 'string', 'max:200'],
             ]);
+    public function store(Request $request)
+    {
+        try {
+
+            $validated = $request->validateWithBag('record_investment', [
+                'investment_id' => ['required', 'integer'],
+                'goal_id'       => ['required', 'integer'],
+                'account_id'    => ['required', 'integer'],
+                'date' => ['required'],
+                'transaction_amount' => ['required', 'numeric', 'min:1'],
+                'description' => ['nullable', 'string', 'max:200'],
+            ]);
 
             $userId = auth()->id();
 
@@ -31,7 +43,18 @@ class RecordInvestmentController extends Controller
                 ->where('id', $validated['goal_id'])
                 ->where('user_id', $userId)
                 ->firstOrFail();
+            $userId = auth()->id();
 
+            $goal = Goal::with('investments.records')
+                ->where('id', $validated['goal_id'])
+                ->where('user_id', $userId)
+                ->firstOrFail();
+
+            $investment = Investment::with('records')
+                ->where('id', $validated['investment_id'])
+                ->where('goal_id', $goal->id)
+                ->where('user_id', $userId)
+                ->firstOrFail();
             $investment = Investment::with('records')
                 ->where('id', $validated['investment_id'])
                 ->where('goal_id', $goal->id)
@@ -53,7 +76,24 @@ class RecordInvestmentController extends Controller
             }
 
             $newAmount = (float) $validated['transaction_amount'];
+            $accountExists = \App\Models\Account::where('id', $validated['account_id'])
+                ->where('user_id', $userId)
+                ->exists();
 
+            if (!$accountExists) {
+                toast()->error('Invalid account selected.');
+
+                return back()
+                    ->withErrors([
+                        'account_id' => 'Invalid account selected.'
+                    ], 'record_investment')
+                    ->withInput();
+            }
+
+            $newAmount = (float) $validated['transaction_amount'];
+
+            $investmentCurrent = $investment->records->sum('transaction_amount');
+            $investmentRemaining = $investment->planned_amount - $investmentCurrent;
             $investmentCurrent = $investment->records->sum('transaction_amount');
             $investmentRemaining = $investment->planned_amount - $investmentCurrent;
 
@@ -63,7 +103,21 @@ class RecordInvestmentController extends Controller
                     'Exceeds investment limit. Remaining: ' .
                     number_format($investmentRemaining, 0, ',', '.')
                 );
+            if ($newAmount > $investmentRemaining) {
 
+                toast()->error(
+                    'Exceeds investment limit. Remaining: ' .
+                    number_format($investmentRemaining, 0, ',', '.')
+                );
+
+                return back()
+                    ->withErrors([
+                        'transaction_amount' =>
+                            'Exceeds investment limit. Remaining: ' .
+                            number_format($investmentRemaining, 0, ',', '.')
+                    ], 'record_investment')
+                    ->withInput();
+            }
                 return back()
                     ->withErrors([
                         'transaction_amount' =>
@@ -85,7 +139,27 @@ class RecordInvestmentController extends Controller
                     'Exceeds goal remaining budget: ' .
                     number_format($goalRemaining, 0, ',', '.')
                 );
+            $totalCurrentGoal = $goal->investments
+                ->flatMap->records
+                ->sum('transaction_amount');
 
+            $goalRemaining = $goal->target_amount - $totalCurrentGoal;
+
+            if ($newAmount > $goalRemaining) {
+
+                toast()->error(
+                    'Exceeds goal remaining budget: ' .
+                    number_format($goalRemaining, 0, ',', '.')
+                );
+
+                return back()
+                    ->withErrors([
+                        'transaction_amount' =>
+                            'Exceeds goal remaining budget: ' .
+                            number_format($goalRemaining, 0, ',', '.')
+                    ], 'record_investment')
+                    ->withInput();
+            }
                 return back()
                     ->withErrors([
                         'transaction_amount' =>
