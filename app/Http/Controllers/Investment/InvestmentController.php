@@ -18,15 +18,9 @@ class InvestmentController extends Controller
         try {
 
             $targets = collect($this->getTargets())->map(function ($target) {
-        try {
-
-            $targets = collect($this->getTargets())->map(function ($target) {
 
                 $target->items = collect($target->items)->map(function ($item) use ($target) {
 
-                    $item->target_amount = round(
-                        $target->target_amount * $item->allocation
-                    );
                     $item->target_amount = round(
                         $target->target_amount * $item->allocation
                     );
@@ -36,27 +30,13 @@ class InvestmentController extends Controller
                         : 0;
 
                     $item->allocation_percentage = round($item->allocation * 100);
-                    $item->allocation_percentage = round($item->allocation * 100);
 
-                    return $item;
-                });
                     return $item;
                 });
 
                 return $target;
             });
-                return $target;
-            });
 
-            $total_target = $targets->sum('target_amount');
-            $total_investment = $targets->sum('total_current');
-
-            $allocation_chart = $targets->map(function ($target) {
-                return [
-                    'label' => $target->title,
-                    'value' => (float) $target->target_amount,
-                ];
-            })->values();
             $total_target = $targets->sum('target_amount');
             $total_investment = $targets->sum('total_current');
 
@@ -70,11 +50,7 @@ class InvestmentController extends Controller
             $percentage = $total_target > 0
                 ? round(($total_investment / $total_target) * 100, 0)
                 : 0;
-            $percentage = $total_target > 0
-                ? round(($total_investment / $total_target) * 100, 0)
-                : 0;
 
-            $remaining_target = $total_target - $total_investment;
             $remaining_target = $total_target - $total_investment;
 
             $datas = [
@@ -146,38 +122,55 @@ class InvestmentController extends Controller
                 ])
                 ->where('user_id', Auth::id())
                 ->get();
-        try {
 
-            $goals = Goal::with([
-                    'investments' => function ($query) {
-                        $query->where('user_id', Auth::id())
-                            ->with('records');
-                    }
-                ])
-                ->where('user_id', Auth::id())
-                ->get();
+            return $goals->map(function ($goal) {
 
-        return $goals->map(function($goal){
-            return (object) [
-                'id' => $goal->id,
-                'title' => $goal->name,
-                'icon' => $goal->icon,
-                'target_amount' => $goal->target_amount,
-                'target_date' => $goal->target_date,
-                'days_left' => $goal->daysUntilDeadline(),
-                'items' => $goal->investments->map(function($investment){
+                $items = $goal->investments->map(function ($investment) {
 
-                return (object)[
+                    return (object) [
                         'id' => $investment->id,
                         'title' => $investment->name,
-                        'allocation' => $investment->allocation_percent/100,
-                        'current_amount' => $investment->records->sum('transaction_amount')
+                        'allocation' => $investment->allocation_percent / 100,
+                        'current_amount' => $investment->records->sum('transaction_amount'),
                     ];
-                }),
-            ];
-        });
-    }
+                });
 
+                $totalCurrent = $items->sum('current_amount');
+
+                return (object) [
+                    'id' => $goal->id,
+                    'name' => $goal->name,      // untuk modal edit
+                    'title' => $goal->name,     // tetap dipakai chart
+                    'icon' => $goal->icon,
+                    'target_amount' => $goal->target_amount,
+                    'target_date' => $goal->target_date,
+                    'days_left' => $goal->daysUntilDeadline(),
+
+                    // tambahkan ini
+                    'total_current' => $totalCurrent,
+                    'percentage' => $goal->target_amount > 0
+                        ? round(($totalCurrent / $goal->target_amount) * 100)
+                        : 0,
+
+                    'items' => $items,
+                ];
+            });
+
+        } catch (\Throwable $th) {
+
+            Log::error('Failed to get investment targets.', [
+                'user_id' => Auth::id(),
+                'message' => $th->getMessage(),
+                'file' => $th->getFile(),
+                'line' => $th->getLine(),
+            ]);
+
+            report($th);
+
+            return collect();
+        }
+    }
+    
     public function store(Request $request)
     {
         $validated = $request->validateWithBag('investment', [
@@ -186,47 +179,15 @@ class InvestmentController extends Controller
                 'string',
                 'max:100'
             ],
-            'name' => [
-                'required',
-                'string',
-                'max:100'
-            ],
             'goal_id' => ['required'],
-            'allocation_percent' => ['required', 'numeric'],
-            'planned_amount' => ['required', 'numeric']
             'allocation_percent' => ['required', 'numeric'],
             'planned_amount' => ['required', 'numeric']
         ]);
 
         try {
 
-        try {
-
-            $user = Auth::user();
             $user = Auth::user();
 
-            $goal = Goal::with('investments')
-                ->where('id', $validated['goal_id'])
-                ->where('user_id', $user->id)
-                ->firstOrFail();
-
-            $exists = Investment::where('goal_id', $goal->id)
-                ->where('user_id', $user->id)
-                ->where('name', $validated['name'])
-                ->exists();
-
-            if ($exists) {
-                toast()->error('Investment name already exists in this goal.');
-
-                return back()
-                    ->withErrors([
-                        'name' => 'Investment name already exists in this goal.'
-                    ], 'investment')
-                    ->withInput();
-            }
-
-            $totalAllocation = $goal->investments()->sum('allocation_percent');
-            $newAllocation = (float) $validated['allocation_percent'];
             $goal = Goal::with('investments')
                 ->where('id', $validated['goal_id'])
                 ->where('user_id', $user->id)
@@ -265,36 +226,7 @@ class InvestmentController extends Controller
                     ], 'investment')
                     ->withInput();
             }
-            if (($totalAllocation + $newAllocation) > 100) {
 
-                $remaining = max(0, 100 - $totalAllocation);
-
-                toast()->error(
-                    'Total allocation cannot exceed 100%. Remaining: ' . $remaining . '%'
-                );
-
-                return back()
-                    ->withErrors([
-                        'allocation_percent' =>
-                            'Total allocation cannot exceed 100%. Remaining: ' . $remaining . '%'
-                    ], 'investment')
-                    ->withInput();
-            }
-
-            $totalPlanned = $goal->investments()->sum('planned_amount');
-            $newPlanned = (float) $validated['planned_amount'];
-
-            if (($totalPlanned + $newPlanned) > $goal->target_amount) {
-
-                toast()->error('Total investment cannot exceed goal target amount.');
-
-                return back()
-                    ->withErrors([
-                        'planned_amount' =>
-                            'Total investment cannot exceed goal target amount.'
-                    ], 'investment')
-                    ->withInput();
-            }
             $totalPlanned = $goal->investments()->sum('planned_amount');
             $newPlanned = (float) $validated['planned_amount'];
 
@@ -317,34 +249,7 @@ class InvestmentController extends Controller
                 'allocation_percent' => $validated['allocation_percent'],
                 'planned_amount' => $validated['planned_amount'],
             ]);
-            Investment::create([
-                'user_id' => $user->id,
-                'goal_id' => $goal->id,
-                'name' => $validated['name'],
-                'allocation_percent' => $validated['allocation_percent'],
-                'planned_amount' => $validated['planned_amount'],
-            ]);
 
-            toast()->success('Investment created!');
-
-            return redirect()->back();
-
-        } catch (\Throwable $th) {
-
-            Log::error('Failed to create investment.', [
-                'user_id' => Auth::id(),
-                'goal_id' => $validated['goal_id'] ?? null,
-                'message' => $th->getMessage(),
-                'file' => $th->getFile(),
-                'line' => $th->getLine(),
-            ]);
-
-            report($th);
-
-            toast()->error('Failed to create investment.');
-
-            return redirect()->back()->withInput();
-        }
             toast()->success('Investment created!');
 
             return redirect()->back();
@@ -371,10 +276,7 @@ class InvestmentController extends Controller
     {
         $validated = $request->validateWithBag('investment', [
             'name' => ['required', 'string', 'max:100'],
-            'name' => ['required', 'string', 'max:100'],
             'goal_id' => ['required'],
-            'allocation_percent' => ['required', 'numeric'],
-            'planned_amount' => ['required', 'numeric']
             'allocation_percent' => ['required', 'numeric'],
             'planned_amount' => ['required', 'numeric']
         ]);
@@ -412,50 +314,9 @@ class InvestmentController extends Controller
             $totalAllocation = $goal->investments()
                 ->where('id', '!=', $investment->id)
                 ->sum('allocation_percent');
-        try {
-
-            $user = Auth::user();
-
-            $investment = Investment::where('id', $id)
-                ->where('user_id', $user->id)
-                ->firstOrFail();
-
-            $goal = Goal::with('investments')
-                ->where('id', $validated['goal_id'])
-                ->where('user_id', $user->id)
-                ->firstOrFail();
-
-            $exists = Investment::where('goal_id', $goal->id)
-                ->where('user_id', $user->id)
-                ->where('name', $validated['name'])
-                ->where('id', '!=', $investment->id)
-                ->exists();
-
-            if ($exists) {
-
-                toast()->error('Investment name already exists in this goal.');
-
-                return back()
-                    ->withErrors([
-                        'name' => 'Investment name already exists in this goal.'
-                    ], 'investment')
-                    ->withInput();
-            }
-
-            $totalAllocation = $goal->investments()
-                ->where('id', '!=', $investment->id)
-                ->sum('allocation_percent');
 
             $newAllocation = (float) $validated['allocation_percent'];
-            $newAllocation = (float) $validated['allocation_percent'];
 
-            if (($totalAllocation + $newAllocation) > 100) {
-
-                $remaining = max(0, 100 - $totalAllocation);
-
-                toast()->error(
-                    'Total allocation cannot exceed 100%. Remaining: ' . $remaining . '%'
-                );
             if (($totalAllocation + $newAllocation) > 100) {
 
                 $remaining = max(0, 100 - $totalAllocation);
@@ -471,31 +332,11 @@ class InvestmentController extends Controller
                     ], 'investment')
                     ->withInput();
             }
-                return back()
-                    ->withErrors([
-                        'allocation_percent' =>
-                            'Total allocation cannot exceed 100%. Remaining: ' . $remaining . '%'
-                    ], 'investment')
-                    ->withInput();
-            }
 
             $totalPlanned = $goal->investments()
                 ->where('id', '!=', $investment->id)
                 ->sum('planned_amount');
-            $totalPlanned = $goal->investments()
-                ->where('id', '!=', $investment->id)
-                ->sum('planned_amount');
 
-            if (($totalPlanned + (float) $validated['planned_amount']) > $goal->target_amount) {
-
-                toast()->error('Total investment exceeds goal target.');
-
-                return back()
-                    ->withErrors([
-                        'planned_amount' => 'Total investment exceeds goal target.'
-                    ], 'investment')
-                    ->withInput();
-            }
             if (($totalPlanned + (float) $validated['planned_amount']) > $goal->target_amount) {
 
                 toast()->error('Total investment exceeds goal target.');
@@ -513,18 +354,7 @@ class InvestmentController extends Controller
                 'allocation_percent' => $validated['allocation_percent'],
                 'planned_amount' => $validated['planned_amount'],
             ]);
-            $investment->update([
-                'goal_id' => $goal->id,
-                'name' => $validated['name'],
-                'allocation_percent' => $validated['allocation_percent'],
-                'planned_amount' => $validated['planned_amount'],
-            ]);
 
-            toast()->success('Investment updated!');
-
-            return back();
-
-        } catch (\Throwable $th) {
             toast()->success('Investment updated!');
 
             return back();
@@ -557,53 +387,7 @@ class InvestmentController extends Controller
                 ->firstOrFail();
 
             $investment->delete();
-            Log::error('Failed to update investment.', [
-                'user_id' => Auth::id(),
-                'investment_id' => $id,
-                'goal_id' => $validated['goal_id'] ?? null,
-                'message' => $th->getMessage(),
-                'file' => $th->getFile(),
-                'line' => $th->getLine(),
-            ]);
 
-            report($th);
-
-            toast()->error('Failed to update investment.');
-
-            return back()->withInput();
-        }
-    }
-
-    public function destroy($id)
-    {
-        try {
-
-            $investment = Investment::where('id', $id)
-                ->where('user_id', Auth::id())
-                ->firstOrFail();
-
-            $investment->delete();
-
-            toast()->success('Investment deleted!');
-
-            return redirect()->route('investment.index');
-
-        } catch (\Throwable $th) {
-
-            Log::error('Failed to delete investment.', [
-                'user_id' => Auth::id(),
-                'investment_id' => $id,
-                'message' => $th->getMessage(),
-                'file' => $th->getFile(),
-                'line' => $th->getLine(),
-            ]);
-
-            report($th);
-
-            toast()->error('Failed to delete investment.');
-
-            return back();
-        }
             toast()->success('Investment deleted!');
 
             return redirect()->route('investment.index');
