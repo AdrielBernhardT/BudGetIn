@@ -94,6 +94,10 @@ Route::get('/videos', function () {
     return view('pages.ui-elements.videos', ['title' => 'Videos']);
 })->name('videos');
 
+Route::get('/test', function () {
+    return view('pages.dashboard.ecommerce', ['title' => 'test']);
+})->name('test');
+
 // Landing Page
 Route::get('/logout', [LoginController::class, 'destroy'])->name('logout');
 

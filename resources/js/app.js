@@ -29,6 +29,8 @@ if ('serviceWorker' in navigator) {
 // initial render
 window.createIcons();
 
+import statisticsChart from './components/chart/statisticsChart';
+Alpine.data("statisticsChart", statisticsChart);
 Alpine.start();
 
 // Initialize components on DOM ready
