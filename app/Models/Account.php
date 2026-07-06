@@ -12,6 +12,7 @@ class Account extends Model
         'user_id',
         'name',
         'balance',
+        'account_identifier'
     ];
 
     public function user(){
