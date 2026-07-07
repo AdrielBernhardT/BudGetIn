@@ -38,7 +38,7 @@
                                     'bg-red-50 text-red-600 dark:bg-red-500/15 dark:text-red-500': (report.type ?? '').toLowerCase() === 'expense',
                                     'bg-blue-50 text-blue-600 dark:bg-blue-500/15 dark:text-blue-500': (report.type ?? '').toLowerCase() === 'transfer'
                                 }"
-                                class="rounded-full px-2 py-1 text-xs font-medium"
+                                class="rounded-full px-2 py-1 text-xs font-medium capitalize"
                                 x-text="report.type">
                             </span>
                         </td>

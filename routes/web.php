@@ -179,7 +179,10 @@ Route::middleware(['auth'])->group(function(){
     });
 
     // Report
-    Route::get('/report', [ReportController::class, 'index'])->name('report');
+    Route::prefix('/report')->as('report.')->group(function () {
+        Route::get('/', [ReportController::class, 'index'])->name('index');
+        Route::get('/print', [ReportController::class, 'print'])->name('print');
+    });
 
     // Notifications (in-app bell icon)
     Route::prefix('/notifications')->as('notifications.')->group(function(){
