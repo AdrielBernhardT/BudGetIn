@@ -20,6 +20,7 @@ class AccountSeeder extends Seeder
             Account::insert([
                 [
                     'user_id' => $user->id,
+                    'account_identifier' => '3790933400',
                     'name' => 'BCA',
                     'balance' => 0,
                     'created_at' => now(),
@@ -27,6 +28,7 @@ class AccountSeeder extends Seeder
                 ],
                 [
                     'user_id' => $user->id,
+                    'account_identifier' => '3790933400',
                     'name' => 'BRI',
                     'balance' => 0,
                     'created_at' => now(),
@@ -34,6 +36,7 @@ class AccountSeeder extends Seeder
                 ],
                 [
                     'user_id' => $user->id,
+                    'account_identifier' => '3790933400',
                     'name' => 'BLU',
                     'balance' => 0,
                     'created_at' => now(),
@@ -42,6 +45,7 @@ class AccountSeeder extends Seeder
                 [
                     'user_id' => $user->id,
                     'name' => 'Cash',
+                    'account_identifier' => NULL,
                     'balance' => 0,
                     'created_at' => now(),
                     'updated_at' => now(),

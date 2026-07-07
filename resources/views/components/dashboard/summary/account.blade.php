@@ -3,6 +3,9 @@
 <div class="col-span-8 rounded-2xl bg-linear-to-br from-[#0F2A5F] to-[#1E40AF] p-5 md:p-4">
     <div class="flex flex-col justify-between gap-4">
         <div class="flex items-center justify-between">
+            @if (!empty($account->account_identifier))
+                
+            
             <div
                 x-data="{ copied: false }"
                 class="flex items-center gap-2"
@@ -33,6 +36,7 @@
                     ></i>
                 </button>
             </div>
+            @endif
             <span class="text-md text-white font-semibold">{{ $account->name }}</span>
         </div>
 
