@@ -27,7 +27,7 @@
                 @empty
                     <div class="flex items-center justify-center w-full h-32">
                         <span class="text-gray-500">
-                            No accounts found.
+                            No accounts found
                         </span>
                     </div>
                 @endforelse
