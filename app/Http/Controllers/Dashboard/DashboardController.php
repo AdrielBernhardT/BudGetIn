@@ -122,7 +122,7 @@ class DashboardController extends Controller
         $totalCategory = Category::where('user_id', $userId)->count();
         if ($totalCategory == 0) {
             $budgetAlert = [
-                'show' => true,
+                'show' => false,
                 'type' => 'info',
                 'title' => 'Budget Alert',
                 'message' => 'Create your expense categories and monthly budgets to start tracking your spending.',
@@ -151,7 +151,7 @@ class DashboardController extends Controller
             if (!$categoryAlert) {
 
                 $budgetAlert = [
-                    'show' => true,
+                    'show' => false,
                     'type' => 'info',
                     'title' => 'Budget Alert',
                     'message' => 'Set a monthly budget for your categories to receive budget alerts.',

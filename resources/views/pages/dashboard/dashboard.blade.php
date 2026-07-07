@@ -12,22 +12,41 @@
             </p>
         </div>
 
-        <div class="grid grid-cols-1 gap-4 md:gap-6 lg:grid-cols-3 2xl:grid-cols-[minmax(0,28fr)_minmax(0,52fr)_minmax(0,20fr)]">
-            {{-- Summary --}}
-            <div class="order-1 w-full min-w-0 lg:col-span-2 2xl:col-span-1">
-                <x-dashboard.summary.summary :summary="$summary" />
-            </div>
+        @if ($budgetAlert['show'])
+            <div class="grid grid-cols-1 gap-4 md:gap-6 lg:grid-cols-3 2xl:grid-cols-[minmax(0,28fr)_minmax(0,52fr)_minmax(0,20fr)]">
+                {{-- Summary --}}
+                <div class="order-1 w-full min-w-0 lg:col-span-2 2xl:col-span-1">
+                    <x-dashboard.summary.summary :summary="$summary" />
+                </div>
 
-            {{-- Metrics --}}
-            <div class="order-2 w-full min-w-0 lg:order-3 lg:col-span-3 2xl:order-2 2xl:col-span-1">
-                <x-dashboard.metrics :metrics="$metrics" />
-            </div>
+                {{-- Metrics --}}
+                <div class="order-2 w-full min-w-0 lg:order-3 lg:col-span-3 2xl:order-2 2xl:col-span-1">
+                    <x-dashboard.metrics :metrics="$metrics" />
+                </div>
 
-            {{-- Alert --}}
-            <div class="order-3 w-full min-w-0 lg:order-2 lg:col-span-1 2xl:order-3 2xl:col-span-1">
-                <x-dashboard.alert :budgetAlert="$budgetAlert" />
+                {{-- Alert --}}
+                <div class="order-3 w-full min-w-0 lg:order-2 lg:col-span-1 2xl:order-3 2xl:col-span-1">
+                    <x-dashboard.alert :budgetAlert="$budgetAlert" />
+                </div>
             </div>
-        </div>
+        @else
+            <div class="grid grid-cols-1 gap-4 md:gap-6 lg:grid-cols-3 2xl:grid-cols-12">
+                {{-- Summary --}}
+                <div class="order-1 w-full min-w-0 lg:col-span-1 2xl:col-span-4">
+                    <x-dashboard.summary.summary :summary="$summary" />
+                </div>
+
+                {{-- Metrics --}}
+                <div class="order-2 w-full min-w-0 lg:order-3 lg:col-span-2 2xl:order-2 2xl:col-span-8">
+                    <x-dashboard.metrics :metrics="$metrics" />
+                </div>
+
+                {{-- Alert
+                <div class="order-3 w-full min-w-0 lg:order-2 lg:col-span-1 2xl:order-3 2xl:col-span-1">
+                    <x-dashboard.alert :budgetAlert="$budgetAlert" />
+                </div> --}}
+            </div>
+        @endif
 
         <x-dashboard.statistics :statistics="$statistics" />
 
