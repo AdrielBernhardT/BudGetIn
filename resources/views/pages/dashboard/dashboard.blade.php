@@ -48,7 +48,7 @@
             </div>
         @endif
 
-        <x-dashboard.statistics :statistics="$statistics" />
+        <x-dashboard.statistics :statistics="$statistics" :isStatistics="$firstIncomeOrExpense" />
 
         <div class="flex flex-col xl:flex-row gap-4 md:gap-6">
             <div class="w-full xl:w-[55%] min-w-0">

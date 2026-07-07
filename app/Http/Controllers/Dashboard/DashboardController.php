@@ -181,22 +181,34 @@ class DashboardController extends Controller
         $incomeSeries = [];
         $expenseSeries = [];
 
-        for ($i = 3; $i >= 0; $i--) { // take last 4 month
-            $date = Carbon::now()->subMonths($i);
+        $year = Carbon::now()->year;
+        $month = Carbon::now()->month;
 
-            $labels[] = $date->format('M');
+        $firstIncomeOrExpense = Transaction::where('user_id', $userId)
+            ->whereIn('type', ['income', 'expense'])
+            ->whereYear('date', $year)
+            ->orderBy('date', 'asc')
+            ->first();
 
-            $incomeSeries[] = Transaction::where('user_id', $userId)
-                ->where('type', 'income')
-                ->whereMonth('date', $date->month)
-                ->whereYear('date', $date->year)
-                ->sum('amount');
+        if ($firstIncomeOrExpense) {
+            $start = Carbon::parse($firstIncomeOrExpense->date)->month;
+            for ($i = $start; $i <= $month; $i++) {
+                $date = Carbon::create($year, $month, 1);
 
-            $expenseSeries[] = Transaction::where('user_id', $userId)
-                ->where('type', 'expense')
-                ->whereMonth('date', $date->month)
-                ->whereYear('date', $date->year)
-                ->sum('amount');
+                $labels[] = $date->format('M');
+
+                $incomeSeries[] = Transaction::where('user_id', $userId)
+                    ->where('type', 'income')
+                    ->whereMonth('date', $month)
+                    ->whereYear('date', $year)
+                    ->sum('amount');
+
+                $expenseSeries[] = Transaction::where('user_id', $userId)
+                    ->where('type', 'expense')
+                    ->whereMonth('date', $month)
+                    ->whereYear('date', $year)
+                    ->sum('amount');
+            }
         }
 
         $statistics = [
@@ -291,6 +303,7 @@ class DashboardController extends Controller
             'summary',
             'metrics',
             'budgetAlert',
+            'firstIncomeOrExpense',
             'statistics', 
             'recentTransactions',
             'monthlyBudgets'
