@@ -177,6 +177,17 @@
                     }).format(value ?? 0);
                 },
 
+                printReport() {
+                    const params = new URLSearchParams({
+                        type: this.selectedReportType,
+                        filter: this.filterType,
+                        date: this.selectedDate,
+                        month: this.selectedMonth,
+                    });
+
+                    window.open(`/report/print?${params.toString()}`, "_blank");
+                },
+
                 init() {
                     this.$watch('search', () => {
                         this.currentPage = 1;
