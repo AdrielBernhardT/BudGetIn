@@ -13,43 +13,53 @@
 
 <div class="max-w-full overflow-x-auto custom-scrollbar">
     <table class="min-w-full">
-        <thead>
-            <tr class="border-t border-gray-100 dark:border-gray-800">
-                <th class="py-3 text-left">
-                    <p class="font-medium text-gray-500 text-theme-xs dark:text-gray-400">Title</p>
-                </th>
-                <th class="py-3 text-left">
-                    <p class="font-medium text-gray-500 text-theme-xs dark:text-gray-400">Amount</p>
-                </th>
-                <th class="py-3 text-left">
-                    <p class="font-medium text-gray-500 text-theme-xs dark:text-gray-400">From Account</p>
-                </th>
-                <th class="py-3 text-left">
-                    <p class="font-medium text-gray-500 text-theme-xs dark:text-gray-400">To Account</p>
-                </th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach($transactions as $i)
+        @if (!$transactions->isEmpty())
+            <thead>
                 <tr class="border-t border-gray-100 dark:border-gray-800">
-                    <td class="py-3 whitespace-nowrap">
-                        <div class="flex items-center gap-3">
-                            <p class="font-medium text-gray-800 text-theme-sm dark:text-white/90">
-                                {{ $i['title'] }}
-                            </p>
-                        </div>
-                    </td>
-                    <td class="py-3 whitespace-nowrap">
-                        <p class="text-gray-500 text-theme-sm dark:text-gray-400">IDR {{ number_format($i['amount'], 0, ',', '.') }}</p>
-                    </td>
-                    <td class="py-3 whitespace-nowrap">
-                        <p class="text-gray-500 text-theme-sm dark:text-gray-400">{{ $i['account_bank'] }}</p>
-                    </td>
-                    <td class="py-3 whitespace-nowrap">
-                        <p class="text-gray-500 text-theme-sm dark:text-gray-400">{{ $i['account_bank'] }}</p>
+                    <th class="py-3 text-left">
+                        <p class="font-medium text-gray-500 text-theme-xs dark:text-gray-400">Title</p>
+                    </th>
+                    <th class="py-3 text-left">
+                        <p class="font-medium text-gray-500 text-theme-xs dark:text-gray-400">Amount</p>
+                    </th>
+                    <th class="py-3 text-left">
+                        <p class="font-medium text-gray-500 text-theme-xs dark:text-gray-400">From Account</p>
+                    </th>
+                    <th class="py-3 text-left">
+                        <p class="font-medium text-gray-500 text-theme-xs dark:text-gray-400">To Account</p>
+                    </th>
+                </tr>
+            </thead>
+        @endif
+        <tbody>
+            @if ($transactions->isEmpty())
+                <tr>
+                    <td colspan="3" class="py-8 text-center text-gray-500">
+                        No transfers found
                     </td>
                 </tr>
-            @endforeach
+            @else
+                @foreach($transactions as $i)
+                    <tr class="border-t border-gray-100 dark:border-gray-800">
+                        <td class="py-3 whitespace-nowrap">
+                            <div class="flex items-center gap-3">
+                                <p class="font-medium text-gray-800 text-theme-sm dark:text-white/90">
+                                    {{ $i['title'] }}
+                                </p>
+                            </div>
+                        </td>
+                        <td class="py-3 whitespace-nowrap">
+                            <p class="text-gray-500 text-theme-sm dark:text-gray-400">IDR {{ number_format($i['amount'], 0, ',', '.') }}</p>
+                        </td>
+                        <td class="py-3 whitespace-nowrap">
+                            <p class="text-gray-500 text-theme-sm dark:text-gray-400">{{ $i['account_bank'] }}</p>
+                        </td>
+                        <td class="py-3 whitespace-nowrap">
+                            <p class="text-gray-500 text-theme-sm dark:text-gray-400">{{ $i['account_bank'] }}</p>
+                        </td>
+                    </tr>
+                @endforeach
+            @endif
         </tbody>
     </table>
 </div>
