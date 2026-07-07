@@ -24,4 +24,5 @@ class Investment extends Model
     {
         return $this->hasMany(RecordInvestment::class);
     }
+    
 }
