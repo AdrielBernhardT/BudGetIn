@@ -111,7 +111,7 @@
 
             <div class="flex items-end justify-between">
                 <div>
-                    <h4 class="mt-2 font-bold text-gray-800 text-2xl dark:text-white/90">IDR {{ number_format($metrics['saving']['amount'] ?? 0, 0, ',', '.') }}</h4>
+                    <h4 class="mt-2 font-bold text-gray-800 text-2xl dark:text-white/90">IDR {{ number_format($metrics['expense']['amount'] ?? 0, 0, ',', '.') }}</h4>
                 </div>
 
                 <span class="flex items-center gap-1 rounded-full {{ $expenseBadge['bg'] }} py-0.5 pl-2 pr-2.5 text-sm font-medium {{ $expenseBadge['text'] }}">
@@ -208,7 +208,7 @@
 
                 <div class="flex flex-col">
                     <h3 class="text-lg font-semibold text-gray-800 dark:text-white/90">Highest Expense</h3>
-                    <h4 class="text-sm text-gray-500 dark:text-gray-400">Food & Beverage</h4>
+                    <h4 class="text-sm text-gray-500 dark:text-gray-400">{{ $metrics['highest_expense']['title'] ?? '-' }}</h4>
                 </div>
             </div>
 

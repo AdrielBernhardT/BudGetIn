@@ -54,8 +54,28 @@ class DashboardController extends Controller
             ->whereYear('date', $now->copy()->subMonth()->year)
             ->sum('amount');
 
-        $currentSaving = $currentMonthIncome - $currentMonthExpense;
-        $lastSaving = $lastMonthIncome - $lastMonthExpense;
+        $currentYearIncome = Transaction::where('user_id', $userId)
+            ->where('type', 'income')
+            ->whereYear('date', $now->year)
+            ->sum('amount');
+
+        $lastYearIncome = Transaction::where('user_id', $userId)
+            ->where('type', 'income')
+            ->whereYear('date', $now->copy()->subYear()->year)
+            ->sum('amount');
+
+        $currentYearExpense = Transaction::where('user_id', $userId)
+            ->where('type', 'expense')
+            ->whereYear('date', $now->year)
+            ->sum('amount');
+
+        $lastYearExpense = Transaction::where('user_id', $userId)
+            ->where('type', 'expense')
+            ->whereYear('date', $now->copy()->subYear()->year)
+            ->sum('amount');
+
+        $currentSaving = $currentYearIncome - $currentYearExpense;
+        $lastSaving = $lastYearIncome - $lastYearExpense;
 
         $currentHighest = Transaction::select(
                 'category_id',
@@ -345,13 +365,27 @@ class DashboardController extends Controller
     private function calculateChange(float $current, float $previous): array
     {
         if ($previous == 0) {
+            if ($current > 0) {
+                return [
+                    'direction' => 'up',
+                    'percentage' => 100,
+                ];
+            }
+
+            if ($current < 0) {
+                return [
+                    'direction' => 'down',
+                    'percentage' => 100,
+                ];
+            }
+
             return [
                 'direction' => 'neutral',
                 'percentage' => 0,
             ];
         }
 
-        $percentage = round((($current - $previous) / $previous) * 100, 2);
+        $percentage = round((($current - $previous) / abs($previous)) * 100, 2);
 
         if ($percentage > 0) {
             $direction = 'up';
