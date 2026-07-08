@@ -9,163 +9,253 @@ use Carbon\Carbon;
 use DB;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 
 class TransferController extends Controller
 {
-    public function index() {
-        $transfers = Transaction::with(['fromAccount', 'toAccount'])
-            ->where('user_id', Auth::id())
-            ->where('type', 'transfer')
-            ->get();
+    public function index()
+    {
+        try {
+            $transfers = Transaction::with(['fromAccount', 'toAccount'])
+                ->where('user_id', Auth::id())
+                ->where('type', 'transfer')
+                ->get();
 
-        $accounts = Account::where('user_id', Auth::id())->get();
+            $accounts = Account::where('user_id', Auth::id())->get();
 
-        confirmDelete('Are you sure you want to delete this transfer?');
-        return(view('pages.transaction.transfer', ['title' => 'Transfer'], compact('transfers', 'accounts')));
+            confirmDelete('Are you sure you want to delete this transfer?');
+
+            return view(
+                'pages.transaction.transfer',
+                ['title' => 'Transfer'],
+                compact('transfers', 'accounts')
+            );
+
+        } catch (\Throwable $th) {
+            report($th);
+
+            toast()->error('Failed to load transfers.');
+
+            return redirect()->back();
+        }
     }
 
     public function store(Request $request)
     {
-        $validated = $request->validate([
-            'from_account_id' => ['required', 'exists:accounts,id'],
-            'to_account_id'   => ['required', 'different:from_account_id', 'exists:accounts,id'],
-            'amount'          => ['required'],
-            'date'            => ['required'],
-            'description'     => ['nullable', 'string', 'max:200'],
-        ]);
+        $validator = Validator::make(
+            $request->all(),
+            [
+                'from_account_id' => ['required', 'exists:accounts,id'],
+                'to_account_id'   => [
+                    'required',
+                    'different:from_account_id',
+                    'exists:accounts,id'
+                ],
+                'amount' => ['required'],
+                'date' => ['required'],
+                'description' => ['nullable', 'string', 'max:200'],
+            ],
+            [
+                'from_account_id.required' => 'Please select the source account.',
+                'from_account_id.exists' => 'Selected source account is invalid.',
+
+                'to_account_id.required' => 'Please select the destination account.',
+                'to_account_id.exists' => 'Selected destination account is invalid.',
+                'to_account_id.different' => 'Source and destination accounts must be different.',
+
+                'amount.required' => 'Transfer amount is required.',
+                'date.required' => 'Transfer date is required.',
+                'description.max' => 'Description may not exceed 200 characters.',
+            ]
+        );
+
+        if ($validator->fails()) {
+            toast()->error($validator->errors()->first());
+
+            return redirect()
+                ->back()
+                ->withErrors($validator)
+                ->withInput();
+        }
 
         try {
             DB::beginTransaction();
 
-            $amount = (int) preg_replace('/[^0-9]/', '', $validated['amount']);
-            // $amount = $validated['amount'];
+            $amount = (int) preg_replace('/[^0-9]/', '', $request->amount);
 
-            $from = Account::where('id', $validated['from_account_id'])
+            $fromAccount = Account::where('id', $request->from_account_id)
                 ->where('user_id', Auth::id())
                 ->firstOrFail();
 
-            $to = Account::where('id', $validated['to_account_id'])
+            $toAccount = Account::where('id', $request->to_account_id)
                 ->where('user_id', Auth::id())
                 ->firstOrFail();
 
-            $from->decrement('balance', $amount);
-            $to->increment('balance', $amount);
+            $fromAccount->decrement('balance', $amount);
+            $toAccount->increment('balance', $amount);
 
             Transaction::create([
                 'user_id'         => Auth::id(),
                 'type'            => 'transfer',
                 'title'           => 'Transfer',
                 'amount'          => $amount,
-                'from_account_id' => $from->id,
-                'to_account_id'   => $to->id,
-                'date'            => Carbon::createFromFormat('d-m-Y', $validated['date'])->format('Y-m-d'),
-                'description'     => $validated['description'],
+                'from_account_id' => $fromAccount->id,
+                'to_account_id'   => $toAccount->id,
+                'date'            => Carbon::createFromFormat('d-m-Y', $request->date)
+                                        ->format('Y-m-d'),
+                'description'     => $request->description,
             ]);
 
             DB::commit();
 
-            toast()->success('Transfer successful!');
-            return back();
+            toast()->success('Transfer created successfully!');
 
-        } catch (\Throwable $e) {
+            return redirect()->back();
+
+        } catch (\Throwable $th) {
             DB::rollBack();
-            toast()->error('Transfer failed!');
-            return back();
+
+            report($th);
+
+            toast()->error('Failed to create transfer.');
+
+            return redirect()->back()->withInput();
         }
     }
 
     public function update(Request $request, $id)
     {
-        $transfer = Transaction::where('type', 'transfer')
-            ->where('user_id', Auth::id())
-            ->where('id', $id)
-            ->firstOrFail();
-
-        $validated = $request->validate([
-            'from_account_id' => ['required', 'exists:accounts,id'],
-            'to_account_id'   => ['required', 'different:from_account_id', 'exists:accounts,id'],
-            'amount'          => ['required'],
-            'date'            => ['required'],
-            'description'     => ['nullable', 'string', 'max:200'],
-        ]);
-
         try {
+            $transfer = Transaction::where('id', $id)
+                ->where('user_id', Auth::id())
+                ->where('type', 'transfer')
+                ->firstOrFail();
+
+            $validator = Validator::make(
+                $request->all(),
+                [
+                    'from_account_id' => ['required', 'exists:accounts,id'],
+                    'to_account_id' => [
+                        'required',
+                        'different:from_account_id',
+                        'exists:accounts,id'
+                    ],
+                    'amount' => ['required'],
+                    'date' => ['required'],
+                    'description' => ['nullable', 'string', 'max:200'],
+                ],
+                [
+                    'from_account_id.required' => 'Please select the source account.',
+                    'from_account_id.exists' => 'Selected source account is invalid.',
+
+                    'to_account_id.required' => 'Please select the destination account.',
+                    'to_account_id.exists' => 'Selected destination account is invalid.',
+                    'to_account_id.different' => 'Source and destination accounts must be different.',
+
+                    'amount.required' => 'Transfer amount is required.',
+                    'date.required' => 'Transfer date is required.',
+                    'description.max' => 'Description may not exceed 200 characters.',
+                ]
+            );
+
+            if ($validator->fails()) {
+                toast()->error($validator->errors()->first());
+
+                return redirect()
+                    ->back()
+                    ->withErrors($validator)
+                    ->withInput();
+            }
+
             DB::beginTransaction();
 
-            // $amount = (int) preg_replace('/[^0-9]/', '', $validated['amount']);
-            $oldAmount = $transfer->amount;
-
-            $oldFrom = Account::where('id', $transfer->from_account_id)
-                ->where('user_id', Auth::id())
-                ->firstOrFail();
-            $oldTo = Account::where('id', $transfer->to_account_id)
+            $oldFromAccount = Account::where('id', $transfer->from_account_id)
                 ->where('user_id', Auth::id())
                 ->firstOrFail();
 
-            $oldFrom->increment('balance', $transfer->amount);
-            $oldTo->decrement('balance', $transfer->amount);
-
-            $newAmount = (int) preg_replace('/[^0-9]/', '', $validated['amount']);
-
-            $newFrom = Account::where('id', $validated['from_account_id'])
+            $oldToAccount = Account::where('id', $transfer->to_account_id)
                 ->where('user_id', Auth::id())
                 ->firstOrFail();
 
-            $newTo = Account::where('id', $validated['to_account_id'])
+            $oldFromAccount->increment('balance', $transfer->amount);
+            $oldToAccount->decrement('balance', $transfer->amount);
+
+            $newAmount = (int) preg_replace('/[^0-9]/', '', $request->amount);
+
+            $newFromAccount = Account::where('id', $request->from_account_id)
                 ->where('user_id', Auth::id())
                 ->firstOrFail();
 
-            $newFrom->decrement('balance', $newAmount);
-            $newTo->increment('balance', $newAmount);
+            $newToAccount = Account::where('id', $request->to_account_id)
+                ->where('user_id', Auth::id())
+                ->firstOrFail();
+
+            $newFromAccount->decrement('balance', $newAmount);
+            $newToAccount->increment('balance', $newAmount);
 
             $transfer->update([
-                'user_id'         => Auth::id(),
-                'type'            => 'transfer',
-                'title'           => 'Transfer',
-                'amount'          => $newAmount,
-                'from_account_id' => $newFrom->id,
-                'to_account_id'   => $newTo->id,
-                'date'            => Carbon::createFromFormat('d-m-Y', $validated['date'])->format('Y-m-d'),
-                'description'     => $validated['description'],
+                'title' => 'Transfer',
+                'amount' => $newAmount,
+                'from_account_id' => $newFromAccount->id,
+                'to_account_id' => $newToAccount->id,
+                'date' => Carbon::createFromFormat('d-m-Y', $request->date)
+                    ->format('Y-m-d'),
+                'description' => $request->description,
             ]);
 
             DB::commit();
 
-            toast()->success('Transfer updated!');
-            return back();
+            toast()->success('Transfer updated successfully!');
 
-        } catch (\Throwable $e) {
+            return redirect()->back();
+
+        } catch (\Throwable $th) {
             DB::rollBack();
 
-            toast()->error('Transfer failed to update!');
-            return back();
+            report($th);
+
+            toast()->error('Failed to update transfer.');
+
+            return redirect()->back()->withInput();
         }
     }
 
-    public function destroy($id){
-        $transfer = Transaction::where('id', $id)
-            ->where('user_id', Auth::id())
-            ->where('type', 'transfer')
-            ->firstOrFail();
-        
+    public function destroy($id)
+    {
         try {
+            $transfer = Transaction::where('id', $id)
+                ->where('user_id', Auth::id())
+                ->where('type', 'transfer')
+                ->firstOrFail();
+
             DB::beginTransaction();
 
-            Account::where('id', $transfer->from_account_id)
-                ->increment('balance', $transfer->amount);
-            Account::where('id', $transfer->to_account_id)
-                ->decrement('balance', $transfer->amount);
+            $fromAccount = Account::where('id', $transfer->from_account_id)
+                ->where('user_id', Auth::id())
+                ->firstOrFail();
+
+            $toAccount = Account::where('id', $transfer->to_account_id)
+                ->where('user_id', Auth::id())
+                ->firstOrFail();
+
+            $fromAccount->increment('balance', $transfer->amount);
+            $toAccount->decrement('balance', $transfer->amount);
+
             $transfer->delete();
 
             DB::commit();
 
-            toast()->success('Transfer deleted!');
+            toast()->success('Transfer deleted successfully!');
+
             return redirect()->back();
 
-        } catch(\Exception $e){
+        } catch (\Throwable $th) {
             DB::rollBack();
 
-            toast()->error('Delete failed!');
+            report($th);
+
+            toast()->error('Failed to delete transfer.');
+
             return redirect()->back();
         }
     }

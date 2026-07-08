@@ -21,7 +21,7 @@
 
                                 <div>
                                     <h3 class="font-semibold text-gray-800 dark:text-white/90">
-                                        {{ $goal->name }}
+                                        {{ $goal->title }}
                                     </h3>
 
                                     <p class="text-sm text-gray-500">
@@ -37,7 +37,7 @@
                                         detail: {
                                             goal: @js([
                                                 'id' => $goal->id,
-                                                'name' => $goal->name,
+                                                'name' => $goal->title,
                                                 'icon' => $goal->icon,
                                                 'target_amount' => $goal->target_amount,
                                                 'target_date' => $goal->target_date?->format('Y-m-d'),
