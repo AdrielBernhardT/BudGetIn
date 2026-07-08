@@ -1,4 +1,4 @@
-@props(['statistics', 'isStatistics'])
+@props(['statistics', 'hasStatistics'])
 
 <div
     x-data="statisticsChart(@js($statistics))"
@@ -11,7 +11,7 @@
             </h3>
         </div>
 
-        @if ($isStatistics)
+        @if ($hasStatistics)
             <div class="flex items-start w-full gap-3 sm:justify-end">
                 <div class="inline-flex w-fit items-center gap-0.5 rounded-lg bg-gray-100 p-0.5 dark:bg-gray-900">
                     @php
@@ -39,7 +39,7 @@
         @endif
     </div>
 
-    @if ($isStatistics)
+    @if ($hasStatistics)
         <div class="max-w-full overflow-x-auto custom-scrollbar">
             <div x-ref="chart" class="-ml-4 pl-2 xl:min-w-full"></div>
         </div>

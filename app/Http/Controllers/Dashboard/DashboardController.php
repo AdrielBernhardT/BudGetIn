@@ -181,33 +181,57 @@ class DashboardController extends Controller
         $incomeSeries = [];
         $expenseSeries = [];
 
-        $year = Carbon::now()->year;
-        $month = Carbon::now()->month;
+        $currentYear = Carbon::now()->year;
 
-        $firstIncomeOrExpense = Transaction::where('user_id', $userId)
+        $monthlyTransactions = Transaction::where('user_id', $userId)
+            ->whereYear('date', $currentYear)
             ->whereIn('type', ['income', 'expense'])
-            ->whereYear('date', $year)
-            ->orderBy('date', 'asc')
-            ->first();
+            ->selectRaw('MONTH(date) as month, type, SUM(amount) as total')
+            ->groupBy('month', 'type')
+            ->get();
 
-        if ($firstIncomeOrExpense) {
-            $start = Carbon::parse($firstIncomeOrExpense->date)->month;
-            for ($i = $start; $i <= $month; $i++) {
-                $date = Carbon::create($year, $month, 1);
+        if ($monthlyTransactions->isNotEmpty()) {
+            $monthsWithData = $monthlyTransactions
+                ->pluck('month')
+                ->unique()
+                ->sort()
+                ->values();
 
-                $labels[] = $date->format('M');
+            $startMonth = $monthsWithData->first();
+            $endMonth = $monthsWithData->last();
 
-                $incomeSeries[] = Transaction::where('user_id', $userId)
-                    ->where('type', 'income')
-                    ->whereMonth('date', $month)
-                    ->whereYear('date', $year)
-                    ->sum('amount');
+            // Kalau data cuma ada di 1 bulan
+            if ($monthsWithData->count() === 1) {
+                $onlyMonth = $monthsWithData->first();
 
-                $expenseSeries[] = Transaction::where('user_id', $userId)
-                    ->where('type', 'expense')
-                    ->whereMonth('date', $month)
-                    ->whereYear('date', $year)
-                    ->sum('amount');
+                if ($onlyMonth == 1) {
+                    // Kalau Januari, tambahin Februari 0
+                    $startMonth = 1;
+                    $endMonth = 2;
+                } elseif ($onlyMonth == 12) {
+                    // Kalau Desember, tambahin November 0
+                    $startMonth = 11;
+                    $endMonth = 12;
+                } else {
+                    // Kalau di tengah, tambahin bulan sebelum dan sesudah
+                    $startMonth = $onlyMonth - 1;
+                    $endMonth = $onlyMonth + 1;
+                }
+            }
+
+            $incomeByMonth = $monthlyTransactions
+                ->where('type', 'income')
+                ->pluck('total', 'month');
+
+            $expenseByMonth = $monthlyTransactions
+                ->where('type', 'expense')
+                ->pluck('total', 'month');
+
+            for ($month = $startMonth; $month <= $endMonth; $month++) {
+                $labels[] = Carbon::create($currentYear, $month, 1)->format('M');
+
+                $incomeSeries[] = (int) ($incomeByMonth[$month] ?? 0);
+                $expenseSeries[] = (int) ($expenseByMonth[$month] ?? 0);
             }
         }
 
@@ -246,6 +270,14 @@ class DashboardController extends Controller
                 ],
             ],
         ];
+
+        $hasStatistics = collect($statistics['overview']['series'] ?? [])
+            ->pluck('data')
+            ->flatten()
+            ->filter(fn ($value) => (float) $value > 0)
+            ->isNotEmpty();
+
+        // dd($statistics);
 
         // Recent Transactions
         $recentTransactions = [
@@ -303,8 +335,8 @@ class DashboardController extends Controller
             'summary',
             'metrics',
             'budgetAlert',
-            'firstIncomeOrExpense',
-            'statistics', 
+            'statistics',
+            'hasStatistics',
             'recentTransactions',
             'monthlyBudgets'
         ));
