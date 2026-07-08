@@ -21,7 +21,11 @@ class TransferController extends Controller
                 ->where('user_id', Auth::id())
                 ->where('type', 'transfer')
                 ->latest()
-                ->get();
+                ->get()->map(function ($transfer) {
+                    $transfer->display_date = Carbon::parse($transfer->date)->format('d F Y');
+
+                    return $transfer;
+                });
 
             $accounts = Account::where('user_id', Auth::id())->get();
 

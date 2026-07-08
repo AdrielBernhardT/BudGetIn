@@ -39,7 +39,7 @@
                             :class="index === paginatedtransfer.length - 1 ? 'px-4 py-4 whitespace-nowrap' :
                                 'px-4 py-4 whitespace-nowrap border-b border-gray-200 dark:border-gray-700'">
                             <div class="flex items-center gap-4">
-                                <div class="text-sm font-medium text-gray-900 dark:text-white" x-text="transfer.date">
+                                <div class="text-sm font-medium text-gray-900 dark:text-white" x-text="transfer.display_date">
                                 </div>
                             </div>
                         </td>

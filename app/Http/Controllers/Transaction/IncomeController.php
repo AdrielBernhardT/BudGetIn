@@ -21,7 +21,12 @@ class IncomeController extends Controller
                 ->where('user_id', Auth::id())
                 ->where('type', 'income')
                 ->latest()
-                ->get();
+                ->get()
+                ->map(function ($income) {
+                    $income->display_date = Carbon::parse($income->date)->format('d F Y');
+
+                    return $income;
+                });
 
             $accounts = Account::where('user_id', Auth::id())->get();
 

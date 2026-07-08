@@ -22,7 +22,12 @@ class ExpenseController extends Controller
                 ->where('user_id', Auth::id())
                 ->where('type', 'expense')
                 ->latest()
-                ->get();
+                ->get()
+                ->map(function ($expense) {
+                    $expense->display_date = Carbon::parse($expense->date)->format('d F Y');
+
+                    return $expense;
+                });
 
             $categories = Category::where('user_id', Auth::id())->get();
 
