@@ -44,18 +44,18 @@
                         <td class="py-3 whitespace-nowrap">
                             <div class="flex items-center gap-3">
                                 <p class="font-medium text-gray-800 text-theme-sm dark:text-white/90">
-                                    {{ $i['title'] }}
+                                    {{ $i->title }}
                                 </p>
                             </div>
                         </td>
                         <td class="py-3 whitespace-nowrap">
-                            <p class="text-gray-500 text-theme-sm dark:text-gray-400">IDR {{ number_format($i['amount'], 0, ',', '.') }}</p>
+                            <p class="text-gray-500 text-theme-sm dark:text-gray-400">IDR {{ number_format($i->amount, 0, ',', '.') }}</p>
                         </td>
                         <td class="py-3 whitespace-nowrap">
-                            <p class="text-gray-500 text-theme-sm dark:text-gray-400">{{ $i['account_bank'] }}</p>
+                            <p class="text-gray-500 text-theme-sm dark:text-gray-400">{{ $i->fromAccount->name }}</p>
                         </td>
                         <td class="py-3 whitespace-nowrap">
-                            <p class="text-gray-500 text-theme-sm dark:text-gray-400">{{ $i['account_bank'] }}</p>
+                            <p class="text-gray-500 text-theme-sm dark:text-gray-400">{{ $i->toAccount->name }}</p>
                         </td>
                     </tr>
                 @endforeach

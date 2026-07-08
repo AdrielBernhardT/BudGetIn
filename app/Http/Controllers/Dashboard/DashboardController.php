@@ -301,21 +301,21 @@ class DashboardController extends Controller
 
         // Recent Transactions
         $recentTransactions = [
-            'incomes' => Transaction::with(['account', 'category'])
+            'incomes' => Transaction::with('toAccount')
                 ->where('user_id', $userId)
                 ->where('type', 'income')
                 ->latest('date')
                 ->take(5)
                 ->get(),
 
-            'expenses' => Transaction::with(['account', 'category'])
+            'expenses' => Transaction::with(['fromAccount', 'category'])
                 ->where('user_id', $userId)
                 ->where('type', 'expense')
                 ->latest('date')
                 ->take(5)
                 ->get(),
 
-            'transfers' => Transaction::with(['account'])
+            'transfers' => Transaction::with(['fromAccount', 'toAccount'])
                 ->where('user_id', $userId)
                 ->where('type', 'transfer')
                 ->latest('date')
