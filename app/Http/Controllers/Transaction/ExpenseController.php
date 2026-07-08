@@ -6,11 +6,12 @@ use App\Http\Controllers\Controller;
 use App\Models\Account;
 use App\Models\Category;
 use App\Models\Transaction;
-use Auth;
 use Carbon\Carbon;
-use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
 
 class ExpenseController extends Controller
 {
@@ -20,6 +21,7 @@ class ExpenseController extends Controller
             $expenses = Transaction::with(['fromAccount', 'category'])
                 ->where('user_id', Auth::id())
                 ->where('type', 'expense')
+                ->latest()
                 ->get();
 
             $categories = Category::where('user_id', Auth::id())->get();
@@ -30,19 +32,13 @@ class ExpenseController extends Controller
 
             return view(
                 'pages.transaction.expense',
-                ['title' => 'Expense'],
                 compact('expenses', 'categories', 'accounts')
-            );
+            )->with('title', 'Expense');
 
         } catch (\Throwable $th) {
-
             report($th);
 
-            toast()->error(
-                app()->environment('local')
-                    ? $th->getMessage()
-                    : 'Failed to load expenses.'
-            );
+            toast()->error('Failed to load expenses.');
 
             return redirect()->back();
         }
@@ -50,91 +46,95 @@ class ExpenseController extends Controller
 
     public function store(Request $request)
     {
-        try {
-
-            $validated = $request->validateWithBag('expense', [
+        $validator = Validator::make(
+            $request->all(),
+            [
                 'title' => ['required', 'string', 'max:100'],
-                'from_account_id' => ['required'],
-                'category_id' => ['required'],
-                'amount' => ['required', 'numeric', 'min:1'],
+                'from_account_id' => [
+                    'required',
+                    Rule::exists('accounts', 'id')->where('user_id', Auth::id()),
+                ],
+                'category_id' => [
+                    'required',
+                    Rule::exists('categories', 'id')->where('user_id', Auth::id()),
+                ],
+                'amount' => ['required'],
                 'date' => ['required'],
                 'description' => ['nullable', 'string', 'max:200'],
-            ], [
+            ],
+            [
                 'title.required' => 'Expense title is required.',
+                'title.max' => 'Expense title may not exceed 100 characters.',
                 'from_account_id.required' => 'Please select an account.',
+                'from_account_id.exists' => 'Selected account is invalid.',
                 'category_id.required' => 'Please select a category.',
+                'category_id.exists' => 'Selected category is invalid.',
                 'amount.required' => 'Amount is required.',
-                'amount.numeric' => 'Amount must be numeric.',
-                'amount.min' => 'Amount must be greater than 0.',
                 'date.required' => 'Date is required.',
-            ]);
+                'description.max' => 'Description may not exceed 200 characters.',
+            ]
+        );
 
-            $userId = Auth::id();
+        if ($validator->fails()) {
+            toast()->error($validator->errors()->first());
 
-            $fromAccount = Account::where('id', $validated['from_account_id'])
-                ->where('user_id', $userId)
-                ->first();
+            return redirect()
+                ->back()
+                ->withErrors($validator, 'expense')
+                ->withInput();
+        }
 
-            if (!$fromAccount) {
+        try {
+            $amount = $this->normalizeAmount($request->amount);
 
-                toast()->error('Invalid account selected.');
+            if ($amount <= 0) {
+                toast()->error('Amount must be greater than 0.');
 
-                return back()
+                return redirect()
+                    ->back()
                     ->withErrors([
-                        'from_account_id' => 'Invalid account selected.'
+                        'amount' => 'Amount must be greater than 0.',
                     ], 'expense')
                     ->withInput();
             }
 
-            $category = Category::where('id', $validated['category_id'])
-                ->where('user_id', $userId)
-                ->first();
+            $account = Account::where('id', $request->from_account_id)
+                ->where('user_id', Auth::id())
+                ->firstOrFail();
 
-            if (!$category) {
-
-                toast()->error('Invalid category selected.');
-
-                return back()
-                    ->withErrors([
-                        'category_id' => 'Invalid category selected.'
-                    ], 'expense')
-                    ->withInput();
-            }
-
-            $amount = (int) $validated['amount'];
-
-            if ($amount > $fromAccount->balance) {
-
+            if ($amount > $account->balance) {
                 toast()->error(
                     'Insufficient balance. Current balance: ' .
-                    number_format($fromAccount->balance, 0, ',', '.')
+                    number_format($account->balance, 0, ',', '.')
                 );
 
-                return back()
+                return redirect()
+                    ->back()
                     ->withErrors([
                         'amount' =>
                             'Insufficient balance. Current balance: ' .
-                            number_format($fromAccount->balance, 0, ',', '.')
+                            number_format($account->balance, 0, ',', '.'),
                     ], 'expense')
                     ->withInput();
             }
 
+            $category = Category::where('id', $request->category_id)
+                ->where('user_id', Auth::id())
+                ->firstOrFail();
+
             DB::beginTransaction();
 
-            $fromAccount->decrement('balance', $amount);
+            $account->decrement('balance', $amount);
 
             Transaction::create([
-                'user_id' => $userId,
+                'user_id' => Auth::id(),
                 'type' => 'expense',
-                'title' => $validated['title'],
+                'title' => $request->title,
                 'amount' => $amount,
-                'from_account_id' => $fromAccount->id,
+                'from_account_id' => $account->id,
                 'category_id' => $category->id,
-                'date' => Carbon::createFromFormat(
-                    'd-m-Y',
-                    $validated['date']
-                )->format('Y-m-d'),
-                'description' => $validated['description'],
+                'date' => $this->normalizeDate($request->date),
+                'description' => $request->description,
             ]);
 
             DB::commit();
@@ -144,86 +144,86 @@ class ExpenseController extends Controller
             return redirect()->back();
 
         } catch (\Throwable $th) {
-
             DB::rollBack();
 
             report($th);
 
-            toast()->error(
-                app()->environment('local')
-                    ? $th->getMessage()
-                    : 'Failed to create expense.'
-            );
+            toast()->error('Failed to create expense.');
 
-            return redirect()
-                ->back()
-                ->withInput();
+            return redirect()->back()->withInput();
         }
     }
 
     public function update(Request $request, $id)
     {
-        try {
+        $expense = Transaction::where('id', $id)
+            ->where('user_id', Auth::id())
+            ->where('type', 'expense')
+            ->firstOrFail();
 
-            $userId = Auth::id();
-
-            $expense = Transaction::where('id', $id)
-                ->where('user_id', $userId)
-                ->where('type', 'expense')
-                ->firstOrFail();
-
-            $validated = $request->validateWithBag('expense', [
+        $validator = Validator::make(
+            $request->all(),
+            [
                 'title' => ['required', 'string', 'max:100'],
-                'from_account_id' => ['required'],
-                'category_id' => ['required'],
-                'amount' => ['required', 'numeric', 'min:1'],
+                'from_account_id' => [
+                    'required',
+                    Rule::exists('accounts', 'id')->where('user_id', Auth::id()),
+                ],
+                'category_id' => [
+                    'required',
+                    Rule::exists('categories', 'id')->where('user_id', Auth::id()),
+                ],
+                'amount' => ['required'],
                 'date' => ['required'],
                 'description' => ['nullable', 'string', 'max:200'],
-            ], [
+            ],
+            [
                 'title.required' => 'Expense title is required.',
+                'title.max' => 'Expense title may not exceed 100 characters.',
                 'from_account_id.required' => 'Please select an account.',
+                'from_account_id.exists' => 'Selected account is invalid.',
                 'category_id.required' => 'Please select a category.',
+                'category_id.exists' => 'Selected category is invalid.',
                 'amount.required' => 'Amount is required.',
-                'amount.numeric' => 'Amount must be numeric.',
-                'amount.min' => 'Amount must be greater than 0.',
                 'date.required' => 'Date is required.',
-            ]);
+                'description.max' => 'Description may not exceed 200 characters.',
+            ]
+        );
+
+        if ($validator->fails()) {
+            toast()->error($validator->errors()->first());
+
+            return redirect()
+                ->back()
+                ->withErrors($validator, 'expense')
+                ->withInput();
+        }
+
+        try {
+            $newAmount = $this->normalizeAmount($request->amount);
+
+            if ($newAmount <= 0) {
+                toast()->error('Amount must be greater than 0.');
+
+                return redirect()
+                    ->back()
+                    ->withErrors([
+                        'amount' => 'Amount must be greater than 0.',
+                    ], 'expense')
+                    ->withInput();
+            }
 
             $oldAccount = Account::where('id', $expense->from_account_id)
-                ->where('user_id', $userId)
+                ->where('user_id', Auth::id())
                 ->firstOrFail();
 
-            $newAccount = Account::where('id', $validated['from_account_id'])
-                ->where('user_id', $userId)
-                ->first();
+            $newAccount = Account::where('id', $request->from_account_id)
+                ->where('user_id', Auth::id())
+                ->firstOrFail();
 
-            if (!$newAccount) {
-
-                toast()->error('Invalid account selected.');
-
-                return back()
-                    ->withErrors([
-                        'from_account_id' => 'Invalid account selected.'
-                    ], 'expense')
-                    ->withInput();
-            }
-
-            $category = Category::where('id', $validated['category_id'])
-                ->where('user_id', $userId)
-                ->first();
-
-            if (!$category) {
-
-                toast()->error('Invalid category selected.');
-
-                return back()
-                    ->withErrors([
-                        'category_id' => 'Invalid category selected.'
-                    ], 'expense')
-                    ->withInput();
-            }
-
-            $newAmount = (int) $validated['amount'];
+            $category = Category::where('id', $request->category_id)
+                ->where('user_id', Auth::id())
+                ->firstOrFail();
 
             DB::beginTransaction();
 
@@ -231,8 +231,7 @@ class ExpenseController extends Controller
 
             $newAccount->refresh();
 
-            if ($newAccount->balance < $newAmount) {
-
+            if ($newAmount > $newAccount->balance) {
                 DB::rollBack();
 
                 toast()->error(
@@ -240,11 +239,12 @@ class ExpenseController extends Controller
                     number_format($newAccount->balance, 0, ',', '.')
                 );
 
-                return back()
+                return redirect()
+                    ->back()
                     ->withErrors([
                         'amount' =>
                             'Insufficient balance. Current balance: ' .
-                            number_format($newAccount->balance, 0, ',', '.')
+                            number_format($newAccount->balance, 0, ',', '.'),
                     ], 'expense')
                     ->withInput();
             }
@@ -252,15 +252,12 @@ class ExpenseController extends Controller
             $newAccount->decrement('balance', $newAmount);
 
             $expense->update([
-                'title' => $validated['title'],
+                'title' => $request->title,
                 'amount' => $newAmount,
                 'from_account_id' => $newAccount->id,
                 'category_id' => $category->id,
-                'date' => Carbon::createFromFormat(
-                    'd-m-Y',
-                    $validated['date']
-                )->format('Y-m-d'),
-                'description' => $validated['description'],
+                'date' => $this->normalizeDate($request->date),
+                'description' => $request->description,
             ]);
 
             DB::commit();
@@ -270,44 +267,36 @@ class ExpenseController extends Controller
             return redirect()->back();
 
         } catch (\Throwable $th) {
-
             DB::rollBack();
 
             report($th);
 
-            toast()->error(
-                app()->environment('local')
-                    ? $th->getMessage()
-                    : 'Failed to update expense.'
-            );
+            toast()->error('Failed to update expense.');
 
-            return redirect()
-                ->back()
-                ->withInput();
+            return redirect()->back()->withInput();
         }
     }
 
     public function destroy($id)
     {
+        $expense = Transaction::where('id', $id)
+            ->where('user_id', Auth::id())
+            ->where('type', 'expense')
+            ->firstOrFail();
+
         try {
             DB::beginTransaction();
 
-            $expense = Transaction::where('id', $id)
+            Account::where('id', $expense->from_account_id)
                 ->where('user_id', Auth::id())
-                ->where('type', 'expense')
-                ->firstOrFail();
-
-            $account = Account::where('id', $expense->from_account_id)
-                ->where('user_id', Auth::id())
-                ->firstOrFail();
-
-            $account->increment('balance', $expense->amount);
+                ->increment('balance', $expense->amount);
 
             $expense->delete();
 
             DB::commit();
 
             toast()->success('Expense deleted successfully!');
+
             return redirect()->back();
 
         } catch (\Throwable $th) {
@@ -316,7 +305,22 @@ class ExpenseController extends Controller
             report($th);
 
             toast()->error('Failed to delete expense.');
+
             return redirect()->back();
+        }
+    }
+
+    private function normalizeAmount($amount): int
+    {
+        return (int) preg_replace('/[^0-9]/', '', $amount);
+    }
+
+    private function normalizeDate($date): string
+    {
+        try {
+            return Carbon::createFromFormat('d-m-Y', $date)->format('Y-m-d');
+        } catch (\Throwable $th) {
+            return Carbon::parse($date)->format('Y-m-d');
         }
     }
 }
