@@ -6,10 +6,11 @@ use App\Http\Controllers\Controller;
 use App\Models\Account;
 use App\Models\Transaction;
 use Carbon\Carbon;
-use DB;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
 
 class TransferController extends Controller
 {
@@ -19,6 +20,7 @@ class TransferController extends Controller
             $transfers = Transaction::with(['fromAccount', 'toAccount'])
                 ->where('user_id', Auth::id())
                 ->where('type', 'transfer')
+                ->latest()
                 ->get();
 
             $accounts = Account::where('user_id', Auth::id())->get();
@@ -27,9 +29,8 @@ class TransferController extends Controller
 
             return view(
                 'pages.transaction.transfer',
-                ['title' => 'Transfer'],
                 compact('transfers', 'accounts')
-            );
+            )->with('title', 'Transfer');
 
         } catch (\Throwable $th) {
             report($th);
@@ -45,11 +46,14 @@ class TransferController extends Controller
         $validator = Validator::make(
             $request->all(),
             [
-                'from_account_id' => ['required', 'exists:accounts,id'],
-                'to_account_id'   => [
+                'from_account_id' => [
+                    'required',
+                    Rule::exists('accounts', 'id')->where('user_id', Auth::id()),
+                ],
+                'to_account_id' => [
                     'required',
                     'different:from_account_id',
-                    'exists:accounts,id'
+                    Rule::exists('accounts', 'id')->where('user_id', Auth::id()),
                 ],
                 'amount' => ['required'],
                 'date' => ['required'],
@@ -74,14 +78,23 @@ class TransferController extends Controller
 
             return redirect()
                 ->back()
-                ->withErrors($validator)
+                ->withErrors($validator, 'transfer')
                 ->withInput();
         }
 
         try {
-            DB::beginTransaction();
+            $amount = $this->normalizeAmount($request->amount);
 
-            $amount = (int) preg_replace('/[^0-9]/', '', $request->amount);
+            if ($amount <= 0) {
+                toast()->error('Transfer amount must be greater than 0.');
+
+                return redirect()
+                    ->back()
+                    ->withErrors([
+                        'amount' => 'Transfer amount must be greater than 0.',
+                    ], 'transfer')
+                    ->withInput();
+            }
 
             $fromAccount = Account::where('id', $request->from_account_id)
                 ->where('user_id', Auth::id())
@@ -91,19 +104,36 @@ class TransferController extends Controller
                 ->where('user_id', Auth::id())
                 ->firstOrFail();
 
+            if ($amount > $fromAccount->balance) {
+                toast()->error(
+                    'Insufficient balance. Current balance: ' .
+                    number_format($fromAccount->balance, 0, ',', '.')
+                );
+
+                return redirect()
+                    ->back()
+                    ->withErrors([
+                        'amount' =>
+                            'Insufficient balance. Current balance: ' .
+                            number_format($fromAccount->balance, 0, ',', '.'),
+                    ], 'transfer')
+                    ->withInput();
+            }
+
+            DB::beginTransaction();
+
             $fromAccount->decrement('balance', $amount);
             $toAccount->increment('balance', $amount);
 
             Transaction::create([
-                'user_id'         => Auth::id(),
-                'type'            => 'transfer',
-                'title'           => 'Transfer',
-                'amount'          => $amount,
+                'user_id' => Auth::id(),
+                'type' => 'transfer',
+                'title' => 'Transfer',
+                'amount' => $amount,
                 'from_account_id' => $fromAccount->id,
-                'to_account_id'   => $toAccount->id,
-                'date'            => Carbon::createFromFormat('d-m-Y', $request->date)
-                                        ->format('Y-m-d'),
-                'description'     => $request->description,
+                'to_account_id' => $toAccount->id,
+                'date' => $this->normalizeDate($request->date),
+                'description' => $request->description,
             ]);
 
             DB::commit();
@@ -125,49 +155,63 @@ class TransferController extends Controller
 
     public function update(Request $request, $id)
     {
-        try {
-            $transfer = Transaction::where('id', $id)
-                ->where('user_id', Auth::id())
-                ->where('type', 'transfer')
-                ->firstOrFail();
+        $transfer = Transaction::where('id', $id)
+            ->where('user_id', Auth::id())
+            ->where('type', 'transfer')
+            ->firstOrFail();
 
-            $validator = Validator::make(
-                $request->all(),
-                [
-                    'from_account_id' => ['required', 'exists:accounts,id'],
-                    'to_account_id' => [
-                        'required',
-                        'different:from_account_id',
-                        'exists:accounts,id'
-                    ],
-                    'amount' => ['required'],
-                    'date' => ['required'],
-                    'description' => ['nullable', 'string', 'max:200'],
+        $validator = Validator::make(
+            $request->all(),
+            [
+                'from_account_id' => [
+                    'required',
+                    Rule::exists('accounts', 'id')->where('user_id', Auth::id()),
                 ],
-                [
-                    'from_account_id.required' => 'Please select the source account.',
-                    'from_account_id.exists' => 'Selected source account is invalid.',
+                'to_account_id' => [
+                    'required',
+                    'different:from_account_id',
+                    Rule::exists('accounts', 'id')->where('user_id', Auth::id()),
+                ],
+                'amount' => ['required'],
+                'date' => ['required'],
+                'description' => ['nullable', 'string', 'max:200'],
+            ],
+            [
+                'from_account_id.required' => 'Please select the source account.',
+                'from_account_id.exists' => 'Selected source account is invalid.',
 
-                    'to_account_id.required' => 'Please select the destination account.',
-                    'to_account_id.exists' => 'Selected destination account is invalid.',
-                    'to_account_id.different' => 'Source and destination accounts must be different.',
+                'to_account_id.required' => 'Please select the destination account.',
+                'to_account_id.exists' => 'Selected destination account is invalid.',
+                'to_account_id.different' => 'Source and destination accounts must be different.',
 
-                    'amount.required' => 'Transfer amount is required.',
-                    'date.required' => 'Transfer date is required.',
-                    'description.max' => 'Description may not exceed 200 characters.',
-                ]
-            );
+                'amount.required' => 'Transfer amount is required.',
+                'date.required' => 'Transfer date is required.',
+                'description.max' => 'Description may not exceed 200 characters.',
+            ]
+        );
 
-            if ($validator->fails()) {
-                toast()->error($validator->errors()->first());
+        if ($validator->fails()) {
+            toast()->error($validator->errors()->first());
+
+            return redirect()
+                ->back()
+                ->withErrors($validator, 'transfer')
+                ->withInput();
+        }
+
+        try {
+            $newAmount = $this->normalizeAmount($request->amount);
+
+            if ($newAmount <= 0) {
+                toast()->error('Transfer amount must be greater than 0.');
 
                 return redirect()
                     ->back()
-                    ->withErrors($validator)
+                    ->withErrors([
+                        'amount' => 'Transfer amount must be greater than 0.',
+                    ], 'transfer')
                     ->withInput();
             }
-
-            DB::beginTransaction();
 
             $oldFromAccount = Account::where('id', $transfer->from_account_id)
                 ->where('user_id', Auth::id())
@@ -177,11 +221,6 @@ class TransferController extends Controller
                 ->where('user_id', Auth::id())
                 ->firstOrFail();
 
-            $oldFromAccount->increment('balance', $transfer->amount);
-            $oldToAccount->decrement('balance', $transfer->amount);
-
-            $newAmount = (int) preg_replace('/[^0-9]/', '', $request->amount);
-
             $newFromAccount = Account::where('id', $request->from_account_id)
                 ->where('user_id', Auth::id())
                 ->firstOrFail();
@@ -190,6 +229,34 @@ class TransferController extends Controller
                 ->where('user_id', Auth::id())
                 ->firstOrFail();
 
+            DB::beginTransaction();
+
+            // Balikin efek transfer lama
+            $oldFromAccount->increment('balance', $transfer->amount);
+            $oldToAccount->decrement('balance', $transfer->amount);
+
+            // Refresh supaya saldo terbaru kebaca setelah rollback transfer lama
+            $newFromAccount->refresh();
+
+            if ($newAmount > $newFromAccount->balance) {
+                DB::rollBack();
+
+                toast()->error(
+                    'Insufficient balance. Current balance: ' .
+                    number_format($newFromAccount->balance, 0, ',', '.')
+                );
+
+                return redirect()
+                    ->back()
+                    ->withErrors([
+                        'amount' =>
+                            'Insufficient balance. Current balance: ' .
+                            number_format($newFromAccount->balance, 0, ',', '.'),
+                    ], 'transfer')
+                    ->withInput();
+            }
+
+            // Terapkan transfer baru
             $newFromAccount->decrement('balance', $newAmount);
             $newToAccount->increment('balance', $newAmount);
 
@@ -198,8 +265,7 @@ class TransferController extends Controller
                 'amount' => $newAmount,
                 'from_account_id' => $newFromAccount->id,
                 'to_account_id' => $newToAccount->id,
-                'date' => Carbon::createFromFormat('d-m-Y', $request->date)
-                    ->format('Y-m-d'),
+                'date' => $this->normalizeDate($request->date),
                 'description' => $request->description,
             ]);
 
@@ -222,12 +288,12 @@ class TransferController extends Controller
 
     public function destroy($id)
     {
-        try {
-            $transfer = Transaction::where('id', $id)
-                ->where('user_id', Auth::id())
-                ->where('type', 'transfer')
-                ->firstOrFail();
+        $transfer = Transaction::where('id', $id)
+            ->where('user_id', Auth::id())
+            ->where('type', 'transfer')
+            ->firstOrFail();
 
+        try {
             DB::beginTransaction();
 
             $fromAccount = Account::where('id', $transfer->from_account_id)
@@ -238,6 +304,7 @@ class TransferController extends Controller
                 ->where('user_id', Auth::id())
                 ->firstOrFail();
 
+            // Balikin efek transfer
             $fromAccount->increment('balance', $transfer->amount);
             $toAccount->decrement('balance', $transfer->amount);
 
@@ -257,6 +324,20 @@ class TransferController extends Controller
             toast()->error('Failed to delete transfer.');
 
             return redirect()->back();
+        }
+    }
+
+    private function normalizeAmount($amount): int
+    {
+        return (int) preg_replace('/[^0-9]/', '', $amount);
+    }
+
+    private function normalizeDate($date): string
+    {
+        try {
+            return Carbon::createFromFormat('d-m-Y', $date)->format('Y-m-d');
+        } catch (\Throwable $th) {
+            return Carbon::parse($date)->format('Y-m-d');
         }
     }
 }
