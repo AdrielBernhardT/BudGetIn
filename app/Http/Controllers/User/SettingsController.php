@@ -10,8 +10,8 @@ use Illuminate\Support\Facades\Auth;
 class SettingsController extends Controller
 {
     public function index() {
-        confirmDelete('Are you sure want to delete this account?');
-        return(view('pages.user.settings', ['title' => 'Settings']));
+        confirmDelete(__('settings.delete_account_confirm'));
+        return(view('pages.user.settings', ['title' => __('nav.settings')]));
     }
 
     public function changePassword(Request $request){
@@ -24,7 +24,7 @@ class SettingsController extends Controller
         $user = Auth::user();
 
         if(!Hash::check($request->currentPassword, $user->password)){
-            return back()->withInput()->with('error', 'Current password is incorrect!');
+            return back()->withInput()->with('error', __('settings.current_password_incorrect'));
         }
 
         $user->update([
@@ -44,7 +44,7 @@ class SettingsController extends Controller
         $user = Auth::user();
 
         if(!Hash::check($request->password, $user->password)){
-            return back()->withInput()->with('error', 'Current password is incorrect!');
+            return back()->withInput()->with('error', __('settings.current_password_incorrect'));
         }
 
         Auth::logout();

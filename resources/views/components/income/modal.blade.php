@@ -139,11 +139,18 @@
 
                 <div>
                     <label class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400">
-                        Date
+                        Date<span class="text-red-500">*</span>
                     </label>
                     <div class="relative w-full">
-                        <x-form.date-picker id="date_pick" name="date" placeholder="Date Picker"
-                            x-model="income.date" defaultDate="{{ now()->format('d-m-Y') }}" />
+                        <x-form.date-picker 
+                        id="report_day" 
+                        name="report_day" 
+                        picker="day"
+                        placeholder="Select Date"
+                        x-model="selectedDate"
+                        dateFormat="Y-m-d"
+                        altFormat="d F Y"
+                        defaultDate="{{ now()->format('Y-m-d') }}" />
                     </div>
                     @error('date')
                         <p class="mt-1 text-sm text-red-500">{{ $message }}</p>
@@ -152,7 +159,7 @@
 
                 <div>
                     <label class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400">
-                        Description
+                        Description (Optional)
                     </label>
                     <textarea x-model="income.description" placeholder="Enter a description..." type="text" rows="6" name="description"
                         class="dark:bg-dark-900 shadow-theme-xs focus:border-brand-300 focus:ring-brand-500/10 dark:focus:border-brand-800 w-full rounded-lg border border-gray-300 bg-transparent px-4 py-2.5 text-sm text-gray-800 placeholder:text-gray-400 focus:ring-3 focus:outline-hidden dark:border-gray-700 dark:bg-gray-900 dark:text-white/90 dark:placeholder:text-white/30"></textarea>

@@ -74,7 +74,7 @@
                         <td
                             :class="index === paginatedexpenses.length - 1 ? 'px-4 py-4 whitespace-nowrap' :
                                 'px-4 py-4 whitespace-nowrap border-b border-gray-200 dark:border-gray-700'">
-                            <div class="text-sm text-gray-900 dark:text-white" x-text="expense.description">
+                            <div class="text-sm text-gray-900 dark:text-white" x-text="expense.description ?? '-'">
                             </div>
                         </td>
                         <td
