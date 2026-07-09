@@ -23,7 +23,7 @@
                     Add Account
                 </h4>
                 <p class="mb-2 text-sm text-gray-500 dark:text-gray-400 lg:mb-7">
-                    deskripsi
+                    Create an account to manage your balance.
                 </p>
             </div>
             <form class="flex flex-col" method="POST" action="{{ route('investment.goal.store') }}">
