@@ -61,6 +61,7 @@
                 </div>
             </div>
             <x-dashboard.summary.add-account-modal />
+            <x-dashboard.summary.edit-account-modal />
         </div>
     </div>
 @endsection

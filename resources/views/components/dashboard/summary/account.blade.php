@@ -20,9 +20,13 @@
                         <i x-show="copied" data-lucide="check" class="w-3 h-3 text-green-400"></i>
                     </button>
                 </div>
+            @else
+                <span class="text-md text-white font-semibold">{{ $account->name }}</span>
             @endif
-            <span class="text-md text-white font-semibold">{{ $account->name }}</span>
-            {{-- <x-common.dropdown-menu>
+
+            <x-common.dropdown-menu
+            activeClass="text-white"
+            inactiveClass="text-white hover:text-gray-200">
                 <button type="button"
                     @click="openDropDown = false;
                                     window.dispatchEvent(new CustomEvent('edit-account', {
@@ -37,16 +41,17 @@
                     class="flex w-full rounded-lg px-3 py-2 text-left text-theme-xs font-medium text-red-500 hover:bg-gray-100 hover:text-red-600 dark:hover:bg-white/5 dark:hover:text-red-500">
                     Delete
                 </button>
-            </x-common.dropdown-menu> --}}
-
-            {{-- <div class="flex gap-1 items-center">
-
-            </div> --}}
+            </x-common.dropdown-menu>
         </div>
 
         <div class="flex flex-col gap-1">
             <span class="text-sm text-white font-light">Balance</span>
-            <span class="text-md text-white font-semibold">IDR {{ number_format($account->balance, 0, ',', '.') }}</span>
+            <div class="flex justify-between items-center">
+                <span class="text-md text-white font-semibold">IDR {{ number_format($account->balance, 0, ',', '.') }}</span>
+                @if (!empty($account->account_identifier))
+                    <span class="text-md text-white font-semibold">{{ $account->name }}</span>
+                @endif
+            </div>
         </div>
     </div>
 </div>
