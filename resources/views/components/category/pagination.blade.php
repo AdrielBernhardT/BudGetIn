@@ -11,7 +11,7 @@
             </template>
 
             <template x-if="totalEntries === 0">
-                <span>{{ __('common.No_categories_available') }}</span>
+                <span>{{ __('sentence.no_categories_available') }}</span>
             </template>
         </p>
         <div class="flex items-center justify-center gap-0.5 pt-4 xl:justify-end xl:pt-0">

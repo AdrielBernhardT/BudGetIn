@@ -3,7 +3,7 @@
 <div class="rounded-2xl border border-gray-200 bg-white p-5 dark:border-gray-800 dark:bg-white/[0.03] md:p-6">
     <div class="flex flex-col gap-4">
         <h3 class="text-lg font-semibold text-gray-800 dark:text-white/90">
-            This Month's Budget
+            {{ __('sentence.this_months_budget') }}
         </h3>
 
         @forelse($monthlyBudgets->chunk(2) as $row)
@@ -44,7 +44,7 @@
         @empty
 
             <p class="text-center text-gray-500 py-8">
-                No monthly budgets found
+                {{ __('sentence.no_monthly_budget_found') }}
             </p>
 
         @endforelse

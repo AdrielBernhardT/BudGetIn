@@ -7,7 +7,7 @@
     <div class="flex flex-col gap-5 mb-6 sm:flex-row sm:justify-between">
         <div class="w-full">
             <h3 class="text-lg font-semibold text-gray-800 dark:text-white/90">
-                Statistics
+                {{ __('common.statistics') }}
             </h3>
         </div>
 
@@ -46,7 +46,7 @@
     @else
         <div class="flex flex-col justify-center items-center py-8 text-center">
             <h3 class="text-gray-500">
-                No statistics yet
+               {{ __('sentence.no_statistics_yet') }}
             </h3>
         </div>
     @endif

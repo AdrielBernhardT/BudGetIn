@@ -52,14 +52,14 @@
                 </svg>
 
                 <div class="flex flex-col">
-                    <h3 class="text-lg font-semibold text-gray-800 dark:text-white/90">Income</h3>
-                    <h4 class="text-sm text-gray-500 dark:text-gray-400">Total Monthly Income</h4>
+                    <h3 class="text-lg font-semibold text-gray-800 dark:text-white/90">{{ __('nav.income') }}</h3>
+                    <h4 class="text-sm text-gray-500 dark:text-gray-400">{{ __('sentence.total_monthly_income') }}</h4>
                 </div>
             </div>
 
             <div class="flex items-end justify-between">
                 <div>
-                    <h4 class="mt-2 font-bold text-gray-800 text-2xl dark:text-white/90">IDR {{ number_format($metrics['income']['amount'] ?? 0, 0, ',', '.') }}</h4>
+                    <h4 class="mt-2 font-bold text-gray-800 text-2xl dark:text-white/90">{{ __('common.idr') }} {{ number_format($metrics['income']['amount'] ?? 0, 0, ',', '.') }}</h4>
                 </div>
 
                 <span class="flex items-center gap-1 rounded-full {{ $incomeBadge['bg'] }} py-0.5 pl-2 pr-2.5 text-sm font-medium {{ $incomeBadge['text'] }}">
@@ -104,14 +104,14 @@
 
 
                 <div class="flex flex-col">
-                    <h3 class="text-lg font-semibold text-gray-800 dark:text-white/90">Expense</h3>
-                    <h4 class="text-sm text-gray-500 dark:text-gray-400">Total Monthly Expense</h4>
+                    <h3 class="text-lg font-semibold text-gray-800 dark:text-white/90">{{ __('nav.expense') }}</h3>
+                    <h4 class="text-sm text-gray-500 dark:text-gray-400">{{ __('sentence.total_monthly_expense') }}</h4>
                 </div>
             </div>
 
             <div class="flex items-end justify-between">
                 <div>
-                    <h4 class="mt-2 font-bold text-gray-800 text-2xl dark:text-white/90">IDR {{ number_format($metrics['expense']['amount'] ?? 0, 0, ',', '.') }}</h4>
+                    <h4 class="mt-2 font-bold text-gray-800 text-2xl dark:text-white/90">{{ __('common.idr') }} {{ number_format($metrics['expense']['amount'] ?? 0, 0, ',', '.') }}</h4>
                 </div>
 
                 <span class="flex items-center gap-1 rounded-full {{ $expenseBadge['bg'] }} py-0.5 pl-2 pr-2.5 text-sm font-medium {{ $expenseBadge['text'] }}">
@@ -155,14 +155,14 @@
                 </svg>
 
                 <div class="flex flex-col">
-                    <h3 class="text-lg font-semibold text-gray-800 dark:text-white/90">Savings</h3>
-                    <h4 class="text-sm text-gray-500 dark:text-gray-400">Total Yearly Savings</h4>
+                    <h3 class="text-lg font-semibold text-gray-800 dark:text-white/90">{{ __('nav.savings') }}</h3>
+                    <h4 class="text-sm text-gray-500 dark:text-gray-400">{{ __('sentence.total_yearly_savings') }}</h4>
                 </div>
             </div>
 
             <div class="flex items-end justify-between">
                 <div>
-                    <h4 class="mt-2 font-bold text-gray-800 text-2xl dark:text-white/90">IDR {{ number_format($metrics['saving']['amount'] ?? 0, 0, ',', '.') }}</h4>
+                    <h4 class="mt-2 font-bold text-gray-800 text-2xl dark:text-white/90">{{ __('common.idr') }} {{ number_format($metrics['saving']['amount'] ?? 0, 0, ',', '.') }}</h4>
                 </div>
 
                 <span class="flex items-center gap-1 rounded-full {{ $savingBadge['bg'] }} py-0.5 pl-2 pr-2.5 text-sm font-medium {{ $savingBadge['text'] }}">
@@ -207,14 +207,14 @@
 
 
                 <div class="flex flex-col">
-                    <h3 class="text-lg font-semibold text-gray-800 dark:text-white/90">Highest Expense</h3>
+                    <h3 class="text-lg font-semibold text-gray-800 dark:text-white/90">{{ __('sentence.highest_expense') }}</h3>
                     <h4 class="text-sm text-gray-500 dark:text-gray-400">{{ $metrics['highest_expense']['title'] ?? '-' }}</h4>
                 </div>
             </div>
 
             <div class="flex items-end justify-between">
                 <div>
-                    <h4 class="mt-2 font-bold text-gray-800 text-2xl dark:text-white/90">IDR {{ number_format($metrics['highest_expense']['amount'] ?? 0, 0, ',', '.') }}</h4>
+                    <h4 class="mt-2 font-bold text-gray-800 text-2xl dark:text-white/90">{{ __('common.idr') }} {{ number_format($metrics['highest_expense']['amount'] ?? 0, 0, ',', '.') }}</h4>
                 </div>
 
                 <span class="flex items-center gap-1 rounded-full {{ $highestExpenseBadge['bg'] }} py-0.5 pl-2 pr-2.5 text-sm font-medium {{ $highestExpenseBadge['text'] }}">
