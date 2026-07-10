@@ -1,6 +1,12 @@
+@props([
+    'activeClass' => 'text-gray-700 dark:text-white',
+    'inactiveClass' => 'text-gray-400 hover:text-gray-700 dark:hover:text-white',
+])
+
 <div x-data="{ openDropDown: false }" class="relative h-fit">
-    <button @click="openDropDown = !openDropDown"
-        :class="openDropDown ? 'text-gray-700 dark:text-white' : 'text-gray-400 hover:text-gray-700 dark:hover:text-white'">
+    <button type="button"
+        @click="openDropDown = !openDropDown"
+        :class="openDropDown ? @js($activeClass) : @js($inactiveClass)">
         <svg class="fill-current" width="24" height="24" viewBox="0 0 24 24" fill="none"
             xmlns="http://www.w3.org/2000/svg">
             <path fill-rule="evenodd" clip-rule="evenodd"
