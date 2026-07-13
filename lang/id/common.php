@@ -14,6 +14,8 @@ return [
     'close' => 'Tutup',
     'country' => 'Negara',
     'date' => 'Tanggal',
+    'day' => 'Hari',
+    'month' => 'Bulan',
     'deadline' => 'Tenggat Waktu',
     'delete' => 'Hapus',
     'description' => 'Deskripsi',
@@ -54,5 +56,13 @@ return [
     'statistics' => 'Statistik',
     'see_all' => 'Lihat Semua',
     'type' => 'Tipe',
-
+    'logo_alt' => 'Logo',
+    'all' => 'Semua',
+    'cancel' => 'Batal',
+    'price' => 'Harga',
+    'status' => 'Status',
+    'view_more' => 'Lihat Selengkapnya',
+    'previous' => 'Sebelumnya',
+    'next' => 'Selanjutnya',
+    'page' => 'Halaman',
 ];

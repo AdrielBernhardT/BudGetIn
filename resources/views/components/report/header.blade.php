@@ -8,7 +8,7 @@
 <div class="flex flex-col gap-2 px-5 mb-4 sm:flex-row sm:items-center sm:justify-between sm:px-6">
 
     <div class="flex items-center gap-3">
-        <span class="text-gray-500 dark:text-gray-400">Show</span>
+        <span class="text-gray-500 dark:text-gray-400">{{ __('common.show') }}</span>
 
         <div class="relative">
             <select x-model.number="itemsPerPage" @change="currentPage = 1"
@@ -28,7 +28,7 @@
             </span>
         </div>
 
-        <span class="text-gray-500 dark:text-gray-400">reports</span>
+        <span class="text-gray-500 dark:text-gray-400">{{ __('nav.reports') }}</span>
     </div>
 
     <div class="flex flex-col gap-3 sm:flex-row sm:items-center">
@@ -36,8 +36,8 @@
         <div class="relative">
             <select x-model="filterType"
                 class="h-[42px] appearance-none rounded-lg border border-gray-300 bg-transparent pl-4 pr-8 text-sm text-gray-800 shadow-theme-xs dark:border-gray-700 dark:bg-gray-900 dark:text-white/90">
-                <option value="day">Day</option>
-                <option value="month">Month</option>
+                <option value="day">{{ __('common.day') }}</option>
+                <option value="month">{{ __('common.month') }}</option>
             </select>
 
             <span
@@ -64,9 +64,9 @@
                 defaultDate="{{ now()->format('d-m-Y') }}" />
         </div> --}}
         <div x-show="filterType === 'day'">
-            <x-form.date-picker 
-                id="report_day" 
-                name="report_day" 
+            <x-form.date-picker
+                id="report_day"
+                name="report_day"
                 picker="day"
                 placeholder="Select Date"
                 x-model="selectedDate"
@@ -76,9 +76,9 @@
         </div>
 
         <div x-show="filterType === 'month'">
-            <x-form.date-picker 
-                id="report_month" 
-                name="report_month" 
+            <x-form.date-picker
+                id="report_month"
+                name="report_month"
                 picker="month"
                 placeholder="Select Month"
                 x-model="selectedMonth"

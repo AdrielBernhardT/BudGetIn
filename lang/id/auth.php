@@ -19,4 +19,13 @@ return [
     'password_input' => 'Masukkan Kata Sandi',
     'forgot_password' => 'Lupa kata sandi?',
     'dont_have_account' => "Belum punya akun?",
+    'email_placeholder' => 'contoh@email.com',
+    'logo_alt' => 'Logo',
+    'forgot_password_title' => 'Lupa Kata Sandi',
+    'forgot_password_instruction' => 'Masukkan alamat email Anda dan kami akan mengirimkan tautan reset kata sandi.',
+    'send_reset_link' => 'Kirim Tautan Reset',
+    'remember_password' => 'Ingat kata sandi Anda?',
+    'email_not_verified' => 'Email belum diverifikasi',
+    'email_not_verified_description' => 'Verifikasi email Anda untuk meningkatkan keamanan akun dan mengakses semua fitur.',
+    'verify_now' => 'Verifikasi Sekarang',
 ];

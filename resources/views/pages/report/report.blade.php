@@ -2,7 +2,7 @@
 
 @section('content')
     <div x-data="reportPage()">
-        <x-common.page-breadcrumb pageTitle="Report" />
+        <x-common.page-breadcrumb pageTitle="{{ __('nav.report') }}" />
 
         <div class="mt-8 mb-4 flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
             <div class="flex gap-10 overflow-x-auto whitespace-nowrap no-scrollbar">
@@ -45,19 +45,19 @@
                 selectedReportType: 'all',
 
                 reportTypes: [{
-                        label: 'All',
+                        label: '{{ __('common.all') }}',
                         value: 'all'
                     },
                     {
-                        label: 'Income',
+                        label: '{{ __('nav.income') }}',
                         value: 'income'
                     },
                     {
-                        label: 'Expense',
+                        label: '{{ __('nav.expense') }}',
                         value: 'expense'
                     },
                     {
-                        label: 'Transfer',
+                        label: '{{ __('nav.transfer') }}',
                         value: 'transfer'
                     },
                 ],

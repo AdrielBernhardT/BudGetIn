@@ -44,7 +44,7 @@
                                     {{ __('common.idr') }} {{ number_format($target->target_amount, 0, ',', '.') }}
                                 </div>
                                 <div class="text-theme-xs text-gray-500 dark:text-gray-400">
-                                    {{ count($target->items) }} {{  __('nav.investment_items') }}
+                                    {{ count($target->items) }} {{  __('sentence.investment_items') }}
                                 </div>
                             </div>
                         </div>

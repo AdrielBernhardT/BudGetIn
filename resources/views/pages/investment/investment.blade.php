@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <x-common.page-breadcrumb pageTitle="Investment" />
+    <x-common.page-breadcrumb pageTitle="{{ __('nav.investment') }}" />
 
     <div x-data="investmentPage()">
         <x-investment.top-summary :datas="$datas" />

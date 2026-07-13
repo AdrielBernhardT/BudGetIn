@@ -4,9 +4,9 @@
             class="pb-3 text-sm font-medium text-center text-gray-500 border-b border-gray-100 dark:border-gray-800 dark:text-gray-400 xl:border-b-0 xl:pb-0 xl:text-left">
             <template x-if="totalEntries > 0">
                 <span>
-                    {{ __('common.showing') }} <span x-text="start"></span>
-                    {{ __('common.to') }} <span x-text="end"></span>
-                    {{ __('common.of') }} <span x-text="totalEntries"></span> {{ __('nav.transfers') }}
+                    {{ __('pagination.showing') }} <span x-text="start"></span>
+                    {{ __('pagination.to') }} <span x-text="end"></span>
+                    {{ __('pagination.of') }} <span x-text="totalEntries"></span> {{ __('nav.transfers') }}
                 </span>
             </template>
 

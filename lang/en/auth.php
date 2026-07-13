@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'search_placeholder' => 'Search or type command...',
+    'search_placeholder' => 'Search or type a command...',
     'edit_profile' => 'Edit profile',
     'account_settings' => 'Account settings',
     'support' => 'Support',
@@ -16,7 +16,16 @@ return [
     'enter_password' => 'Enter your password',
     'enter_password_confirmation' => 'Confirm your password',
     'password_confirmation' => 'Confirm Password',
-    'password_input' => 'Password Input',
+    'password_input' => 'Enter Password',
     'forgot_password' => 'Forgot password?',
     'dont_have_account' => "Don't have an account?",
+    'email_placeholder' => 'example@email.com',
+    'logo_alt' => 'Logo',
+    'forgot_password_title' => 'Forgot Password',
+    'forgot_password_instruction' => 'Enter your email address and we will send you a password reset link.',
+    'send_reset_link' => 'Send Reset Link',
+    'remember_password' => 'Remember your password?',
+    'email_not_verified' => 'Email has not been verified',
+    'email_not_verified_description' => 'Verify your email to enhance your account security and access all features.',
+    'verify_now' => 'Verify Now',
 ];

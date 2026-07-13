@@ -44,10 +44,10 @@
             class="no-scrollbar relative w-full max-w-[700px] max-h-[80vh] rounded-3xl bg-white p-4 dark:bg-gray-900 lg:p-11 overflow-y-auto">
             <div class="px-2 pr-14">
                 <h4 class="mb-2 text-2xl font-semibold text-gray-800 dark:text-white/90">
-                    Record Investment
+                    {{ __('sentence.record_investment') }}
                 </h4>
                 <p class="mb-2 text-sm text-gray-500 dark:text-gray-400 lg:mb-7">
-                    Record an investment you have made towards your selected goal.
+                    {{ __('sentence.record_investment_description') }}
                 </p>
             </div>
             <form class="flex flex-col" method="POST" action="{{ route('investment.record-investment.store') }}">
@@ -57,7 +57,7 @@
 
                     <div>
                         <label class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400">
-                            Goal<span class="text-red-500">*</span>
+                            {{ __('common.goal') }}<span class="text-red-500">*</span>
                         </label>
                         <div x-data="{ isOptionSelected: false }" class="relative z-20 bg-transparent">
                             <select
@@ -67,7 +67,7 @@
                                 :class="isOptionSelected && 'text-gray-800 dark:text-white/90'"
                                 @change="isOptionSelected = true">
                                 <option disabled value="" class="text-gray-700 dark:bg-gray-900 dark:text-gray-400">
-                                    Select Option
+                                    {{ __('sentence.select_option') }}
                                 </option>
                                 @foreach($goals as $goal)
                                 <option value="{{ $goal->id }}" class="text-gray-700 dark:bg-gray-900 dark:text-gray-400">
@@ -164,7 +164,7 @@
                                 <x-form.date-picker
                                         id="date_pick"
                                         name="date"
-                                        placeholder="Date Picker"
+                                        placeholder="{{ __('sentence.date_picker_input') }}"
                                         x-model="investment.date"
                                         dateFormat="Y-m-d"
                                         altFormat="d F Y"
