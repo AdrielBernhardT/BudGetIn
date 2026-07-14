@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <x-common.page-breadcrumb pageTitle="From Elements" />
+    <x-common.page-breadcrumb pageTitle="{{ __('nav.form_elements') }}" />
     <div class="space-y-6">
         <x-common.component-card title="Basic Table 1">
             <x-tables.basic-tables.basic-tables-one />

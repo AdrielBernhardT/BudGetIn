@@ -18,4 +18,5 @@ return [
     'new_password_placeholder' => 'Masukkan kata sandi baru',
     'confirm_password' => 'Konfirmasi Kata Sandi',
     'confirm_password_placeholder' => 'Masukkan ulang kata sandi baru',
+    'update_password_button' => 'Perbarui Kata Sandi',
 ];

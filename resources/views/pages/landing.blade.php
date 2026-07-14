@@ -13,15 +13,14 @@
             <div class="flex flex-1 pt-35 pl-31">
                 <div class="w-[45%] flex flex-col gap-10">
                     <h1 class="text-7xl font-medium text-gray-800 dark:text-white/90">
-                        Take Control of Your Finances, <br> Effortlessly
+                        {{  __('sentence.landing_page_title')  }}
                     </h1>
                     <p class="text-xl font-light text-gray-800 dark:text-white/90">
-                        Track your income, manage expenses, and plan your financial future with a simple yet powerful
-                        platform.
+                        {{  __('sentence.landing_page_description')  }}
                     </p>
                     <a href="{{ route('login') }}"
                         class="bg-accent w-40 h-15 rounded-full text-lg flex items-center justify-center text-white/90">
-                        Get Started
+                        {{ __('sentence.get_started') }}
                     </a>
                 </div>
                 <div class="w-[55%] flex justify-center">
@@ -33,10 +32,10 @@
         <div class="h-auto flex flex-col bg-[#E4E7EC] dark:bg-[#0B1E36] items-center gap-14 pb-20">
             <div class="flex flex-col gap-5 max-w-[60%]">
                 <h2 class="text-4xl text-gray-800 font-medium text-center dark:text-white/90">
-                    Struggling to manage your money and stay in control of your expenses?
+                    {{ __('sentence.landing_page_challenges_title')  }}
                 </h2>
                 <p class="text-gray-500 text-2xl text-center font-light dark:text-gray-300">
-                    Many people face the same challenges when managing their finances.
+                    {{ __('sentence.landing_page_challenges_description')  }}
                 </p>
             </div>
             <div class="grid grid-cols-4 gap-14">
@@ -58,11 +57,11 @@
                         </div>
                         <h3
                             class="font-semibold text-2xl text-gray-800 mt-6 group-hover:text-white/90 transition dark:text-white/90">
-                            Losing Track of Expenses
+                            {{ __('sentence.landing_page_challenges_1')  }}
                         </h3>
                         <p
                             class="mt-auto font-light text-md text-gray-700 leading-tight group-hover:text-gray-100 transition dark:text-gray-300">
-                            You don't always know where your money goes every day.
+                            {{ __('sentence.landing_page_challenges_1_description') }}
                         </p>
                     </div>
                 </div>
@@ -80,11 +79,11 @@
                         </div>
                         <h3
                             class="font-semibold text-2xl text-gray-800 mt-6 group-hover:text-white/90 transition dark:text-white/90">
-                            Overspending
+                            {{ __('sentence.landing_page_challenges_2')  }}
                         </h3>
                         <p
                             class="mt-auto font-light text-md text-gray-700 leading-tight group-hover:text-gray-100 transition dark:text-gray-300">
-                            It's easy to go over budget without realizing it.
+                            {{ __('sentence.landing_page_challenges_2_description')  }}
                         </p>
                     </div>
                 </div>
@@ -102,11 +101,11 @@
                         </div>
                         <h3
                             class="font-semibold text-2xl text-gray-800 mt-6 group-hover:text-white/90 transition dark:text-white/90">
-                            Messy Financial Records
+                            {{ __('sentence.landing_page_challenges_3')  }}
                         </h3>
                         <p
                             class="mt-auto font-light text-md text-gray-700 leading-tight group-hover:text-gray-100 transition dark:text-gray-300">
-                            Notes and records are scattered and hard to manage.
+                            {{ __('sentence.landing_page_challenges_3_description')  }}
                         </p>
                     </div>
                 </div>
@@ -124,11 +123,11 @@
                         </div>
                         <h3
                             class="font-semibold text-2xl text-gray-800 mt-6 group-hover:text-white/90 transition dark:text-white/90">
-                            No Clear Insights
+                            {{ __('sentence.landing_page_challenges_4')  }}
                         </h3>
                         <p
                             class="mt-auto font-light text-md text-gray-700 leading-tight group-hover:text-gray-100 transition dark:text-gray-300">
-                            You can't clearly see your financial habits or trends.
+                            {{ __('sentence.landing_page_challenges_4_description') }}
                         </p>
                     </div>
                 </div>
@@ -140,12 +139,10 @@
                 <div class="w-[60%] justify-start flex flex-col">
                     <div class="flex flex-col gap-4">
                         <h2 class="font-semibold text-4xl text-gray-800 dark:text-white/90">
-                            Take control of your finances and build a smarter financial future with confidence.
+                            {{ __('sentence.landing_page_solution_title')  }}
                         </h2>
                         <p class="font-light text-xl text-gray-700 text-justify dark:text-gray-300">
-                            BudGetIn simplifies how you manage your money. Track expenses, understand your spending, and
-                            stay organized all in one intuitive platform. Gain clear insights to make smarter financial
-                            decisions every day.
+                            {{ __('sentence.landing_page_solution_description')  }}
                         </p>
                     </div>
                     <div class="flex flex-col gap-10 pt-14">
@@ -163,12 +160,11 @@
                             </div>
                             <div class="flex flex-col gap-2">
                                 <h3 class="font-semibold text-2xl text-gray-800 dark:text-white/90">
-                                    Smart Financial Tracking
+                                    {{ __('sentence.landing_page_solution_feature_1') }}
                                 </h3>
                                 <div class="w-3/4">
                                     <p class="font-light text-lg text-gray-700 text-justify dark:text-gray-300">
-                                        Easily record your income and expenses in real-time. Stay updated with your
-                                        financial activity and never lose track of where your money goes.
+                                        {{ __('sentence.landing_page_solution_feature_1_description')  }}
                                     </p>
                                 </div>
                             </div>
@@ -183,12 +179,11 @@
                             </div>
                             <div class="flex flex-col gap-2">
                                 <h3 class="font-semibold text-2xl text-gray-800 dark:text-white/90">
-                                    Personalized Financial Growth
+                                    {{ __('sentence.landing_page_solution_feature_2') }}
                                 </h3>
                                 <div class="w-3/4">
                                     <p class="font-light text-lg text-gray-700 text-justify dark:text-gray-300">
-                                        Understand your financial habits and discover opportunities to improve. BudGetIn
-                                        helps you make smarter decisions based on your own spending patterns.
+                                        {{ __('sentence.landing_page_solution_feature_2_description')  }}
                                     </p>
                                 </div>
                             </div>
@@ -205,12 +200,11 @@
                             </div>
                             <div class="flex flex-col gap-2">
                                 <h3 class="font-semibold text-2xl text-gray-800 dark:text-white/90">
-                                    Simple & Organized Management
+                                    {{ __('sentence.landing_page_solution_feature_3') }}
                                 </h3>
                                 <div class="w-3/4">
                                     <p class="font-light text-lg text-gray-700 text-justify dark:text-gray-300">
-                                        Keep all your financial data neat and structured. Categorize transactions, monitor
-                                        your balance, and manage everything effortlessly in one place.
+                                        {{ __('sentence.landing_page_solution_feature_3_description')  }}
                                     </p>
                                 </div>
                             </div>
@@ -234,8 +228,7 @@
                 <img src="/images/logo/logo.png" alt="Logo" class="w-60">
             </a>
             <p class="w-1/2 text-center font-light text-gray-500 dark:text-gray-400 text-md">
-                Take control of your finances with BudGetIn. Easily track your income and expenses, manage your budget
-                effectively, and gain meaningful insights to make smarter financial decisions every day.
+                {{ __('sentence.landing_page_footer')  }}
             </p>
             <div class="flex gap-3">
                 <svg xmlns="http://www.w3.org/2000/svg" width="45" height="45" viewBox="0 0 55 55"

@@ -5,11 +5,11 @@
         <div class="pt-3 pl-2 flex flex-col gap-4 md:gap-6">
             <div class="gap-2 flex flex-col">
                 <h1 class="text-xl text-gray-800 dark:text-white/90 font-semibold lg:text-4xl md:text-2xl">
-                    Hello, {{ auth()->user()->fname }}
+                    {{ __('dashboard.hello') }}, {{ auth()->user()->fname }}
                 </h1>
 
                 <p class="text-gray-600 dark:text-white/70">
-                    Manage your money smarter, track expenses, and grow your savings.
+                    {{ __('dashboard.dashboard_welcome_message') }}
                 </p>
             </div>
 

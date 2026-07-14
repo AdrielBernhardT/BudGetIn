@@ -38,7 +38,7 @@
         </form>
         <button @click="openCreateModal()"
             class="inline-flex items-center gap-2 rounded-lg border border-gray-300 bg-main px-4 py-3 text-theme-sm font-medium text-white shadow-theme-xs hover:bg-main-hover hover:text-white/90 dark:border-gray-700 dark:bg-main dark:text-white dark:hover:bg-main-hover dark:hover:text-white/90">
-            {{ __('common.add_category') }}
+            {{ __('sentence.add_category') }}
         </button>
     </div>
 </div>

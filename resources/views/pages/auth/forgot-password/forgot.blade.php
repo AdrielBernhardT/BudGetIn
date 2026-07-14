@@ -9,10 +9,10 @@
                     <div>
                         <div class="mb-5 sm:mb-8">
                             <h1 class="text-title-sm sm:text-title-md mb-2 font-semibold text-gray-800 dark:text-white/90">
-                                Forgot Password
+                                {{ __('auth.forgot_password_title') }}
                             </h1>
                             <p class="text-sm text-gray-500 dark:text-gray-400">
-                                Enter your email address and we will send you a password reset link.
+                                {{ __('auth.forgot_password_instruction') }}
                             </p>
 
                             @if (session('status'))
@@ -34,13 +34,13 @@
                             <div class="space-y-5">
                                 <div>
                                     <label class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-white/90">
-                                        Email Address<span class="text-error-500">*</span>
+                                        {{ __('common.email') }}<span class="text-error-500">*</span>
                                     </label>
 
                                     <input type="email"
                                         name="email"
                                         value="{{ old('email') }}"
-                                        placeholder="info@gmail.com"
+                                        placeholder="{{ __('auth.email_placeholder') }}"
                                         class="dark:bg-dark-900 shadow-theme-xs focus:border-brand-300 focus:ring-brand-500/10 h-11 w-full rounded-lg border border-gray-300 bg-transparent px-4 py-2.5 text-sm text-gray-800 placeholder:text-gray-400 focus:ring-3 focus:outline-hidden dark:border-gray-700 dark:bg-gray-900 dark:text-white/90 dark:placeholder:text-white/30" />
 
                                     @error('email')
@@ -53,14 +53,14 @@
                                 <div>
                                     <button type="submit"
                                         class="bg-main shadow-theme-xs hover:bg-main-hover flex w-full items-center justify-center rounded-lg px-4 py-3 text-sm font-medium text-white transition">
-                                        Send Reset Link
+                                        {{ __('auth.send_reset_link') }}
                                     </button>
                                 </div>
 
                                 <div class="text-center text-sm text-gray-500 dark:text-gray-400">
-                                    Remember your password?
+                                    {{ __('auth.remember_password') }}
                                     <a href="{{ route('login') }}" class="text-main hover:text-main-hover">
-                                        Sign In
+                                        {{ __('auth.sign_in') }}
                                     </a>
                                 </div>
 
@@ -74,11 +74,10 @@
                 <div class="z-1 flex items-center justify-center">
                     <div class="flex max-w-sm flex-col items-center">
                         <a href="/" class="mb-4 block">
-                            <img src="./images/logo/logo.png" alt="Logo" class="w-80" />
+                            <img src="./images/logo/logo.png" alt="{{ __('common.logo_alt') }}" class="w-80" />
                         </a>
                         <p class="text-center text-gray-500 dark:text-white/60">
-                            Track your income, manage expenses, and plan your financial future with a simple yet powerful
-                            platform.
+                            {{ __('sentence.track_income') }}
                         </p>
                     </div>
                 </div>

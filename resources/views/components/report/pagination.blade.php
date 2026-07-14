@@ -4,14 +4,18 @@
             class="pb-3 text-sm font-medium text-center text-gray-500 border-b border-gray-100 dark:border-gray-800 dark:text-gray-400 xl:border-b-0 xl:pb-0 xl:text-left">
             <template x-if="totalEntries > 0">
                 <span>
-                    Showing <span x-text="start"></span>
-                    to <span x-text="end"></span>
-                    of <span x-text="totalEntries"></span> reports
+                    {{ __('pagination.showing') }}
+                    <span x-text="start"></span>
+                    {{ __('pagination.to') }}
+                    <span x-text="end"></span>
+                    {{ __('pagination.of') }}
+                    <span x-text="totalEntries"></span>
+                    {{ __('nav.reports') }}
                 </span>
             </template>
 
             <template x-if="totalEntries === 0">
-                <span>No reports available</span>
+                <span>{{ __('sentence.no_reports_available') }}</span>
             </template>
         </p>
 
