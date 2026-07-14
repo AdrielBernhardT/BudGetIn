@@ -24,10 +24,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        // Force HTTPS in local environment (for ngrok)
-        // if (app()->environment('local')) {
-        //     URL::forceScheme('https');
-        // }
+        if ($this->app->environment('production')) {
+            URL::forceHttps();
+        }
 
         Transaction::observe(TransactionObserver::class);
         RecordInvestment::observe(RecordInvestmentObserver::class);

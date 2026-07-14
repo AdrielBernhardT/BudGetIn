@@ -203,12 +203,26 @@ class DashboardController extends Controller
 
         $currentYear = Carbon::now()->year;
 
-        $monthlyTransactions = Transaction::where('user_id', $userId)
+        $monthlyTransactions = Transaction::query()
+            ->where('user_id', $userId)
             ->whereYear('date', $currentYear)
             ->whereIn('type', ['income', 'expense'])
-            ->selectRaw('MONTH(date) as month, type, SUM(amount) as total')
-            ->groupBy('month', 'type')
-            ->get();
+            ->get(['date', 'type', 'amount'])
+            ->groupBy(function ($transaction) {
+                return Carbon::parse($transaction->date)->month;
+            })
+            ->flatMap(function ($transactions, $month) {
+                return $transactions
+                    ->groupBy('type')
+                    ->map(function ($items, $type) use ($month) {
+                        return (object) [
+                            'month' => (int) $month,
+                            'type' => $type,
+                            'total' => $items->sum('amount'),
+                        ];
+                    });
+            })
+            ->values();
 
         if ($monthlyTransactions->isNotEmpty()) {
             $monthsWithData = $monthlyTransactions
