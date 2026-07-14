@@ -11,10 +11,10 @@
                         {{ __('common.name') }}</th>
                     <th scope="col"
                         class="px-4 py-3 font-normal text-gray-900 dark:text-white text-start text-theme-sm">
-                        {{ __('common.monthly_budget') }}</th>
+                        {{ __('sentence.monthly_budget') }}</th>
                     <th scope="col"
                         class="px-4 py-3 font-normal text-gray-900 dark:text-white text-start text-theme-sm">
-                        {{ __('common.expense_this_month') }}</th>
+                        {{ __('sentence.expense_this_month') }}</th>
                     <th scope="col"
                         class="px-4 py-3 font-normal text-gray-900 dark:text-white text-start text-theme-sm">
                         {{ __('common.usage') }}</th>
@@ -99,7 +99,7 @@
                 <template x-if="paginatedcategories.length === 0">
                     <tr>
                         <td colspan="6" class="py-8 text-center text-gray-500">
-                            {{ __('common.No_categories_available') }}
+                            {{ __('sentence.no_categories_available') }}
                         </td>
                     </tr>
                 </template>

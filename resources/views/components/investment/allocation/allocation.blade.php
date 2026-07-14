@@ -5,12 +5,12 @@
         class="flex w-full lg:basis-[30%] rounded-2xl border border-gray-200 bg-white p-5 dark:border-gray-800 dark:bg-white/[0.03] md:p-6">
         <div class="flex flex-col gap-8 w-full">
             <h3 class="text-lg font-semibold text-gray-800 dark:text-white/90">
-                Investment Allocation
+                {{ __('sentence.investment_allocation') }}
             </h3>
 
             @if (collect($datas['targets'])->isEmpty())
                 <h5 class="flex justify-center text-gray-500">
-                    There is no allocation found
+                    {{ __('sentence.no_allocation_found') }}
                 </h5>
             @else
                 <div class="flex justify-center items-center">
@@ -23,12 +23,12 @@
         class="flex lg:flex-1 w-full min-w-0 rounded-2xl border border-gray-200 bg-white p-5 dark:border-gray-800 dark:bg-white/[0.03] md:p-6">
         <div class="flex flex-col gap-8 w-full">
             <h3 class="text-lg font-semibold text-gray-800 dark:text-white/90">
-                Investment List
+                {{ __('sentence.investment_list') }}
             </h3>
 
             @if (collect($datas['targets'])->isEmpty())
                 <h5 class="flex justify-center text-gray-500">
-                    There is no investment found
+                    {{ __('sentence.no_investments_found') }}
                 </h5>
             @else
                 @foreach ($datas['targets'] as $target)
@@ -41,10 +41,10 @@
                                     {{ $target->title }}
                                 </div>
                                 <div class="text-theme-xs text-gray-800 dark:text-white/90">
-                                    IDR {{ number_format($target->target_amount, 0, ',', '.') }}
+                                    {{ __('common.idr') }} {{ number_format($target->target_amount, 0, ',', '.') }}
                                 </div>
                                 <div class="text-theme-xs text-gray-500 dark:text-gray-400">
-                                    {{ count($target->items) }} Investments
+                                    {{ count($target->items) }} {{  __('sentence.investment_items') }}
                                 </div>
                             </div>
                         </div>

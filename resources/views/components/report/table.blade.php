@@ -3,14 +3,14 @@
         <table class="min-w-full">
             <thead>
                 <tr class="border-gray-200 border-y dark:border-gray-700">
-                    <th class="px-4 py-3 font-normal text-gray-900 dark:text-white text-start text-theme-sm">No</th>
-                    <th class="px-4 py-3 font-normal text-gray-900 dark:text-white text-start text-theme-sm">Date</th>
-                    <th class="px-4 py-3 font-normal text-gray-900 dark:text-white text-start text-theme-sm">Type</th>
-                    <th class="px-4 py-3 font-normal text-gray-900 dark:text-white text-start text-theme-sm">Category</th>
-                    <th class="px-4 py-3 font-normal text-gray-900 dark:text-white text-start text-theme-sm">Title</th>
-                    <th class="px-4 py-3 font-normal text-gray-900 dark:text-white text-start text-theme-sm">Amount</th>
-                    <th class="px-4 py-3 font-normal text-gray-900 dark:text-white text-start text-theme-sm">Account</th>
-                    <th class="px-4 py-3 font-normal text-gray-900 dark:text-white text-start text-theme-sm">Description</th>
+                    <th class="px-4 py-3 font-normal text-gray-900 dark:text-white text-start text-theme-sm">{{ __('common.no') }}</th>
+                    <th class="px-4 py-3 font-normal text-gray-900 dark:text-white text-start text-theme-sm">{{ __('common.date') }}</th>
+                    <th class="px-4 py-3 font-normal text-gray-900 dark:text-white text-start text-theme-sm">{{ __('common.type') }}</th>
+                    <th class="px-4 py-3 font-normal text-gray-900 dark:text-white text-start text-theme-sm">{{ __('nav.category') }}</th>
+                    <th class="px-4 py-3 font-normal text-gray-900 dark:text-white text-start text-theme-sm">{{ __('common.title') }}</th>
+                    <th class="px-4 py-3 font-normal text-gray-900 dark:text-white text-start text-theme-sm">{{ __('common.amount') }}</th>
+                    <th class="px-4 py-3 font-normal text-gray-900 dark:text-white text-start text-theme-sm">{{ __('common.account') }}</th>
+                    <th class="px-4 py-3 font-normal text-gray-900 dark:text-white text-start text-theme-sm">{{ __('common.description') }}</th>
                 </tr>
             </thead>
 
@@ -83,7 +83,7 @@
                 <template x-if="paginatedReports.length === 0">
                     <tr>
                         <td colspan="8" class="py-8 text-center text-gray-500 dark:text-gray-400">
-                            No reports found
+                            {{ __('sentence.no_reports_found') }}
                         </td>
                     </tr>
                 </template>

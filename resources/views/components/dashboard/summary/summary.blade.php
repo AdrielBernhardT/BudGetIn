@@ -5,19 +5,19 @@
         <div class="flex items-center justify-between">
             <div class="flex flex-col">
                 <h3 class="text-gray-800 dark:text-white/90 text-theme-sm md:text-md font-normal">
-                    Current Balance
+                    {{ __('dashboard.current_balance') }}
                 </h3>
                 <h2 class="text-gray-800 dark:text-white/90 font-semibold text-lg md:text-xl">
-                    IDR {{ number_format($summary['current_balance'], 0, ',', '.') }}
+                    {{ __('common.idr') }} {{ number_format($summary['current_balance'], 0, ',', '.') }}
                 </h2>
             </div>
-    
+
             <button @click="$dispatch('add-account')" class="w-auto whitespace-nowrap justify-center inline-flex items-center gap-3 rounded-lg border border-gray-300 bg-main px-4 py-2 text-theme-xs md:text-theme-sm font-medium text-white shadow-theme-xs hover:bg-main-hover hover:text-white/90 dark:border-gray-700 dark:bg-main dark:text-white dark:hover:bg-main-hover dark:hover:text-white/90">
                 <i data-lucide="plus" class="w-3 h-3 md:w-4 md:h-4 shrink-0 text-white dark:text-white"></i>
-                Add New
+                {{ __('sentence.add_new') }}
             </button>
         </div>
-    
+
         <div class="overflow-x-auto custom-scrollbar">
             <div class="flex gap-2 pb-2">
                 @forelse($summary['accounts'] as $account)
@@ -27,7 +27,7 @@
                 @empty
                     <div class="flex items-center justify-center w-full h-32">
                         <span class="text-gray-500">
-                            No accounts found
+                            {{ __('sentence.no_accounts_found') }}
                         </span>
                     </div>
                 @endforelse
@@ -62,14 +62,14 @@
 
         <div class="flex flex-col gap-2">
             <h3 class="text-lg font-semibold text-gray-800 dark:text-white/90">
-                Quick Actions
+                {{ __('dashboard.quick_actions') }}
             </h3>
             <div class="grid grid-cols-3 gap-4">
             <a href="{{ route('income.index') }}"
             class="flex flex-col items-center justify-center group rounded-2xl border border-gray-200 bg-gray-50 hover:bg-main dark:hover:bg-main p-3 dark:border-gray-800 dark:bg-gray-800 md:p-4">
                 <div class="flex flex-col items-center gap-2">
                     <i data-lucide="arrow-down" class="w-7 h-7 shrink-0 text-gray-900 group-hover:text-white dark:text-white/90"></i>
-                    <span class="text-gray-800 group-hover:text-white dark:text-white/90 text-theme-sm md:text-md font-normal">Income</span>
+                    <span class="text-gray-800 group-hover:text-white dark:text-white/90 text-theme-sm md:text-md font-normal">{{ __('nav.income') }}</span>
                 </div>
             </a>
 
@@ -77,7 +77,7 @@
             class="flex flex-col items-center justify-center group rounded-2xl border border-gray-200 bg-gray-50 hover:bg-main dark:hover:bg-main p-3 dark:border-gray-800 dark:bg-gray-800 md:p-4">
                 <div class="flex flex-col items-center gap-2">
                     <i data-lucide="arrow-up" class="w-7 h-7 shrink-0 text-gray-900 group-hover:text-white dark:text-white/90"></i>
-                    <span class="text-gray-800 group-hover:text-white dark:text-white/90 text-theme-sm md:text-md font-normal">Expense</span>
+                    <span class="text-gray-800 group-hover:text-white dark:text-white/90 text-theme-sm md:text-md font-normal">{{ __('nav.expense') }}</span>
                 </div>
             </a>
 
@@ -85,7 +85,7 @@
             class="flex flex-col items-center justify-center group rounded-2xl border border-gray-200 bg-gray-50 hover:bg-main dark:hover:bg-main p-3 dark:border-gray-800 dark:bg-gray-800 md:p-4">
                 <div class="flex flex-col items-center gap-2">
                     <i data-lucide="arrow-left-right" class="w-7 h-7 shrink-0 text-gray-900 group-hover:text-white dark:text-white/90"></i>
-                    <span class="text-gray-800 group-hover:text-white dark:text-white/90 text-theme-sm md:text-md font-normal">Transfer</span>
+                    <span class="text-gray-800 group-hover:text-white dark:text-white/90 text-theme-sm md:text-md font-normal">{{ __('nav.transfer') }}</span>
                 </div>
             </a>
         </div>

@@ -34,20 +34,20 @@
                                         }
                                     }))"
                     class="flex w-full rounded-lg px-3 py-2 text-left text-theme-xs font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-700 dark:hover:bg-white/5 dark:hover:text-gray-300">
-                    Edit
+                    {{ __('common.edit') }}
                 </button>
 
                 <button type="submit"
                     class="flex w-full rounded-lg px-3 py-2 text-left text-theme-xs font-medium text-red-500 hover:bg-gray-100 hover:text-red-600 dark:hover:bg-white/5 dark:hover:text-red-500">
-                    Delete
+                    {{ __('common.delete') }}
                 </button>
             </x-common.dropdown-menu>
         </div>
 
         <div class="flex flex-col gap-1">
-            <span class="text-sm text-white font-light">Balance</span>
+            <span class="text-sm text-white font-light">{{ __('common.balance') }}</span>
             <div class="flex justify-between items-center">
-                <span class="text-md text-white font-semibold">IDR {{ number_format($account->balance, 0, ',', '.') }}</span>
+                <span class="text-md text-white font-semibold">{{ __('common.idr') }} {{ number_format($account->balance, 0, ',', '.') }}</span>
                 @if (!empty($account->account_identifier))
                     <span class="text-md text-white font-semibold">{{ $account->name }}</span>
                 @endif

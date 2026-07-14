@@ -1,17 +1,17 @@
 @extends('layouts.app')
 
 @section('content')
-    <x-common.page-breadcrumb pageTitle="Notifications" />
+    <x-common.page-breadcrumb pageTitle="{{ __('nav.notifications') }}" />
 
     <div class="rounded-2xl border border-gray-200 bg-white p-5 dark:border-gray-800 dark:bg-white/[0.03] lg:p-6">
         <div class="flex items-center justify-between pb-4 mb-4 border-b border-gray-200 dark:border-gray-800">
-            <h4 class="text-base font-semibold text-gray-800 dark:text-white/90">All Notifications</h4>
+            <h4 class="text-base font-semibold text-gray-800 dark:text-white/90">{{ __('sentence.all_notifications') }}</h4>
 
             <form action="{{ route('notifications.read-all') }}" method="POST">
                 @csrf
                 <button type="submit"
                     class="text-sm font-medium text-main hover:underline">
-                    Tandai semua dibaca
+                    {{ __('sentence.mark_all_as_read') }}
                 </button>
             </form>
         </div>
@@ -39,7 +39,7 @@
 
                         <span class="flex-1">
                             <span class="block mb-1 text-sm font-medium text-gray-800 dark:text-white/90">
-                                {{ $notification->data['title'] ?? 'Notification' }}
+                                {{ $notification->data['title'] ?? __('sentence.notification_fallback_title') }}
                             </span>
                             <span class="block mb-1 text-sm text-gray-500 dark:text-gray-400">
                                 {{ $notification->data['message'] ?? '' }}
@@ -63,7 +63,7 @@
                 </li>
             @empty
                 <li class="py-12 text-sm text-center text-gray-400 dark:text-gray-500">
-                    Belum ada notifikasi.
+                    {{ __('sentence.no_notifications_yet') }}
                 </li>
             @endforelse
         </ul>
