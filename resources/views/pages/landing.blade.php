@@ -676,6 +676,23 @@
         </footer>
         {{-- Toggler --}}
         <div class="fixed right-6 bottom-6 z-50">
+            <div class="relative" x-data="{ langOpen: false }" @click.away="langOpen = false">
+                    <button @click="langOpen = !langOpen" type="button" class="bg-main-hover hover:bg-main inline-flex size-14 items-center justify-center rounded-full text-white transition-colors">
+                        <span class="text-sm font-semibold uppercase">{{ app()->getLocale() }}</span>
+                    </button>
+
+                    <div x-show="langOpen" x-transition="" class="absolute right-0 bottom-16 mt-2 w-36 rounded-lg border border-gray-200 bg-white p-1 shadow-theme-lg dark:border-gray-800 dark:bg-gray-dark z-50" style="display: none;">
+                        <a href="http://127.0.0.1:8000/locale/en" class="block px-3 py-2 rounded-md text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-white/5">
+                            English
+                        </a>
+                        <a href="http://127.0.0.1:8000/locale/id" class="block px-3 py-2 rounded-md text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-white/5">
+                            Bahasa Indonesia
+                        </a>
+                    </div>
+                </div>
+        </div>
+
+        <div class="fixed right-24 bottom-6 z-50">
             <button
                 class="bg-main-hover hover:bg-main inline-flex size-14 items-center justify-center rounded-full text-white transition-colors"
                 @click.prevent="$store.theme.toggle()">
