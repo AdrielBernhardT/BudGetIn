@@ -22,7 +22,7 @@
         2xl:px-28">
                 {{-- Logo --}}
                 <div class="shrink-0">
-                    <img src="/images/logo/logo.png" alt="BudGetIn Logo" class="w-28 sm:w-25 lg:w-52 xl:w-60">
+                    <img src="/images/logo/logo.png" alt="{{ __('common.logo_alt') }}" class="w-28 sm:w-25 lg:w-52 xl:w-60">
                 </div>
 
                 {{-- Hero Content --}}
@@ -45,9 +45,7 @@
             xl:text-5xl
             dark:text-white/90">
 
-            <span class="block">Take Control of Your</span>
-            <span class="block">Finances,</span>
-            <span class="block">Effortlessly</span>
+            {{ __('sentence.landing_page_title') }}
         </h1>
 
         <p
@@ -57,8 +55,7 @@
             lg:mt-0 lg:text-lg
             dark:text-white/90">
 
-            Track your income, manage expenses, and plan your financial
-            future with a simple yet powerful platform.
+            {{ __('sentence.landing_page_description') }}
         </p>
 
         {{-- Mobile Button --}}
@@ -69,7 +66,7 @@
             transition-colors hover:bg-accent-hover
             lg:hidden">
 
-            Get Started
+            {{ __('sentence.get_started') }}
         </a>
 
         {{-- Desktop Button --}}
@@ -80,7 +77,7 @@
             lg:inline-flex
             sm:text-base">
 
-            Get Started
+            {{ __('sentence.get_started') }}
         </a>
     </div>
 
@@ -91,7 +88,7 @@
         lg:mt-0 lg:justify-center">
 
         <img src="/images/landing/landing.png"
-            alt="BudGetIn financial illustration"
+            alt="{{ __('sentence.landing_page_illustration_alt') }}"
             class="w-[78%] max-w-[320px] object-contain
             sm:max-h-[42vh] sm:w-full sm:max-w-[520px]
             lg:max-h-[64vh] lg:max-w-[720px]
@@ -137,14 +134,14 @@
                     class="text-center text-xl font-medium text-gray-800
                 sm:text-3xl
                 dark:text-white/90">
-                    Struggling to manage your money and stay in control of your expenses?
+                    {{ __('sentence.landing_page_challenges_title') }}
                 </h2>
 
                 <p
                     class="text-center text-sm font-light text-gray-500
                 sm:text-xl
                 dark:text-gray-300">
-                    Many people face the same challenges when managing their finances.
+                    {{ __('sentence.landing_page_challenges_description') }}
                 </p>
             </div>
 
@@ -194,7 +191,7 @@
                         group-hover:text-white/90
                         sm:mt-6 sm:text-2xl
                         dark:text-white/90">
-                            Losing Track of Expenses
+                            {{ __('sentence.landing_page_challenges_1') }}
                         </h3>
 
                         <p
@@ -203,7 +200,7 @@
                         group-hover:text-gray-100
                         sm:text-base
                         dark:text-gray-300">
-                            You don't always know where your money goes every day.
+                            {{ __('sentence.landing_page_challenges_1_description') }}
                         </p>
                     </div>
                 </div>
@@ -243,7 +240,7 @@
                         group-hover:text-white/90
                         sm:mt-6 sm:text-2xl
                         dark:text-white/90">
-                            Overspending
+                            {{ __('sentence.landing_page_challenges_2') }}
                         </h3>
 
                         <p
@@ -252,7 +249,7 @@
                         group-hover:text-gray-100
                         sm:text-base
                         dark:text-gray-300">
-                            It's easy to go over budget without realizing it.
+                            {{ __('sentence.landing_page_challenges_2_description') }}
                         </p>
                     </div>
                 </div>
@@ -292,14 +289,7 @@
                         group-hover:text-white/90
                         sm:mt-6 sm:text-2xl
                         dark:text-white/90">
-
-                            <span class="block sm:whitespace-nowrap">
-                                Messy Financial
-                            </span>
-
-                            <span class="block">
-                                Records
-                            </span>
+                            {{ __('sentence.landing_page_challenges_3') }}
                         </h3>
 
                         <p
@@ -308,7 +298,7 @@
                         group-hover:text-gray-100
                         sm:text-base
                         dark:text-gray-300">
-                            Notes and records are scattered and hard to manage.
+                            {{ __('sentence.landing_page_challenges_3_description') }}
                         </p>
                     </div>
                 </div>
@@ -338,7 +328,7 @@
                                     class="transition group-hover:fill-white
                                 dark:fill-[#6683f7]
                                 dark:group-hover:fill-white/90"
-                                    d="M10 16q2.5 0 4.25-1.75T16 10t-1.75-4.25T10 4T5.75 5.75T4 10t1.75 4.25T10 16m-.712-3.287Q9 12.425 9 12V7q0-.425.288-.712T10 6t.713.288T11 7v5q0 .425-.288.713T10 13t-.712-.288m-3.5 0Q5.5 12.426 5.5 12V9q0-.425.288-.712T6.5 8t.713.288T7.5 9v3q0 .425-.288.713T6.5 13t-.712-.288m7 0Q12.5 12.426 12.5 12v-2q0-.425.288-.712T13.5 9t.713.288t.287.712v2q0 .425-.288.713T13.5 13t-.712-.288M10 18q-3.35 0-5.675-2.325T2 10t2.325-5.675T10 2t5.675 2.325T18 10q0 1.4-.437 2.65t-1.238 2.275L21.3 19.9q.275.275.275.7t-.275.7t-.7.275t-.7-.275l-4.975-4.975q-1.025.8-2.275 1.238T10 18" />
+                                    d="M10 16q2.5 0 4.25-1.75T16 10t-1.75-4.25T10 4T5.75 5.75T4 10t1.75 4.25T10 16m-.712-3.287Q9 12.425 9 12V7q0-.425.288-.712T10 6t.713.288T11 7v5q0 .425-.288.713T10 13t-.712-.288m-3.5 0Q5.5 12.426 5.5 12V9q0-.425.288-.712T6.5 8t.713.288t.287.712v3q0 .425-.288.713T6.5 13t-.712-.288m7 0Q12.5 12.426 12.5 12v-2q0-.425.288-.712T13.5 9t.713.288t.287.712v2q0 .425-.288.713T13.5 13t-.712-.288M10 18q-3.35 0-5.675-2.325T2 10t2.325-5.675T10 2t5.675 2.325T18 10q0 1.4-.437 2.65t-1.238 2.275L21.3 19.9q.275.275.275.7t-.275.7t-.7.275t-.7-.275l-4.975-4.975q-1.025.8-2.275 1.238T10 18" />
                             </svg>
                         </div>
 
@@ -348,7 +338,7 @@
                         group-hover:text-white/90
                         sm:mt-6 sm:text-2xl
                         dark:text-white/90">
-                            No Clear Insights
+                            {{ __('sentence.landing_page_challenges_4') }}
                         </h3>
 
                         <p
@@ -357,7 +347,7 @@
                         group-hover:text-gray-100
                         sm:text-base
                         dark:text-gray-300">
-                            You can't clearly see your financial habits or trends.
+                            {{ __('sentence.landing_page_challenges_4_description') }}
                         </p>
                     </div>
                 </div>
@@ -398,8 +388,7 @@
                         xl:text-[1.8rem]
                         dark:text-white/90">
 
-                            Take control of your finances and build a smarter
-                            financial future with confidence.
+                            {{ __('sentence.landing_page_solution_title') }}
                         </h2>
 
                         <p
@@ -410,10 +399,7 @@
                         lg:text-[0.95rem]
                         dark:text-gray-300">
 
-                            BudGetIn simplifies how you manage your money. Track expenses,
-                            understand your spending, and stay organized all in one
-                            intuitive platform. Gain clear insights to make smarter
-                            financial decisions every day.
+                            {{ __('sentence.landing_page_solution_description') }}
                         </p>
                     </div>
 
@@ -451,7 +437,7 @@
                                 sm:text-lg
                                 dark:text-white/90">
 
-                                    Smart Financial Tracking
+                                    {{ __('sentence.landing_page_solution_feature_1') }}
                                 </h3>
 
                                 <p
@@ -460,9 +446,7 @@
                                 sm:text-[0.9rem]
                                 dark:text-gray-300">
 
-                                    Easily record your income and expenses in real-time.
-                                    Stay updated with your financial activity and never
-                                    lose track of where your money goes.
+                                    {{ __('sentence.landing_page_solution_feature_1_description') }}
                                 </p>
                             </div>
                         </div>
@@ -490,7 +474,7 @@
                                 sm:text-lg
                                 dark:text-white/90">
 
-                                    Personalized Financial Growth
+                                    {{ __('sentence.landing_page_solution_feature_2') }}
                                 </h3>
 
                                 <p
@@ -499,9 +483,7 @@
                                 sm:text-[0.9rem]
                                 dark:text-gray-300">
 
-                                    Understand your financial habits and discover
-                                    opportunities to improve. BudGetIn helps you make
-                                    smarter decisions based on your own spending patterns.
+                                    {{ __('sentence.landing_page_solution_feature_2_description') }}
                                 </p>
                             </div>
                         </div>
@@ -530,7 +512,7 @@
                                 sm:text-lg
                                 dark:text-white/90">
 
-                                    Simple &amp; Organized Management
+                                    {{ __('sentence.landing_page_solution_feature_3') }}
                                 </h3>
 
                                 <p
@@ -539,9 +521,7 @@
                                 sm:text-[0.9rem]
                                 dark:text-gray-300">
 
-                                    Keep all your financial data neat and structured.
-                                    Categorize transactions, monitor your balance, and
-                                    manage everything effortlessly in one place.
+                                    {{ __('sentence.landing_page_solution_feature_3_description') }}
                                 </p>
                             </div>
                         </div>
@@ -578,7 +558,7 @@
                     </div>
 
                     {{-- Female --}}
-                    <img src="/images/landing/female.png" alt="Female"
+                    <img src="/images/landing/female.png" alt="{{ __('sentence.landing_page_illustration_person_alt') }}"
                         class="relative z-10
                     max-h-[255px] w-auto max-w-[82%]
                     object-contain object-bottom
@@ -587,7 +567,7 @@
                     xl:max-h-[510px]">
 
                     {{-- Weekly Report --}}
-                    <img src="/images/landing/weekly-report.png" alt="Weekly Report"
+                    <img src="/images/landing/weekly-report.png" alt="{{ __('sentence.landing_page_illustration_weekly_report_alt') }}"
                         class="absolute right-1 top-[39%] z-20
                     w-[78px] rounded-md
                     shadow-[4px_4px_8px_rgba(0,0,0,0.25)]
@@ -596,7 +576,7 @@
                     xl:right-[-20px] xl:w-[145px]">
 
                     {{-- Budgets --}}
-                    <img src="/images/landing/budgets.png" alt="Budgets"
+                    <img src="/images/landing/budgets.png" alt="{{ __('sentence.landing_page_illustration_budgets_alt') }}"
                         class="absolute bottom-0 left-1 z-20
                     w-[170px] rounded-md
                     shadow-[4px_4px_8px_rgba(0,0,0,0.25)]
@@ -613,7 +593,7 @@
 
             {{-- Logo --}}
             <a href="/">
-                <img src="/images/logo/logo.png" alt="Logo" class="w-36 sm:w-60">
+                <img src="/images/logo/logo.png" alt="{{ __('common.logo_alt') }}" class="w-36 sm:w-60">
             </a>
 
             {{-- Description --}}
@@ -624,9 +604,7 @@
             sm:max-w-3xl sm:text-base
             dark:text-gray-400">
 
-                Take control of your finances with BudGetIn. Easily track your income and expenses,
-                manage your budget effectively, and gain meaningful insights to make smarter
-                financial decisions every day.
+                {{ __('sentence.landing_page_footer') }}
             </p>
 
             {{-- Social Media --}}
@@ -693,7 +671,7 @@
             sm:text-sm
             dark:text-gray-500">
 
-                © 2026 BudGetIn. Built for smarter financial management.
+                {{ __('sentence.landing_page_copyright', ['year' => date('Y')]) }}
             </p>
         </footer>
         {{-- Toggler --}}

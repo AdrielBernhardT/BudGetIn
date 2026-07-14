@@ -138,13 +138,13 @@ return [
     'max_allocation_error' => 'Alokasi maksimal 100%',
     'target_amount' => 'Jumlah Target',
     'bio_placeholder' => 'Tulis bio Anda di sini...',
-    
+
     // Landing Page
     'landing_page_title' => 'Ambil kendali atas keuangan Anda dengan mudah.',
     'landing_page_description' => 'Lacak pemasukan, kelola pengeluaran, dan rencanakan masa depan keuangan Anda dengan alat sederhana namun kuat.',
     'get_started' => 'Mulai Sekarang',
     'landing_page_challenges_title' => 'Kesulitan mengelola uang dan tetap mengontrol pengeluaran Anda?',
-    'landing_page_challenges_description' => 'Banyak orang ` the same challenges dalam mengelola keuangan mereka.',
+    'landing_page_challenges_description' => 'Banyak orang menghadapi tantangan yang sama dalam mengelola keuangan mereka.',
     'landing_page_challenges_1' => 'Kehilangan Jejak Pengeluaran',
     'landing_page_challenges_1_description' => 'Anda tidak selalu tahu ke mana uang Anda pergi setiap hari.',
     'landing_page_challenges_2' => 'Pengeluaran yang Tidak Terkontrol',
@@ -156,11 +156,16 @@ return [
     'landing_page_solution_title' => 'Ambil kendali atas keuangan Anda dan bangun masa depan keuangan yang lebih cerdas dengan percaya diri.',
     'landing_page_solution_description' => 'BudGetIn mempermudah bagaimana anda mengelola uang Anda. Lacak pengeluaran, pahami kebiasaan belanja Anda, dan kelola keuangan dengan rapi dalam satu platform yang intuitif. Dapatkan wawasan yang jelas untuk membuat keputusan finansial yang lebih cerdas setiap harinya.',
     'landing_page_solution_feature_1' => 'Pelacakan Keuangan yang Cerdas',
-    'landing_page_solution_feature_1_description' => 'Catat pemasukan dan pengeluaran Anda dengan mudah secara *real-time*. Pantau terus aktivitas keuangan Anda dan jangan sampai kehilangan jejak ke mana uang Anda mengalir.',
+    'landing_page_solution_feature_1_description' => 'Catat pemasukan dan pengeluaran Anda dengan mudah secara real-time. Pantau terus aktivitas keuangan Anda dan jangan sampai kehilangan jejak ke mana uang Anda mengalir.',
     'landing_page_solution_feature_2' => 'Pertumbuhan Finansial yang Dipersonalisasi',
     'landing_page_solution_feature_2_description' => 'Pahami kebiasaan finansial Anda dan temukan peluang untuk memperbaikinya. BudGetIn membantu Anda membuat keputusan yang lebih cerdas berdasarkan pola pengeluaran Anda sendiri.',
     'landing_page_solution_feature_3' => 'Manajemen yang Sederhana & Terorganisir',
     'landing_page_solution_feature_3_description' => 'Jaga semua data keuangan Anda tetap rapi dan terstruktur. Kategorikan transaksi, pantau saldo Anda, dan kelola semuanya dengan mudah di satu tempat.',
     'landing_page_footer' => 'Kendalikan keuangan Anda dengan BudGetIn. Lacak pemasukan dan pengeluaran Anda dengan mudah, kelola anggaran secara efektif, dan dapatkan wawasan mendalam untuk membuat keputusan finansial yang lebih cerdas setiap harinya.',
     'card_title_placeholder' => 'Judul Kartu Di Sini',
+    'landing_page_illustration_alt' => 'Ilustrasi keuangan BudGetIn',
+    'landing_page_illustration_person_alt' => 'Ilustrasi pengguna BudGetIn',
+    'landing_page_illustration_weekly_report_alt' => 'Laporan mingguan',
+    'landing_page_illustration_budgets_alt' => 'Anggaran',
+    'landing_page_copyright' => '© :year BudGetIn. Dibuat untuk manajemen keuangan yang lebih cerdas.',
 ];
