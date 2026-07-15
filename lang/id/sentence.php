@@ -18,6 +18,7 @@ return [
     'edit_transfer' => 'Ubah Transfer',
     'edit_transfer_description' => 'Perbarui detail transfer agar catatan Anda tetap akurat.',
     'edit_profile' => 'Ubah Profil',
+    'edit_goal' => 'Ubah Target',
 
     // Add
     'add_new' => 'Tambah Baru',
@@ -76,12 +77,12 @@ return [
 
     // Description Sentence
     'account_name' => 'Nama Akun',
-    'account_number' => 'Nomor Akun',
+    'account_number' => 'Nomor Akun (Opsional)',
     'track_income' => 'Lacak pemasukan, pengeluaran, dan target keuangan Anda — semuanya dalam satu tempat.',
     'transaction_history_content_goes_here' => 'Konten riwayat transaksi ditampilkan di sini.',
     'yes_delete_it' => 'Ya, hapus!',
     'agree_terms' => 'Dengan membuat akun, Anda menyetujui :terms dan :privacy kami.',
-    'allocation_amount' => 'Jumlah Alokasi',
+    'allocation_amount' => 'Jumlah Alokasi (Opsional)',
     'allocation_description' => 'Masukkan persentase atau jumlah yang akan dialokasikan ke target ini. Nilainya akan diperbarui secara otomatis.',
     'already_have_account' => 'Sudah memiliki akun?',
     'category_name' => 'Nama Kategori',
@@ -168,4 +169,27 @@ return [
     'landing_page_illustration_weekly_report_alt' => 'Laporan mingguan',
     'landing_page_illustration_budgets_alt' => 'Anggaran',
     'landing_page_copyright' => '© :year BudGetIn. Dibuat untuk manajemen keuangan yang lebih cerdas.',
+
+    // GOAL
+    // Edit
+    'edit_goal_description' => 'Perbarui target keuangan Anda agar tetap sesuai dengan rencana tabungan dan investasi.',
+    'edit_account' => 'Ubah Akun',
+    'edit_account_description' => 'Perbarui informasi akun untuk menjaga saldo dan detail akun tetap akurat.',
+
+    // Add
+    'add_goal_description' => 'Buat target keuangan baru untuk melacak tabungan dan investasi Anda.',
+    'add_account_description' => 'Tambahkan akun baru untuk mengelola saldo dan mencatat transaksi.',
+
+    // Update
+    'update_goal' => 'Perbarui Target',
+    'update_goal_details' => 'Perbarui informasi target keuangan Anda di bawah ini.',
+    'update_account' => 'Perbarui Akun',
+    'update_account_details' => 'Perbarui informasi akun Anda di bawah ini.',
+
+    // Description
+    'target_amount_description' => 'Masukkan jumlah yang ingin Anda capai untuk target keuangan ini.',
+    'goal_deadline' => 'Tenggat Target (Opsional)',
+    'goal_deadline_placeholder' => 'Pilih tenggat target',
+    'goal_name_placeholder' => 'Masukkan nama target',
+    'update_goal_information' => 'Perbarui informasi target keuangan Anda.',
 ];

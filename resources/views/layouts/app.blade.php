@@ -8,6 +8,7 @@
     <meta name="vapid-public-key" content="{{ config('webpush.vapid.public_key') }}">
 
     <title>{{ $title ?? 'Dashboard' }} | BudGetIn</title>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])

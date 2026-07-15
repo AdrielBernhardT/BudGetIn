@@ -163,7 +163,8 @@
                     </label>
                     <div class="relative w-full">
                         <x-form.date-picker
-                        name="report_day"
+                        id="date"
+                        name="date"
                         picker="day"
                         placeholder="Select Date"
                         x-model="selectedDate"
