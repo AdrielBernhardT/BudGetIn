@@ -107,7 +107,7 @@
                     </button>
                     <button type="submit"
                         class="flex w-full justify-center rounded-lg bg-main px-4 py-2.5 text-sm font-medium text-white hover:bg-main-hover sm:w-auto">
-                        <span x-text="mode === 'create' ? '{{ __('sentence.save_changes') }}' : '{{ __('common.update_category') }}'"></span>
+                        <span x-text="mode === 'create' ? '{{ __('sentence.save_changes') }}' : '{{ __('sentence.update_category') }}'"></span>
                     </button>
                 </div>
             </div>
