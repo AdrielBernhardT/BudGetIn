@@ -25,7 +25,7 @@ return [
     'goal' => 'Goal',
     'goals' => 'Goals',
     'history' => 'History',
-    'idr' => 'Rp',
+    'idr' => 'IDR',
     'input' => 'Input',
     'marketing' => 'Marketing',
     'name' => 'Name',

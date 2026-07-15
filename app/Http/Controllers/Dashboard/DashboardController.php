@@ -128,7 +128,7 @@ class DashboardController extends Controller
             ],
 
             'highest_expense' => [
-                'title' => optional($currentHighest?->category)->name ?? '-',
+                'title' => optional($currentHighest?->category)->name ?? __('dashboard.no_category'),
                 'amount' => $currentHighest->total ?? 0,
                 'change' => $this->calculateChange(
                     $currentHighest->total ?? 0,
@@ -144,8 +144,8 @@ class DashboardController extends Controller
             $budgetAlert = [
                 'show' => false,
                 'type' => 'info',
-                'title' => 'Budget Alert',
-                'message' => 'Create your expense categories and monthly budgets to start tracking your spending.',
+                'title' => __('dashboard.budget_alert'),
+                'message' => __('dashboard.create_categories_message'),
             ];
 
         } else {
@@ -173,25 +173,26 @@ class DashboardController extends Controller
                 $budgetAlert = [
                     'show' => false,
                     'type' => 'info',
-                    'title' => 'Budget Alert',
-                    'message' => 'Set a monthly budget for your categories to receive budget alerts.',
+                    'title' => __('dashboard.budget_alert'),
+                    'message' => __('dashboard.set_budget_message'),
                 ];
 
             } else {
                 $remaining = max(0, $categoryAlert->remaining);
                 $budgetAlert = [
                     'show' => true,
-                    'title' => 'Budget Alert',
+                    'title' => __('dashboard.budget_alert'),
                     'type' => $remaining <= 0 ? 'danger' : 'warning',
                     'category' => $categoryAlert->name,
                     'remaining' => $remaining,
                     'message' => $remaining <= 0
-                        ? "Your {$categoryAlert->name} budget has been exceeded."
-                        : sprintf(
-                            "Only IDR %s left from your %s budget.",
-                            number_format($remaining, 0, ',', '.'),
-                            $categoryAlert->name
-                        ),
+                        ? __('dashboard.budget_exceeded', [
+                            'category' => $categoryAlert->name,
+                        ])
+                        : __('dashboard.budget_remaining', [
+                            'amount' => number_format($remaining, 0, ',', '.'),
+                            'category' => $categoryAlert->name,
+                        ]),
                 ];
             }
         }
@@ -274,11 +275,11 @@ class DashboardController extends Controller
                 'labels' => $labels,
                 'series' => [
                     [
-                        'name' => 'Income',
+                        'name' => __('nav.income'),
                         'data' => $incomeSeries,
                     ],
                     [
-                        'name' => 'Expense',
+                        'name' => __('nav.expense'),
                         'data' => $expenseSeries,
                     ],
                 ],
@@ -288,7 +289,7 @@ class DashboardController extends Controller
                 'labels' => $labels,
                 'series' => [
                     [
-                        'name' => 'Income',
+                        'name' => __('nav.income'),
                         'data' => $incomeSeries,
                     ],
                 ],
@@ -298,7 +299,7 @@ class DashboardController extends Controller
                 'labels' => $labels,
                 'series' => [
                     [
-                        'name' => 'Expense',
+                        'name' => __('nav.expense'),
                         'data' => $expenseSeries,
                     ],
                 ],

@@ -115,11 +115,11 @@ class MenuHelper
     {
         return [
             [
-                'title' => 'Menu',
+                'title' => __("nav.menu"),
                 'items' => self::getMainNavItems()
             ],
             [
-                'title' => 'Others',
+                'title' => __("nav.others"),
                 'items' => self::getOthersItems()
             ]
         ];
