@@ -45,7 +45,7 @@
                                         }
                                     }))"
                                     class="flex w-full rounded-lg px-3 py-2 text-left text-theme-xs font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-700 dark:hover:bg-white/5 dark:hover:text-gray-300">
-                                    Edit
+                                    {{ __('common.edit') }}
                                 </button>
 
                                 <form action="{{ route('investment.goal.delete', $goal->id) }}" method="POST" class="js-delete-form"
@@ -55,7 +55,7 @@
 
                                     <button type="submit"
                                         class="flex w-full rounded-lg px-3 py-2 text-left text-theme-xs font-medium text-red-500 hover:bg-gray-100 hover:text-red-600 dark:hover:bg-white/5 dark:hover:text-red-500">
-                                        Delete
+                                        {{ __('common.delete') }}
                                     </button>
                                 </form>
                             </x-common.dropdown-menu>

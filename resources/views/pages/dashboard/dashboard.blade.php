@@ -87,5 +87,32 @@
                 }
             }
         }
+
+        document.addEventListener('submit', function(event) {
+            const form = event.target.closest('.js-delete-form');
+
+            if (!form) return;
+
+            if (form.dataset.submitted === 'true') {
+                return;
+            }
+
+            event.preventDefault();
+
+            Swal.fire({
+                icon: 'warning',
+                title: form.dataset.confirmTitle || 'Are you sure?',
+                showCancelButton: true,
+                confirmButtonText: 'Yes, delete it!',
+                cancelButtonText: 'Cancel',
+                confirmButtonColor: '#FF3B30',
+                cancelButtonColor: '#667085',
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    form.dataset.submitted = 'true';
+                    form.submit();
+                }
+            });
+        });
     </script>
 @endpush

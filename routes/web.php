@@ -4,6 +4,7 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\OTPController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\ResetPasswordController;
+use App\Http\Controllers\Dashboard\AccountController;
 use App\Http\Controllers\Investment\GoalController;
 use App\Http\Controllers\Investment\RecordInvestmentController;
 use App\Http\Controllers\Transaction\CategoryController;
@@ -125,6 +126,14 @@ Route::post('/reset-password', [ResetPasswordController::class, 'resetPassword']
 Route::middleware(['auth'])->group(function(){
     // Dashboard
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+
+    // Account
+    Route::prefix('/account')->as('account.')->group(function(){
+        // Investment
+        Route::post('/store', [AccountController::class, 'store'])->name('store');
+        Route::delete('/delete/{id}', [AccountController::class, 'destroy'])->name('delete');
+        Route::post('/update/{id}', [AccountController::class, 'update'])->name('update');
+    });
 
     // Verify Account
     Route::prefix('/verify-account')->as('verify.')->group(function(){

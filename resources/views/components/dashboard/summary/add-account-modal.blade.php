@@ -26,7 +26,7 @@
                     {{ __('sentence.create_account_to_manage_balance') }}
                 </p>
             </div>
-            <form class="flex flex-col" method="POST" action="{{ route('investment.goal.store') }}">
+            <form class="flex flex-col" method="POST" action="{{ route('account.store') }}">
                 @csrf
                 @method('POST')
                 <div class="custom-scrollbar max-h-[40vh] lg:max-h-[60vh] flex flex-col gap-5 overflow-y-auto p-2">
