@@ -90,10 +90,10 @@
                     </button>
 
                     <div x-show="langOpen" x-transition="" class="absolute right-0 bottom-16 mt-2 w-36 rounded-lg border border-gray-200 bg-white p-1 shadow-theme-lg dark:border-gray-800 dark:bg-gray-dark z-50" style="display: none;">
-                        <a href="http://127.0.0.1:8000/locale/en" class="block px-3 py-2 rounded-md text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-white/5">
+                        <a href="{{ route('locale.switch', 'en') }}" class="block px-3 py-2 rounded-md text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-white/5">
                             English
                         </a>
-                        <a href="http://127.0.0.1:8000/locale/id" class="block px-3 py-2 rounded-md text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-white/5">
+                        <a href="{{ route('locale.switch', 'id') }}" class="block px-3 py-2 rounded-md text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-white/5">
                             Bahasa Indonesia
                         </a>
                     </div>
