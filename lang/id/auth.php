@@ -28,4 +28,12 @@ return [
     'email_not_verified' => 'Email belum diverifikasi',
     'email_not_verified_description' => 'Verifikasi email Anda untuk meningkatkan keamanan akun dan mengakses semua fitur.',
     'verify_now' => 'Verifikasi Sekarang',
+    'verify_account_title' => 'Verifikasi Akun Anda',
+    'verification_failed' => 'Verifikasi Gagal!',
+    'verification_code' => 'Kode Verifikasi',
+    'verification_code_instruction' => 'Masukkan kode 6 digit yang dikirim ke alamat email Anda.',
+    'verify_otp' => 'Verifikasi OTP',
+    'otp_not_received' => 'Tidak menerima kode?',
+    'resend_available_in' => 'Kirim ulang tersedia dalam',
+    'resend_code' => 'Kirim Ulang Kode',
 ];
