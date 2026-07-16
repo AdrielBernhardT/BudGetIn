@@ -3,9 +3,9 @@
 <div x-data>
     @if ($targets->isEmpty())
         <div class="flex w-full rounded-2xl border border-gray-200 bg-white p-5 dark:border-gray-800 dark:bg-white/[0.03] md:p-6 justify-center">
-            <p class="text-center text-gray-500 dark:text-gray-400">
-                No Goals Found
-            </p>
+            <h5 class="flex justify-center text-gray-500">
+                No goals found.
+            </h5>
         </div>
     @else
         <div class="max-h-[700px] overflow-y-auto custom-scrollbar">
