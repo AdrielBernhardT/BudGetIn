@@ -2,8 +2,8 @@
 
 <div x-data>
     @if ($targets->isEmpty())
-        <div class="rounded-xl border border-dashed border-gray-300 p-10 text-center">
-            <p class="text-gray-500">
+        <div class="flex w-full rounded-2xl border border-gray-200 bg-white p-5 dark:border-gray-800 dark:bg-white/[0.03] md:p-6 justify-center">
+            <p class="text-center text-gray-500 dark:text-gray-400">
                 No Goals Found
             </p>
         </div>
