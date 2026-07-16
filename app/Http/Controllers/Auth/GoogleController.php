@@ -49,6 +49,7 @@ class GoogleController extends Controller
             return redirect()->route('dashboard');
 
         } catch (\Throwable $th) {
+            dd($th->getMessage());
             return redirect()->route('register')
                 ->with('error', 'Google sign up failed. Please try again.');
         }
