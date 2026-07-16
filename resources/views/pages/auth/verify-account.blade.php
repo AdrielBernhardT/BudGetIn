@@ -9,12 +9,12 @@
                     <div>
                         <div class="mb-5 sm:mb-8">
                             <h1 class="text-title-sm sm:text-title-md mb-2 font-semibold text-gray-800 dark:text-white/90">
-                                Verify Your Account
+                                {{ __('auth.verify_account_title') }}
                             </h1>
 
                             @if ($errors->has('otp'))
                                 <div class="mb-4 rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
-                                    <strong>Verification Failed!</strong>
+                                    <strong>{{ __('auth.verification_failed') }}</strong>
                                     <p>{{ $errors->first('otp') }}</p>
                                 </div>
                             @endif
@@ -32,11 +32,11 @@
                                 <div class="space-y-6">
                                     <div>
                                         <label class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-white/90">
-                                            Verification Code
+                                            {{ __('auth.verification_code') }}
                                         </label>
 
                                         <p class="mb-4 text-sm text-gray-500 dark:text-gray-400">
-                                            Enter the 6-digit code sent to your email address.
+                                            {{ __('auth.verification_code_instruction') }}
                                         </p>
 
                                         <div
@@ -129,7 +129,7 @@
                                         <button
                                             type="submit"
                                             class="bg-main shadow-theme-xs hover:bg-main-hover flex w-full items-center justify-center rounded-lg px-4 py-3 text-sm font-medium text-white transition">
-                                            Verify OTP
+                                            {{ __('auth.verify_otp') }}
                                         </button>
                                     </div>
                                 </div>
@@ -161,12 +161,12 @@
                                 class="text-center mt-5"
                             >
                                 <p class="text-sm text-gray-500 dark:text-gray-400">
-                                    Didn't receive the code?
+                                    {{ __('auth.otp_not_received') }}
                                 </p>
 
                                 <template x-if="timeLeft > 0">
                                     <p class="mt-2 text-sm text-gray-500">
-                                        Resend available in
+                                        {{ __('auth.resend_available_in') }}
                                         <span class="font-semibold" x-text="minutes + ':' + seconds"></span>
                                     </p>
                                 </template>
@@ -178,7 +178,7 @@
                                             type="submit"
                                             class="text-main hover:text-main-hover mt-2 text-sm font-medium"
                                         >
-                                            Resend Code
+                                            {{ __('auth.resend_code') }}
                                         </button>
                                     </form>
                                 </template>
@@ -194,11 +194,10 @@
                 <div class="z-1 flex items-center justify-center">
                     <div class="flex max-w-sm flex-col items-center">
                         <a href="/" class="mb-4 block">
-                            <img src="./images/logo/logo.png" alt="Logo" class="w-80" />
+                            <img src="./images/logo/logo.png" alt="{{ __('auth.logo_alt') }}" class="w-80" />
                         </a>
                         <p class="text-center text-gray-500 dark:text-white/60">
-                            Track your income, manage expenses, and plan your financial future with a simple yet powerful
-                            platform.
+                            {{ __('sentence.landing_page_description') }}
                         </p>
                     </div>
                 </div>

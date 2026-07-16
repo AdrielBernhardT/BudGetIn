@@ -81,6 +81,8 @@ return [
     'track_income' => 'Lacak pemasukan, pengeluaran, dan target keuangan Anda — semuanya dalam satu tempat.',
     'transaction_history_content_goes_here' => 'Konten riwayat transaksi ditampilkan di sini.',
     'yes_delete_it' => 'Ya, hapus!',
+    'delete_goal_confirm' => 'Apakah Anda yakin ingin menghapus target ini?',
+    'confirm_delete_default' => 'Apakah Anda yakin ingin menghapus data ini?',
     'agree_terms' => 'Dengan membuat akun, Anda menyetujui :terms dan :privacy kami.',
     'allocation_amount' => 'Jumlah Alokasi (Opsional)',
     'allocation_description' => 'Masukkan persentase atau jumlah yang akan dialokasikan ke target ini. Nilainya akan diperbarui secara otomatis.',
