@@ -68,7 +68,7 @@
             <div class="custom-scrollbar max-h-[40vh] lg:max-h-[60vh] flex flex-col gap-5 overflow-y-auto p-2">
                 <div>
                     <label class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400">
-                        {{ __('sentence.category_name') }}
+                        {{ __('sentence.category_name') }}<span class="text-red-500">*</span>
                     </label>
                     <div class="relative flex items-center gap-2">
                         <x-icon.icon-picker @category-icon-set.window="selected = $event.detail; refresh()" />
@@ -83,7 +83,7 @@
 
                 <div>
                     <label class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400">
-                        {{ __('sentence.monthly_budget') }}
+                        {{ __('sentence.monthly_budget') }}<span class="text-red-500">*</span>
                     </label>
                     <div class="relative">
                         <span

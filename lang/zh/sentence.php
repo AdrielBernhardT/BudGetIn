@@ -199,4 +199,8 @@ return [
     'goal_deadline_placeholder' => '选择截止日期',
     'goal_name_placeholder' => '输入目标名称',
     'update_goal_information' => '更新您的财务目标信息。',
+
+    'create_account_before_income' => '在记录收入之前，您需要先添加至少一个账户。',
+
+    'create_category_before_expense' => '在记录支出之前，您需要先添加至少一个分类。',
 ];

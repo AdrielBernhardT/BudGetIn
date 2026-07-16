@@ -13,6 +13,11 @@ class MenuHelper
                 'route' => 'dashboard'
             ],
             [
+                'icon' => 'calendar',
+                'name' => __('nav.category'),
+                'route' => 'category.index',
+            ],
+            [
                 'icon' => 'transaction',
                 'name' =>  __('nav.transactions'),
                 'subItems' => [
@@ -20,11 +25,6 @@ class MenuHelper
                     ['name' => __('nav.expense'), 'route' => 'expense.index', 'pro' => false],
                     ['name' => __('nav.transfer'), 'route' => 'transfer.index', 'pro' => false]
                 ]
-            ],
-            [
-                'icon' => 'calendar',
-                'name' => __('nav.category'),
-                'route' => 'category.index',
             ],
             [
                 'icon' => 'charts',
