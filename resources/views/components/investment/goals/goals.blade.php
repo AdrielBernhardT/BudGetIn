@@ -2,9 +2,9 @@
 
 <div x-data>
     @if ($targets->isEmpty())
-        <div class="flex w-full rounded-2xl border border-gray-200 bg-white p-5 dark:border-gray-800 dark:bg-white/[0.03] md:p-6 justify-center">
-            <p class="text-center text-gray-500 dark:text-gray-400">
-                No Goals Found
+        <div class="rounded-xl border border-dashed border-gray-300 p-10 text-center">
+            <p class="text-gray-500">
+                {{ __('sentence.no_targets_found') }}
             </p>
         </div>
     @else
@@ -25,7 +25,7 @@
                                     </h3>
 
                                     <p class="text-sm text-gray-500">
-                                        IDR {{ number_format($goal->target_amount, 0, ',', '.') }}
+                                        {{ __('common.idr') }} {{ number_format($goal->target_amount, 0, ',', '.') }}
                                     </p>
                                 </div>
                             </div>
@@ -49,7 +49,7 @@
                                 </button>
 
                                 <form action="{{ route('investment.goal.delete', $goal->id) }}" method="POST" class="js-delete-form"
-                                    data-confirm-title="Are you sure you want to delete this goal?">
+                                    data-confirm-title="{{ __('sentence.delete_goal_confirm') }}">
                                     @csrf
                                     @method('DELETE')
 
@@ -77,9 +77,9 @@
                             </div>
 
                             <p class="mt-3 text-sm font-medium text-gray-800 dark:text-white/90">
-                                IDR {{ number_format($goal->total_current, 0, ',', '.') }}
+                                {{ __('common.idr') }} {{ number_format($goal->total_current, 0, ',', '.') }}
                                 /
-                                IDR {{ number_format($goal->target_amount, 0, ',', '.') }}
+                                {{ __('common.idr') }} {{ number_format($goal->target_amount, 0, ',', '.') }}
                             </p>
                         </div>
                     </div>
@@ -96,14 +96,14 @@
 
                     event.preventDefault();
 
-                    const title = form.dataset.confirmTitle || 'Are you sure you want to delete this data?';
+                    const title = form.dataset.confirmTitle || @js(__('sentence.confirm_delete_default'));
 
                     Swal.fire({
                         icon: 'warning',
                         title: title,
                         showCancelButton: true,
-                        confirmButtonText: 'Yes, delete it!',
-                        cancelButtonText: 'Cancel',
+                        confirmButtonText: @js(__('sentence.yes_delete_it')),
+                        cancelButtonText: @js(__('common.cancel')),
                         confirmButtonColor: '#FF3B30',
                         cancelButtonColor: '#667085',
                     }).then(function(result) {

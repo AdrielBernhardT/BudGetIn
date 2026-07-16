@@ -81,6 +81,8 @@ return [
     'track_income' => 'Track your income, expenses, and financial goals — all in one place.',
     'transaction_history_content_goes_here' => 'Transaction history content goes here.',
     'yes_delete_it' => 'Yes, delete it!',
+    'delete_goal_confirm' => 'Are you sure you want to delete this goal?',
+    'confirm_delete_default' => 'Are you sure you want to delete this data?',
     'agree_terms' => 'By creating an account, you agree to our :terms and :privacy.',
     'allocation_amount' => 'Allocation Amount',
     'allocation_description' => 'Enter the percentage or amount to allocate to this goal. The value will update automatically.',

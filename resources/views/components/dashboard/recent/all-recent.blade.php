@@ -6,17 +6,17 @@
             <button @click="tab='incomes'"
                 :class="tab === 'incomes' ? 'border-b-2 border-main text-main' : 'text-gray-500 dark:text-gray-400'"
                 class="pb-2 font-medium transition-colors duration-300">
-                Incomes
+                {{ __('nav.incomes') }}
             </button>
             <button @click="tab='expenses'"
                 :class="tab === 'expenses' ? 'border-b-2 border-main text-main' : 'text-gray-500 dark:text-gray-400'"
                 class="pb-2 font-medium transition-colors duration-300">
-                Expenses
+                {{ __('nav.expenses') }}
             </button>
             <button @click="tab='transfers'"
                 :class="tab === 'transfers' ? 'border-b-2 border-main text-main' : 'text-gray-500 dark:text-gray-400'"
                 class="pb-2 font-medium transition-colors duration-300">
-                Transfers
+                {{ __('nav.transfers') }}
             </button>
         </div>
 
