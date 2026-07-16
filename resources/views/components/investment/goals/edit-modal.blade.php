@@ -53,11 +53,11 @@
         >
             <div class="px-2 pr-14">
                 <h4 class="mb-2 text-2xl font-semibold text-gray-800 dark:text-white/90">
-                    Edit Goal
+                    {{ __('sentence.edit_goal') }}
                 </h4>
 
                 <p class="mb-2 text-sm text-gray-500 dark:text-gray-400 lg:mb-7">
-                    Update your financial goal information.
+                    {{ __('sentence.update_goal_information') }}
                 </p>
             </div>
 
@@ -70,7 +70,7 @@
                 <div class="custom-scrollbar max-h-[40vh] lg:max-h-[60vh] flex flex-col gap-5 overflow-y-auto p-2">
                     <div>
                         <label class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400">
-                            Goal Name
+                            {{ __('sentence.goal_name') }}
                         </label>
 
                         <div class="relative flex items-center gap-2">
@@ -91,7 +91,7 @@
 
                     <div>
                         <label class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400">
-                            Target Amount
+                            {{ __('sentence.target_amount') }}
                         </label>
 
                         <div class="relative">
@@ -120,18 +120,18 @@
 
                     <div>
                         <label class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400">
-                            Deadline (Optional)
+                            {{ __('sentence.goal_deadline') }}
                         </label>
 
                         <x-form.date-picker
                             id="edit_goal_target_date"
                             name="target_date"
-                            placeholder="Select goal deadline"
+                            :placeholder="__('sentence.goal_deadline_placeholder')"
                             x-model="goal.target_date"
                         />
 
                         <p class="mt-1 text-xs text-gray-400">
-                            Used for progress reminders &amp; notifications when the deadline is approaching.
+                            {{ __('sentence.deadline_description') }}
                         </p>
 
                         @error('target_date', 'goal')
@@ -145,14 +145,14 @@
                             type="button"
                             class="flex w-full justify-center rounded-lg border border-gray-300 bg-white px-4 py-2.5 text-sm font-medium text-gray-700 hover:bg-gray-50 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-white/[0.03] sm:w-auto"
                         >
-                            Close
+                            {{ __('common.close') }}
                         </button>
 
                         <button
                             type="submit"
                             class="flex w-full justify-center rounded-lg bg-main px-4 py-2.5 text-sm font-medium text-white hover:bg-main-hover sm:w-auto"
                         >
-                            Save Changes
+                            {{ __('sentence.save_changes') }}
                         </button>
                     </div>
                 </div>

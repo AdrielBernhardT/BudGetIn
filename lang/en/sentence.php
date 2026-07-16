@@ -18,6 +18,7 @@ return [
     'edit_transfer' => 'Edit Transfer',
     'edit_transfer_description' => 'Update transfer details to keep your records accurate.',
     'edit_profile' => 'Edit Profile',
+    'edit_goal' => 'Edit Goal',
 
     // Add
     'add_new' => 'Add New',
@@ -76,7 +77,7 @@ return [
 
     // Description Sentence
     'account_name' => 'Account Name',
-    'account_number' => 'Account Number',
+    'account_number' => 'Account Number (Optional)',
     'track_income' => 'Track your income, expenses, and financial goals — all in one place.',
     'transaction_history_content_goes_here' => 'Transaction history content goes here.',
     'yes_delete_it' => 'Yes, delete it!',
@@ -101,7 +102,7 @@ return [
     'investment_list' => 'Investment List',
     'investment_name' => 'Investment Name',
     'investment_items' => 'Investment Items',
-    'initial_amount' => 'Initial Amount',
+    'initial_amount' => 'Initial Amount (Optional)',
     'monthly_budget' => 'Monthly Budget',
     'personal_info' => 'Personal Information',
     'please_enter_message' => 'Please enter a description.',
@@ -168,4 +169,27 @@ return [
     'landing_page_illustration_weekly_report_alt' => 'Weekly report',
     'landing_page_illustration_budgets_alt' => 'Budgets',
     'landing_page_copyright' => '© :year BudGetIn. Built for smarter financial management.',
+
+    // GOAL
+    // Edit
+    'edit_goal_description' => 'Update your financial goal to keep your savings and investment plan on track.',
+    'edit_account' => 'Edit Account',
+    'edit_account_description' => 'Update your account information to keep your balance and account details accurate.',
+
+    // Add
+    'add_goal_description' => 'Create a new financial goal to track your savings and investments.',
+    'add_account_description' => 'Add a new account to manage your balance and record transactions.',
+
+    // Update
+    'update_goal' => 'Update Goal',
+    'update_goal_details' => 'Update your financial goal information below.',
+    'update_account' => 'Update Account',
+    'update_account_details' => 'Update your account information below.',
+
+    // Description
+    'target_amount_description' => 'Enter the amount you want to achieve for this financial goal.',
+    'goal_deadline' => 'Goal Deadline (Optional)',
+    'goal_deadline_placeholder' => 'Select goal deadline',
+    'goal_name_placeholder' => 'Enter goal name',
+    'update_goal_information' => 'Update your financial goal information.',
 ];

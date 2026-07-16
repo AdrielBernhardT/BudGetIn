@@ -2,10 +2,10 @@
 
 <div x-data>
     @if ($targets->isEmpty())
-        <div class="rounded-xl border border-dashed border-gray-300 p-10 text-center">
-            <p class="text-gray-500">
-                No Goals Found
-            </p>
+        <div class="flex w-full rounded-2xl border border-gray-200 bg-white p-5 dark:border-gray-800 dark:bg-white/[0.03] md:p-6 justify-center">
+            <h5 class="flex justify-center text-gray-500">
+                No goals found.
+            </h5>
         </div>
     @else
         <div class="max-h-[700px] overflow-y-auto custom-scrollbar">
@@ -45,7 +45,7 @@
                                         }
                                     }))"
                                     class="flex w-full rounded-lg px-3 py-2 text-left text-theme-xs font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-700 dark:hover:bg-white/5 dark:hover:text-gray-300">
-                                    Edit
+                                    {{ __('common.edit') }}
                                 </button>
 
                                 <form action="{{ route('investment.goal.delete', $goal->id) }}" method="POST" class="js-delete-form"
@@ -55,7 +55,7 @@
 
                                     <button type="submit"
                                         class="flex w-full rounded-lg px-3 py-2 text-left text-theme-xs font-medium text-red-500 hover:bg-gray-100 hover:text-red-600 dark:hover:bg-white/5 dark:hover:text-red-500">
-                                        Delete
+                                        {{ __('common.delete') }}
                                     </button>
                                 </form>
                             </x-common.dropdown-menu>
