@@ -1,0 +1,32 @@
+<?php
+
+return [
+
+    'menu' => '菜单',
+    'others' => '其他',
+    'dashboard' => '仪表板',
+    'transactions' => '交易',
+    'income' => '收入',
+    'incomes' => '收入',
+    'expense' => '支出',
+    'expenses' => '支出',
+    'transfer' => '转账',
+    'transfers' => '转账',
+    'category' => '分类',
+    'categories' => '分类',
+    'investment' => '投资',
+    'report' => '报表',
+    'reports' => '报表',
+    'profile' => '个人资料',
+    'settings' => '设置',
+    'home' => '首页',
+    'savings' => '储蓄',
+    'blank' => '空白页',
+    'calender' => '日历',
+    'bar_chart' => '柱状图',
+    'line_chart' => '折线图',
+    'form_elements' => '表单元素',
+    'notifications' => '通知',
+    'alerts' => '提示',
+
+];

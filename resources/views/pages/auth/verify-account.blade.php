@@ -217,6 +217,9 @@
                         <a href="{{ route('locale.switch', 'id') }}" class="block px-3 py-2 rounded-md text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-white/5">
                             Bahasa Indonesia
                         </a>
+                        <a href="{{ route('locale.switch', 'zh') }}" class="block px-3 py-2 rounded-md text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-white/5">
+                            简体中文
+                        </a>
                     </div>
                 </div>
             </div>
