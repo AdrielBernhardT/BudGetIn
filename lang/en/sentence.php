@@ -194,4 +194,10 @@ return [
     'goal_deadline_placeholder' => 'Select goal deadline',
     'goal_name_placeholder' => 'Enter goal name',
     'update_goal_information' => 'Update your financial goal information.',
+
+    // Income Alert
+    'create_account_before_income' => 'You need to add at least one account before you can record income.',
+
+    // Expense Alert
+    'create_category_before_expense' => 'You need to add at least one category before you can record an expense.',
 ];

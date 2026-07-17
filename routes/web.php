@@ -1,26 +1,27 @@
 <?php
 
+use App\Http\Controllers\Auth\GoogleController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\OTPController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\ResetPasswordController;
 use App\Http\Controllers\Dashboard\AccountController;
-use App\Http\Controllers\Investment\GoalController;
-use App\Http\Controllers\Investment\RecordInvestmentController;
-use App\Http\Controllers\Transaction\CategoryController;
 use App\Http\Controllers\Dashboard\DashboardController;
-use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Investment\GoalController;
 use App\Http\Controllers\Investment\InvestmentController;
+use App\Http\Controllers\Investment\RecordInvestmentController;
 use App\Http\Controllers\Landing\LandingController;
-use App\Http\Controllers\User\ProfileControlller;
+use App\Http\Controllers\Language\LanguageController;
+use App\Http\Controllers\NotificationController;
+use App\Http\Controllers\PushSubscriptionController;
 use App\Http\Controllers\Report\ReportController;
-use App\Http\Controllers\User\SettingsController;
+use App\Http\Controllers\Transaction\CategoryController;
 use App\Http\Controllers\Transaction\ExpenseController;
 use App\Http\Controllers\Transaction\IncomeController;
 use App\Http\Controllers\Transaction\TransferController;
-use App\Http\Controllers\Auth\GoogleController;
-use App\Http\Controllers\NotificationController;
-use App\Http\Controllers\PushSubscriptionController;
+use App\Http\Controllers\User\ProfileControlller;
+use App\Http\Controllers\User\SettingsController;
+use Illuminate\Support\Facades\Route;
 
 // // dashboard pages
 // Route::get('/', function () {
@@ -229,10 +230,6 @@ Route::middleware(['auth'])->group(function(){
 });
 
 // Locale Switcher
-Route::get('/locale/{locale}', function (string $locale) {
-    if (in_array($locale, ['en', 'id'], true)) {
-        session(['locale' => $locale]);
-    }
-
-    return back();
-})->name('locale.switch');
+Route::get('/locale/{locale}', [LanguageController::class, 'switch'])
+    ->whereIn('locale', ['en', 'id', 'zh'])
+    ->name('locale.switch');

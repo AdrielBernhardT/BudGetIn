@@ -1,5 +1,3 @@
-{{-- Adriel's work field: ubah button ke href sesuai route delete --}}
-
 <div class="overflow-hidden">
     <div class="max-w-full px-5 overflow-x-auto">
         <table class="min-w-full">
