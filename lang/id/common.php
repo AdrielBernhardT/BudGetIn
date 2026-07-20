@@ -13,6 +13,7 @@ return [
     'city' => 'Kota/Provinsi',
     'close' => 'Tutup',
     'country' => 'Negara',
+    'current_amount' => 'Jumlah Saat Ini',
     'date' => 'Tanggal',
     'day' => 'Hari',
     'month' => 'Bulan',
@@ -65,4 +66,10 @@ return [
     'previous' => 'Sebelumnya',
     'next' => 'Selanjutnya',
     'page' => 'Halaman',
+    'filter' => 'Filter',
+    'period' => 'Periode',
+    'generated' => 'Dibuat',
+    'confidential' => 'RAHASIA',
+    'total' => 'Total',
+    'record' => 'Data',
 ];

@@ -4,13 +4,13 @@
             <thead>
                 <tr class="border-gray-200 border-y dark:border-gray-700">
                     <th class="px-4 py-3 font-normal text-gray-900 dark:text-white text-start text-theme-sm">No</th>
-                    <th class="px-4 py-3 font-normal text-gray-900 dark:text-white text-start text-theme-sm">Date</th>
-                    <th class="px-4 py-3 font-normal text-gray-900 dark:text-white text-start text-theme-sm">Investment</th>
-                    <th class="px-4 py-3 font-normal text-gray-900 dark:text-white text-start text-theme-sm">Goal</th>
-                    <th class="px-4 py-3 font-normal text-gray-900 dark:text-white text-start text-theme-sm">Name</th>
-                    <th class="px-4 py-3 font-normal text-gray-900 dark:text-white text-start text-theme-sm">Amount</th>
-                    <th class="px-4 py-3 font-normal text-gray-900 dark:text-white text-start text-theme-sm">Account</th>
-                    <th class="px-4 py-3 font-normal text-gray-900 dark:text-white text-start text-theme-sm">Description</th>
+                    <th class="px-4 py-3 font-normal text-gray-900 dark:text-white text-start text-theme-sm">{{ __('common.date') }}</th>
+                    <th class="px-4 py-3 font-normal text-gray-900 dark:text-white text-start text-theme-sm">{{ __('nav.investment') }}</th>
+                    <th class="px-4 py-3 font-normal text-gray-900 dark:text-white text-start text-theme-sm">{{ __('common.goal') }}</th>
+                    <th class="px-4 py-3 font-normal text-gray-900 dark:text-white text-start text-theme-sm">{{ __('common.name') }}</th>
+                    <th class="px-4 py-3 font-normal text-gray-900 dark:text-white text-start text-theme-sm">{{ __('common.amount') }}</th>
+                    <th class="px-4 py-3 font-normal text-gray-900 dark:text-white text-start text-theme-sm">{{ __('common.account') }}</th>
+                    <th class="px-4 py-3 font-normal text-gray-900 dark:text-white text-start text-theme-sm">{{ __('common.description') }}</th>
                 </tr>
             </thead>
 
@@ -121,7 +121,7 @@
                     <tr>
                         <td colspan="8"
                             class="py-8 text-center text-gray-500 dark:text-gray-400">
-                            No investment history found.
+                            {{ __('sentence.no_investment_history_found') }}
                         </td>
                     </tr>
                 </template>
