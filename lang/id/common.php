@@ -72,4 +72,5 @@ return [
     'confidential' => 'RAHASIA',
     'total' => 'Total',
     'record' => 'Data',
+    'print' => 'Cetak',
 ];

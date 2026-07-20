@@ -72,4 +72,5 @@ return [
     'confidential' => 'CONFIDENTIAL',
     'total' => 'Total',
     'record' => 'Record',
+    'print' => 'Print',
 ];
