@@ -1,9 +1,12 @@
 @extends('layouts.app')
 
 @section('content')
-    <x-common.page-breadcrumb pageTitle="Expense" />
+    <x-common.page-breadcrumb pageTitle="{{ __('nav.expense') }}" />
     <div
         class="min-h-screen rounded-2xl border border-gray-200 bg-white px-5 py-7 dark:border-gray-800 dark:bg-white/[0.03] xl:px-10 xl:py-12">
+        @if ($categories->isEmpty())
+            <x-expense.no-category-card />
+        @endif
         <div x-data="expensePage()">
             <div class="rounded-2xl border border-gray-200 bg-white pt-4 dark:border-gray-800 dark:bg-white/[0.03]">
                 <x-expense.header />
@@ -20,6 +23,7 @@
         function expensePage() {
             return {
                 expenses: @js($expenses),
+                categories: @js($categories),
                 itemsPerPage: 5,
                 currentPage: 1,
                 dropdownOpen: null,

@@ -2,6 +2,11 @@
 
 namespace App\Providers;
 
+use App\Models\RecordInvestment;
+use App\Models\Transaction;
+use App\Observers\RecordInvestmentObserver;
+use App\Observers\TransactionObserver;
+use Illuminate\Support\Facades\URL;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -19,6 +24,11 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        if ($this->app->environment('production')) {
+            URL::forceHttps();
+        }
+
+        Transaction::observe(TransactionObserver::class);
+        RecordInvestment::observe(RecordInvestmentObserver::class);
     }
 }

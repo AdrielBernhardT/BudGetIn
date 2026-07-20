@@ -49,7 +49,7 @@ export const initChartTwo = () => {
             stroke: {
                 lineCap: "round",
             },
-            labels: ["Progress"],
+            labels: ["{{ __('common.progress') }}"],
         };
 
         const chart = new ApexCharts(chartElement, chartTwoOptions);

@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <x-common.page-breadcrumb pageTitle="Bar chart" />
+    <x-common.page-breadcrumb pageTitle="{{ __('nav.bar_chart') }}" />
     <div class="space-y-6">
         <x-common.component-card title="Bar chart 1">
             <!-- ====== Bar Chart One Start -->

@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-use Auth;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
 class LoginController extends Controller
@@ -19,7 +19,11 @@ class LoginController extends Controller
             'password' => ['required']
         ]);
 
-        if(Auth::attempt($attributes)){
+        $remember = $request->boolean('remember');
+
+        if(Auth::attempt($attributes, $remember)){
+            $request->session()->regenerate();
+
             return redirect()->route('dashboard');
         }
 
@@ -29,8 +33,12 @@ class LoginController extends Controller
             ->withInput();;
     }
 
-    public function destroy(){
+    public function destroy(Request $request){
         Auth::logout();
+
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+        
         return redirect()->route('login');
     }
 }

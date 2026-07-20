@@ -27,9 +27,10 @@
                             if (currentPath === '{{ ltrim(MenuHelper::resolveMenuItemPath($subItem), '/') }}' ||
                                 window.location.pathname === '{{ MenuHelper::resolveMenuItemPath($subItem) }}') {
                                 this.openSubmenus['{{ $groupIndex }}-{{ $itemIndex }}'] = true;
-                            } @endforeach
-            @endif
-            @endforeach
+                            }
+                        @endforeach
+                    @endif
+                @endforeach
             @endforeach
         },
         toggleSubmenu(groupIndex, itemIndex) {
