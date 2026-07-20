@@ -82,7 +82,7 @@ return [
     'transaction_history_content_goes_here' => '交易记录将在此显示。',
     'yes_delete_it' => '是，删除！',
     'agree_terms' => '创建账户即表示您同意我们的 :terms 和 :privacy。',
-    'allocation_amount' => '分配金额（可选）',
+    'allocation_amount' => '分配金额',
     'allocation_description' => '输入分配给此目标的百分比或金额，系统会自动更新。',
     'already_have_account' => '已有账户？',
     'category_name' => '分类名称',
@@ -102,7 +102,7 @@ return [
     'investment_list' => '投资列表',
     'investment_name' => '投资名称',
     'investment_items' => '投资项目',
-    'initial_amount' => '初始金额',
+    'initial_amount' => '初始金额（可选）',
     'monthly_budget' => '月预算',
     'personal_info' => '个人信息',
     'please_enter_message' => '请输入描述。',
@@ -131,7 +131,7 @@ return [
     'deadline_description' => '用于进度提醒和截止日期通知。',
     'password_input' => '密码输入',
     'time_select_input' => '选择时间',
-    'blank_page_description' => '开始在网格或面板中添加内容，您也可以组合不同布局。',
+    'blank_page_description' => '开始在网格或面板中添加内容，您也可以组合不同的网格布局。查看仪表板和其他页面获取更多示例。',
     'all_notifications' => '所有通知',
     'mark_all_as_read' => '全部标记为已读',
     'notification_fallback_title' => '通知',
@@ -203,4 +203,9 @@ return [
     'create_account_before_income' => '在记录收入之前，您需要先添加至少一个账户。',
 
     'create_category_before_expense' => '在记录支出之前，您需要先添加至少一个分类。',
+
+    'investment_history_report' => '投资历史报告',
+    'generated_by_budgetin' => '由 BudGetIn 生成',
+    'no_investment_history_found' => '未找到投资历史记录。',
+    'no_histories_available' => '暂无历史记录。',
 ];
