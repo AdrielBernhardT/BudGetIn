@@ -91,6 +91,7 @@
             <script>
                 document.addEventListener('submit', function(event) {
                     const form = event.target.closest('.js-delete-form');
+                    console.log(Swal.version);
 
                     if (!form) return;
 
@@ -106,6 +107,9 @@
                         cancelButtonText: @js(__('common.cancel')),
                         confirmButtonColor: '#FF3B30',
                         cancelButtonColor: '#667085',
+                        customClass: {
+                            popup: 'custom-popup'
+                        }
                     }).then(function(result) {
                         if (result.isConfirmed) {
                             form.submit();

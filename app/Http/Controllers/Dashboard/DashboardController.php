@@ -366,6 +366,8 @@ class DashboardController extends Controller
                 ];
             });
 
+
+        confirmDelete('Are you sure you want to delete this account?');
         return view('pages.dashboard.dashboard', compact(
             'summary',
             'metrics',
