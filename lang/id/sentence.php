@@ -194,4 +194,10 @@ return [
     'goal_deadline_placeholder' => 'Pilih tenggat target',
     'goal_name_placeholder' => 'Masukkan nama target',
     'update_goal_information' => 'Perbarui informasi target keuangan Anda.',
+
+    // Income Alert
+    'create_account_before_income' => 'Anda perlu menambahkan setidaknya satu akun sebelum dapat mencatat pemasukan.',
+
+    // Expense Alert
+    'create_category_before_expense' => 'Anda perlu menambahkan setidaknya satu kategori sebelum dapat mencatat pengeluaran.',
 ];

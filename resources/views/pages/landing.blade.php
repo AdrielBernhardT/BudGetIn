@@ -364,16 +364,19 @@
 
             <div
                 class="relative mx-auto grid w-full max-w-[1500px]
-            grid-cols-1 overflow-hidden rounded-3xl
-            border border-gray-200 bg-fourth
-            px-5 py-7
-            sm:px-8 sm:py-8
-            lg:min-h-[610px]
-            lg:grid-cols-[56%_44%]
-            lg:px-10 lg:py-9
-            xl:min-h-[630px]
-            xl:px-12
-            dark:border-white/10 dark:bg-dark">
+                grid-cols-1 overflow-hidden rounded-3xl
+
+                lg:max-w-[1280px]
+
+                border border-gray-200 bg-fourth
+                px-5 py-7
+                sm:px-8 sm:py-8
+                lg:min-h-[610px]
+                lg:grid-cols-[56%_44%]
+                lg:px-10 lg:py-9
+                xl:min-h-[630px]
+                xl:px-12
+                dark:border-white/10 dark:bg-dark">
 
                 {{-- Left Content --}}
                 <div class="relative z-30 flex min-w-0 flex-col">
@@ -531,30 +534,33 @@
                 {{-- Right Illustration --}}
                 <div
                     class="relative mt-0 flex min-h-[290px]
-                items-end justify-center overflow-hidden
-                sm:min-h-[380px]
-                lg:mt-0 lg:min-h-[520px]">
+                    items-end justify-center overflow-hidden
+                    max-lg:overflow-visible
+                    sm:min-h-[380px]
+                    lg:mt-0 lg:min-h-[520px] lg:overflow-visible">
 
                     {{-- Background Circle Left --}}
                     <div
                         class="absolute left-[22%] top-[10%]
-        size-[115px] rounded-full
-        bg-pink-300/30
-        sm:size-[170px]
-        lg:left-[8%] lg:top-[6%] lg:size-[220px]
-        xl:size-[240px]
-        dark:bg-pink-400/10">
-                    </div>
+                        size-[115px] rounded-full
+                        bg-pink-300/30
+                        sm:size-[170px]
 
-                    {{-- Background Circle Right --}}
+                        lg:left-8 lg:top-[6%] lg:size-[220px]
+                        xl:left-10 xl:size-[240px]
+
+                        dark:bg-pink-400/10">
+                    </div>
                     <div
                         class="absolute right-[22%] top-[10%]
-        size-[115px] rounded-full
-        bg-amber-200/30
-        sm:size-[170px]
-        lg:right-[8%] lg:top-[6%] lg:size-[220px]
-        xl:size-[240px]
-        dark:bg-amber-400/10">
+                        size-[115px] rounded-full
+                        bg-amber-200/30
+                        sm:size-[170px]
+
+                        lg:right-8 lg:top-[6%] lg:size-[220px]
+                        xl:right-10 xl:size-[240px]
+
+                        dark:bg-amber-400/10">
                     </div>
 
                     {{-- Female --}}
@@ -567,22 +573,27 @@
                     xl:max-h-[510px]">
 
                     {{-- Weekly Report --}}
-                    <img src="/images/landing/weekly-report.png" alt="{{ __('sentence.landing_page_illustration_weekly_report_alt') }}"
-                        class="absolute right-1 top-[39%] z-20
-                    w-[78px] rounded-md
-                    shadow-[4px_4px_8px_rgba(0,0,0,0.25)]
-                    sm:right-4 sm:w-[110px]
-                    lg:right-[-12px] lg:top-[39%] lg:w-[145px]
-                    xl:right-[-20px] xl:w-[145px]">
+                    <img src="/images/landing/weekly-report.png" alt="Weekly Report"
+                        class="absolute right-6 top-[39%] z-20
+                        w-[78px] rounded-md
+                        shadow-[2px_2px_5px_rgba(0,0,0,0.18)]
+                        sm:right-8 sm:w-[110px]
 
-                    {{-- Budgets --}}
-                    <img src="/images/landing/budgets.png" alt="{{ __('sentence.landing_page_illustration_budgets_alt') }}"
-                        class="absolute bottom-0 left-1 z-20
-                    w-[170px] rounded-md
-                    shadow-[4px_4px_8px_rgba(0,0,0,0.25)]
-                    sm:left-5 sm:w-[240px]
-                    lg:bottom-[-5px] lg:left-[-80px] lg:w-[350px]
-                    xl:left-[-50px] xl:w-[340px]">
+                        lg:right-4 lg:top-[39%] lg:w-[135px]
+                        lg:shadow-[4px_4px_8px_rgba(0,0,0,0.25)]
+                        xl:right-3 xl:w-[145px]">
+
+                    <img src="/images/landing/budgets.png" alt="Budgets"
+                        class="absolute bottom-[-8px] left-7 z-20
+                        w-[170px] rounded-md
+                        shadow-[2px_3px_5px_rgba(0,0,0,0.18)]
+
+                        sm:bottom-[-8px] sm:left-5 sm:w-[240px]
+
+                        lg:bottom-[-5px] lg:left-[-20px] lg:w-[320px]
+                        lg:shadow-[4px_4px_8px_rgba(0,0,0,0.25)]
+
+                        xl:bottom-[-5px] xl:left-[-15px] xl:w-[340px]">
                 </div>
             </div>
         </section>
@@ -687,6 +698,9 @@
                         </a>
                         <a href="{{ route('locale.switch', 'id') }}" class="block px-3 py-2 rounded-md text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-white/5">
                             Bahasa Indonesia
+                        </a>
+                        <a href="{{ route('locale.switch', 'zh') }}" class="block px-3 py-2 rounded-md text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-white/5">
+                            简体中文
                         </a>
                     </div>
                 </div>

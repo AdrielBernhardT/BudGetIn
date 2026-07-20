@@ -10,4 +10,11 @@ export default defineConfig({
         }),
         tailwindcss(),
     ],
+    // server: {
+    //     host: '0.0.0.0',
+    //     port: 5174, // Pastikan port sesuai dengan yang digunakan Vite (di kasusmu 5174)
+    //     hmr: {
+    //         host: '10.68.110.142', // Gunakan IP Kali Linux kamu
+    //     },
+    // },
 });

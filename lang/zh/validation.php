@@ -1,0 +1,232 @@
+<?php
+
+return [
+
+    /*
+    |--------------------------------------------------------------------------
+    | Validation Language Lines
+    |--------------------------------------------------------------------------
+    */
+
+    'accepted' => ':attribute 必须接受。',
+    'accepted_if' => '当 :other 为 :value 时，必须接受 :attribute。',
+    'active_url' => ':attribute 不是有效的网址。',
+    'after' => ':attribute 必须是 :date 之后的日期。',
+    'after_or_equal' => ':attribute 必须是 :date 当天或之后的日期。',
+    'alpha' => ':attribute 只能包含字母。',
+    'alpha_dash' => ':attribute 只能包含字母、数字、破折号和下划线。',
+    'alpha_num' => ':attribute 只能包含字母和数字。',
+    'any_of' => ':attribute 无效。',
+    'array' => ':attribute 必须是数组。',
+    'ascii' => ':attribute 只能包含 ASCII 字符。',
+    'before' => ':attribute 必须是 :date 之前的日期。',
+    'before_or_equal' => ':attribute 必须是 :date 当天或之前的日期.',
+
+    'between' => [
+        'array' => ':attribute 必须包含 :min 到 :max 个项目。',
+        'file' => ':attribute 必须介于 :min 到 :max KB。',
+        'numeric' => ':attribute 必须介于 :min 到 :max 之间。',
+        'string' => ':attribute 长度必须介于 :min 到 :max 个字符之间。',
+    ],
+
+    'boolean' => ':attribute 必须为 true 或 false。',
+    'can' => ':attribute 包含无效值。',
+    'confirmed' => ':attribute 确认不匹配。',
+    'contains' => ':attribute 缺少必要的值。',
+    'current_password' => '当前密码不正确。',
+    'date' => ':attribute 不是有效日期。',
+    'date_equals' => ':attribute 必须等于 :date。',
+    'date_format' => ':attribute 与格式 :format 不匹配。',
+    'decimal' => ':attribute 必须有 :decimal 位小数。',
+    'declined' => ':attribute 必须被拒绝。',
+    'declined_if' => '当 :other 为 :value 时，必须拒绝 :attribute。',
+    'different' => ':attribute 和 :other 必须不同。',
+    'digits' => ':attribute 必须是 :digits 位数字。',
+    'digits_between' => ':attribute 必须介于 :min 到 :max 位数字之间。',
+    'dimensions' => ':attribute 图片尺寸无效。',
+    'distinct' => ':attribute 包含重复值。',
+    'doesnt_contain' => ':attribute 不得包含以下值：:values。',
+    'doesnt_end_with' => ':attribute 不得以以下内容结尾：:values。',
+    'doesnt_start_with' => ':attribute 不得以以下内容开头：:values。',
+    'email' => ':attribute 必须是有效的电子邮箱地址。',
+    'encoding' => ':attribute 必须使用 :encoding 编码。',
+    'ends_with' => ':attribute 必须以以下内容结尾：:values。',
+    'enum' => '所选 :attribute 无效。',
+    'exists' => '所选 :attribute 无效。',
+    'extensions' => ':attribute 必须具有以下扩展名之一：:values。',
+    'file' => ':attribute 必须是文件。',
+    'filled' => ':attribute 必须填写。',
+    'gt' => [
+        'array' => ':attribute 必须多于 :value 个项目。',
+        'file' => ':attribute 必须大于 :value KB。',
+        'numeric' => ':attribute 必须大于 :value。',
+        'string' => ':attribute 必须超过 :value 个字符。',
+    ],
+    'gte' => [
+        'array' => ':attribute 必须至少有 :value 个项目。',
+        'file' => ':attribute 必须大于或等于 :value KB。',
+        'numeric' => ':attribute 必须大于或等于 :value。',
+        'string' => ':attribute 必须不少于 :value 个字符。',
+    ],
+
+    'hex_color' => ':attribute 必须是有效的十六进制颜色。',
+    'image' => ':attribute 必须是图片。',
+    'in' => '所选 :attribute 无效。',
+    'in_array' => ':attribute 不存在于 :other 中。',
+    'in_array_keys' => ':attribute 必须至少包含以下键之一：:values。',
+    'integer' => ':attribute 必须是整数。',
+    'ip' => ':attribute 必须是有效 IP 地址。',
+    'ipv4' => ':attribute 必须是有效 IPv4 地址。',
+    'ipv6' => ':attribute 必须是有效 IPv6 地址。',
+    'json' => ':attribute 必须是有效 JSON。',
+    'list' => ':attribute 必须是列表。',
+    'lowercase' => ':attribute 必须为小写。',
+    'lt' => [
+        'array' => ':attribute 必须少于 :value 个项目。',
+        'file' => ':attribute 必须小于 :value KB。',
+        'numeric' => ':attribute 必须小于 :value。',
+        'string' => ':attribute 必须少于 :value 个字符。',
+    ],
+    'lte' => [
+        'array' => ':attribute 不得超过 :value 个项目。',
+        'file' => ':attribute 必须小于或等于 :value KB。',
+        'numeric' => ':attribute 必须小于或等于 :value。',
+        'string' => ':attribute 必须不超过 :value 个字符。',
+    ],
+
+    'mac_address' => ':attribute 必须是有效的 MAC 地址。',
+    'max' => [
+        'array' => ':attribute 不得超过 :max 个项目。',
+        'file' => ':attribute 不得超过 :max KB。',
+        'numeric' => ':attribute 不得大于 :max。',
+        'string' => ':attribute 不得超过 :max 个字符。',
+    ],
+
+    'max_digits' => ':attribute 不得超过 :max 位数字。',
+    'mimes' => ':attribute 必须是以下类型的文件：:values。',
+    'mimetypes' => ':attribute 必须是以下 MIME 类型：:values。',
+    'min' => [
+        'array' => ':attribute 至少需要 :min 个项目。',
+        'file' => ':attribute 至少为 :min KB。',
+        'numeric' => ':attribute 必须大于或等于 :min。',
+        'string' => ':attribute 至少需要 :min 个字符。',
+    ],
+
+    'min_digits' => ':attribute 至少需要 :min 位数字。',
+    'missing' => ':attribute 必须不存在。',
+    'missing_if' => '当 :other 为 :value 时，:attribute 必须不存在。',
+    'missing_unless' => '除非 :other 为 :value，否则 :attribute 必须不存在。',
+    'missing_with' => '当 :values 存在时，:attribute 必须不存在。',
+    'missing_with_all' => '当所有 :values 存在时，:attribute 必须不存在。',
+    'multiple_of' => ':attribute 必须是 :value 的倍数。',
+    'not_in' => '所选 :attribute 无效。',
+    'not_regex' => ':attribute 格式无效。',
+    'numeric' => ':attribute 必须是数字。',
+
+    'password' => [
+        'letters' => ':attribute 至少需要包含一个字母。',
+        'mixed' => ':attribute 至少需要包含一个大写字母和一个小写字母。',
+        'numbers' => ':attribute 至少需要包含一个数字。',
+        'symbols' => ':attribute 至少需要包含一个特殊符号。',
+        'uncompromised' => ':attribute 已出现在数据泄露中，请更换其他密码。',
+    ],
+
+    'present' => ':attribute 必须存在。',
+    'present_if' => '当 :other 为 :value 时，:attribute 必须存在。',
+    'present_unless' => '除非 :other 为 :value，否则 :attribute 必须存在。',
+    'present_with' => '当 :values 存在时，:attribute 必须存在。',
+    'present_with_all' => '当所有 :values 存在时，:attribute 必须存在。',
+    'prohibited' => ':attribute 不允许。',
+    'prohibited_if' => '当 :other 为 :value 时，:attribute 不允许。',
+    'prohibited_if_accepted' => '当 :other 已接受时，:attribute 不允许。',
+    'prohibited_if_declined' => '当 :other 已拒绝时，:attribute 不允许。',
+    'prohibited_unless' => '除非 :other 属于 :values，否则 :attribute 不允许。',
+    'prohibits' => ':attribute 禁止 :other 存在。',
+    'regex' => ':attribute 格式无效。',
+    'required' => ':attribute 为必填项。',
+    'required_array_keys' => ':attribute 必须包含以下键：:values。',
+    'required_if' => '当 :other 为 :value 时，:attribute 为必填项。',
+    'required_if_accepted' => '当 :other 已接受时，:attribute 为必填项。',
+    'required_if_declined' => '当 :other 已拒绝时，:attribute 为必填项。',
+    'required_unless' => '除非 :other 属于 :values，否则 :attribute 为必填项。',
+    'required_with' => '当 :values 存在时，:attribute 为必填项。',
+    'required_with_all' => '当所有 :values 存在时，:attribute 为必填项。',
+    'required_without' => '当 :values 不存在时，:attribute 为必填项。',
+    'required_without_all' => '当所有 :values 都不存在时，:attribute 为必填项。',
+    'same' => ':attribute 与 :other 必须一致。',
+
+    'size' => [
+        'array' => ':attribute 必须包含 :size 个项目。',
+        'file' => ':attribute 必须为 :size KB。',
+        'numeric' => ':attribute 必须为 :size。',
+        'string' => ':attribute 必须为 :size 个字符。',
+    ],
+
+    'starts_with' => ':attribute 必须以以下内容开头：:values。',
+    'string' => ':attribute 必须是字符串。',
+    'timezone' => ':attribute 必须是有效时区。',
+    'unique' => ':attribute 已存在。',
+    'uploaded' => ':attribute 上传失败。',
+    'uppercase' => ':attribute 必须为大写。',
+    'url' => ':attribute 必须是有效网址。',
+    'ulid' => ':attribute 必须是有效 ULID。',
+    'uuid' => ':attribute 必须是有效 UUID。',
+
+    'custom' => [
+        'attribute-name' => [
+            'rule-name' => '自定义错误信息',
+        ],
+    ],
+
+    'attributes' => [
+        // Auth
+        'fname' => '名字',
+        'lname' => '姓氏',
+        'email' => '电子邮箱',
+        'password' => '密码',
+        'password_confirmation' => '确认密码',
+        'terms' => '服务条款',
+        'remember' => '记住我',
+        'otp' => 'OTP 验证码',
+        'token' => '令牌',
+
+        // Category / Goal
+        'name' => '名称',
+        'icon' => '图标',
+        'monthly_budget' => '每月预算',
+
+        // Transaction
+        'title' => '标题',
+        'from_account_id' => '转出账户',
+        'to_account_id' => '转入账户',
+        'category_id' => '分类',
+        'amount' => '金额',
+        'date' => '日期',
+        'description' => '描述',
+
+        // Settings
+        'currentPassword' => '当前密码',
+        'newPassword' => '新密码',
+        'confirmPassword' => '确认密码',
+
+        // Push
+        'endpoint' => '端点',
+        'keys.p256dh' => 'P256DH 密钥',
+        'keys.auth' => 'Auth 密钥',
+
+        // Goal
+        'target_amount' => '目标金额',
+        'target_date' => '目标日期',
+
+        // Investment
+        'goal_id' => '目标',
+        'allocation_percent' => '分配比例',
+        'planned_amount' => '计划金额',
+
+        // Record Investment
+        'investment_id' => '投资项目',
+        'account_id' => '账户',
+        'transaction_amount' => '交易金额',
+    ],
+
+];

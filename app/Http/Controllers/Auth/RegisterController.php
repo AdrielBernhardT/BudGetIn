@@ -27,7 +27,7 @@ class RegisterController extends Controller
                 'regex:/[a-z]/',      
                 'regex:/[A-Z]/',      
                 'regex:/[0-9]/',      
-                'regex:/[@$!%*?&#]/', 
+                'regex:/[@$!%*?&#_]/', 
                 'confirmed'           
             ],
             'terms' => ['accepted'],
@@ -43,7 +43,9 @@ class RegisterController extends Controller
             ]);
 
             Auth::login($user);
-            return redirect()->route('verify.send');
+            
+            app(OTPController::class)->generateAndSendOtp($user);
+            return redirect()->route('verify.index');
 
         } catch (\Throwable $th) {
             return redirect()

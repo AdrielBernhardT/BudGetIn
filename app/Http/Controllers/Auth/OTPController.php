@@ -29,11 +29,21 @@ class OTPController extends Controller
 
     public function send()
     {
-        $user = auth()->user();
+        $this->generateAndSendOtp(auth()->user());
 
+        toast()->success('OTP sent successfully');
+
+        return redirect()
+            ->route('verify.index')
+            ->with('success', 'OTP sent successfully');
+    }
+
+    public function generateAndSendOtp($user): void
+    {
         $otp = random_int(100000, 999999);
 
         $expiresAt = now()->addMinutes(3);
+
         Cache::put(
             "otp_{$user->id}",
             $otp,
@@ -48,11 +58,6 @@ class OTPController extends Controller
 
         Mail::to($user->email)
             ->send(new OtpVerificationMail($otp));
-
-        toast()->success('OTP sent successfully');
-        return redirect()
-            ->route('verify.index')
-            ->with('success', 'OTP sent successfully');
     }
 
     public function verify(Request $request)
@@ -85,27 +90,10 @@ class OTPController extends Controller
 
     public function resend()
     {
-        $user = auth()->user();
-
-        $otp = random_int(100000, 999999);
-
-        $expiresAt = now()->addMinutes(3);
-        Cache::put(
-            "otp_{$user->id}",
-            $otp,
-            $expiresAt
-        );
-
-        Cache::put(
-            "otp_expire_{$user->id}",
-            $expiresAt->timestamp,
-            $expiresAt
-        );
-
-        Mail::to($user->email)
-            ->send(new OtpVerificationMail($otp));
+        $this->generateAndSendOtp(auth()->user());
 
         toast()->success('A new OTP has been sent');
+
         return back()->with(
             'success',
             'A new OTP has been sent'
