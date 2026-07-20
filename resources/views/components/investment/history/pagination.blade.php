@@ -4,14 +4,18 @@
             class="pb-3 text-sm font-medium text-center text-gray-500 border-b border-gray-100 dark:border-gray-800 dark:text-gray-400 xl:border-b-0 xl:pb-0 xl:text-left">
             <template x-if="totalEntries > 0">
                 <span>
-                    Showing <span x-text="start"></span>
-                    to <span x-text="end"></span>
-                    of <span x-text="totalEntries"></span> histories
+                    {{ __('common.showing') }}
+                    <span x-text="start"></span>
+                    {{ __('common.to') }}
+                    <span x-text="end"></span>
+                    {{ __('common.of') }}
+                    <span x-text="totalEntries"></span>
+                    {{ __('common.record') }}
                 </span>
             </template>
 
             <template x-if="totalEntries === 0">
-                <span>No histories available</span>
+                <span>{{ __('sentence.no_histories_available') }}</span>
             </template>
         </p>
 
