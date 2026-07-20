@@ -200,4 +200,9 @@ return [
 
     // Expense Alert
     'create_category_before_expense' => 'Anda perlu menambahkan setidaknya satu kategori sebelum dapat mencatat pengeluaran.',
+
+    'investment_history_report' => 'Laporan Riwayat Investasi',
+    'generated_by_budgetin' => 'Dibuat oleh Budgetin',
+    'no_investment_history_found' => 'Tidak ada riwayat investasi ditemukan.',
+    'no_histories_available' => 'Tidak ada riwayat tersedia.',
 ];
