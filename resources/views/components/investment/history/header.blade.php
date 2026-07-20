@@ -8,7 +8,7 @@
 <div class="flex flex-col gap-2 px-5 mb-4 sm:flex-row sm:items-center sm:justify-between sm:px-6">
 
     <div class="flex items-center gap-3">
-        <span class="text-gray-500 dark:text-gray-400">Show</span>
+        <span class="text-gray-500 dark:text-gray-400">{{ __('common.show') }}</span>
 
         <div class="relative">
             <select
@@ -35,7 +35,7 @@
             </span>
         </div>
 
-        <span class="text-gray-500 dark:text-gray-400">histories</span>
+        <span class="text-gray-500 dark:text-gray-400">{{ __('common.record') }}</span>
     </div>
 
     <div class="flex flex-col gap-3 sm:flex-row sm:items-center">
@@ -45,8 +45,8 @@
                 x-model="filterType"
                 class="h-[42px] appearance-none rounded-lg border border-gray-300 bg-transparent pl-4 pr-8 text-sm text-gray-800 shadow-theme-xs dark:border-gray-700 dark:bg-gray-900 dark:text-white/90"
             >
-                <option value="day">Day</option>
-                <option value="month">Month</option>
+                <option value="day">{{ __('common.day') }}</option>
+                <option value="month">{{ __('common.month') }}</option>
             </select>
 
             <span
@@ -67,7 +67,7 @@
                 id="history_day"
                 name="history_day"
                 picker="day"
-                placeholder="Select Date"
+                placeholder="{{ __('sentence.date_picker_input') }}"
                 x-model="selectedDate"
                 dateFormat="Y-m-d"
                 altFormat="d F Y"
@@ -80,7 +80,7 @@
                 id="history_month"
                 name="history_month"
                 picker="month"
-                placeholder="Select Month"
+                placeholder="{{ __('sentence.date_picker_input') }}"
                 x-model="selectedMonth"
                 dateFormat="Y-m-d"
                 altFormat="F Y"
@@ -93,7 +93,7 @@
             @click="printHistory()"
             class="inline-flex items-center gap-2 rounded-lg border border-gray-300 bg-main px-4 py-3 text-theme-sm font-medium text-white shadow-theme-xs hover:bg-main-hover hover:text-white/90"
         >
-            Print History
+            {{ __('common.print') }}
         </button>
 
     </div>
