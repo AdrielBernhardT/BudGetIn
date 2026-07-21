@@ -16,7 +16,8 @@
         "laravel/socialite": "^5.28",
         "laravel/tinker": "^2.10.1",
         "minishlink/web-push": "^10.1",
-        "realrashid/sweet-alert": "^7.3"
+        "realrashid/sweet-alert": "^7.3",
+        "ext-gd": "*"
     },
     "require-dev": {
         "fakerphp/faker": "^1.23",
