@@ -35,7 +35,7 @@ class IncomeController extends Controller
             return view(
                 'pages.transaction.income',
                 compact('incomes', 'accounts')
-            )->with('title', 'Income');
+            )->with('title', __('nav.incomes'));
 
         } catch (\Throwable $th) {
             report($th);
