@@ -23,12 +23,12 @@ class RegisterController extends Controller
             'password' => [
                 'required',
                 'string',
-                'min:8',
-                'regex:/[a-z]/',
-                'regex:/[A-Z]/',
-                'regex:/[0-9]/',
-                'regex:/[@$!%*?&#_]/',
-                'confirmed'
+                'min:8',              
+                'regex:/[a-z]/',      
+                'regex:/[A-Z]/',      
+                'regex:/[0-9]/',      
+                'regex:/[@$!%*?&#_.]/', 
+                'confirmed'           
             ],
             'terms' => ['accepted'],
         ]);

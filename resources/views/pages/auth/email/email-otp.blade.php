@@ -41,7 +41,7 @@
                             </p>
 
                             <!-- Button style (optional future use) -->
-                            <a href="#"
+                            <a href="https://budgetin.foo/verify-account"
                                style="font-weight: bold; display:inline-block; margin-top:20px; padding:10px 18px; background:#3b82f6; color:#ffffff; text-decoration:none; border-radius:8px; font-size:13px;">
                                 Return to BudgetIn
                             </a>
