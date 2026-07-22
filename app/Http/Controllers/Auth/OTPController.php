@@ -23,7 +23,8 @@ class OTPController extends Controller
         }
 
         return view('pages.auth.verify-account', [
-            'otpExpiresIn' => $remainingSeconds
+            'otpExpiresIn' => $remainingSeconds,
+            'title' => 'Verify Account'
         ]);
     }
 
