@@ -38,7 +38,7 @@ class ExpenseController extends Controller
             return view(
                 'pages.transaction.expense',
                 compact('expenses', 'categories', 'accounts')
-            )->with('title', 'Expense');
+            )->with('title', __('nav.expenses'));
 
         } catch (\Throwable $th) {
             report($th);

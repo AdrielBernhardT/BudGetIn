@@ -34,7 +34,7 @@ class TransferController extends Controller
             return view(
                 'pages.transaction.transfer',
                 compact('transfers', 'accounts')
-            )->with('title', 'Transfer');
+            )->with('title', __('nav.transfers'));
 
         } catch (\Throwable $th) {
             report($th);

@@ -27,4 +27,10 @@ return [
     'form_elements' => 'Elemen Formulir',
     'notifications' => 'Notifikasi',
     'alerts' => 'Peringatan',
+    'basic_tables' => 'Tabel Dasar',
+    'avatars' => 'Avatar',
+    'badges' => 'Lencana',
+    'buttons' => 'Tombol',
+    'images' => 'Gambar',
+    'videos' => 'Video',
 ];
