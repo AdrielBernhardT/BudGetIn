@@ -28,5 +28,10 @@ return [
     'form_elements' => '表单元素',
     'notifications' => '通知',
     'alerts' => '提示',
-
+    'basic_tables' => '基础表格',
+    'avatars' => '头像',
+    'badges' => '徽章',
+    'buttons' => '按钮',
+    'images' => '图片',
+    'videos' => '视频',
 ];

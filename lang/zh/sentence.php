@@ -208,4 +208,8 @@ return [
     'generated_by_budgetin' => '由 BudGetIn 生成',
     'no_investment_history_found' => '未找到投资历史记录。',
     'no_histories_available' => '暂无历史记录。',
+
+    'delete_order_confirm' => '您确定要删除此订单吗？',
+    'are_you_sure' => '您确定吗？',
+    'welcome' => '欢迎',
 ];

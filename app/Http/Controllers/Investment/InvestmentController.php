@@ -93,7 +93,7 @@ class InvestmentController extends Controller
             return view(
                 'pages.investment.investment',
                 [
-                    'title' => 'Investment',
+                    'title' => __('nav.investment'),
                     'datas' => $datas,
                     'goals' => $goals,
                     'accounts' => $accounts,
@@ -167,7 +167,7 @@ class InvestmentController extends Controller
             return collect();
         }
     }
-    
+
     public function store(Request $request)
     {
         $validated = $request->validateWithBag('investment', [
