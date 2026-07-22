@@ -101,10 +101,10 @@
 
             Swal.fire({
                 icon: 'warning',
-                title: form.dataset.confirmTitle || 'Are you sure?',
+                title: form.dataset.confirmTitle || @js(__('sentence.are_you_sure')),
                 showCancelButton: true,
-                confirmButtonText: 'Yes, delete it!',
-                cancelButtonText: 'Cancel',
+                confirmButtonText: @js(__('sentence.yes_delete_it')),
+                cancelButtonText: @js(__('common.cancel')),
                 confirmButtonColor: '#FF3B30',
                 cancelButtonColor: '#667085',
             }).then((result) => {

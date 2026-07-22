@@ -7,7 +7,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="vapid-public-key" content="{{ config('webpush.vapid.public_key') }}">
 
-    <title>{{ $title ?? 'Dashboard' }} | BudGetIn</title>
+    <title>{{ $title ?? __('nav.dashboard') }} | BudGetIn</title>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <!-- Scripts -->

@@ -205,4 +205,8 @@ return [
     'generated_by_budgetin' => 'Dibuat oleh Budgetin',
     'no_investment_history_found' => 'Tidak ada riwayat investasi ditemukan.',
     'no_histories_available' => 'Tidak ada riwayat tersedia.',
+
+    'delete_order_confirm' => 'Apakah Anda yakin ingin menghapus pesanan ini?',
+    'are_you_sure' => 'Apakah Anda yakin?',
+    'welcome' => 'Selamat Datang',
 ];

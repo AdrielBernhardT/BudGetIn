@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Auth;
 class ProfileControlller extends Controller
 {
     public function index() {
-        return(view('pages.user.profile', ['title' => 'Profile']));
+        return(view('pages.user.profile', ['title' => __('nav.profile')]));
     }
 
     public function updateProfileInformation(Request $request) {

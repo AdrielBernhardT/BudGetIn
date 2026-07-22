@@ -30,7 +30,7 @@ use Illuminate\Support\Facades\Route;
 
 // calender pages
 Route::get('/calendar', function () {
-    return view('pages.calender', ['title' => 'Calendar']);
+    return view('pages.calender', ['title' => __('nav.calender')]);
 })->name('calendar');
 
 // profile pages
@@ -40,26 +40,26 @@ Route::get('/calendar', function () {
 
 // form pages
 Route::get('/form-elements', function () {
-    return view('pages.form.form-elements', ['title' => 'Form Elements']);
+    return view('pages.form.form-elements', ['title' => __('nav.form_elements')]);
 })->name('form-elements');
 
 // tables pages
 Route::get('/basic-tables', function () {
-    return view('pages.tables.basic-tables', ['title' => 'Basic Tables']);
+    return view('pages.tables.basic-tables', ['title' => __('nav.basic_tables')]);
 })->name('basic-tables');
 
 // pages
 Route::get('/blank', function () {
-    return view('pages.blank', ['title' => 'Blank']);
+    return view('pages.blank', ['title' => __('nav.blank')]);
 })->name('blank');
 
 // chart pages
 Route::get('/line-chart', function () {
-    return view('pages.chart.line-chart', ['title' => 'Line Chart']);
+    return view('pages.chart.line-chart', ['title' => __('nav.line_chart')]);
 })->name('line-chart');
 
 Route::get('/bar-chart', function () {
-    return view('pages.chart.bar-chart', ['title' => 'Bar Chart']);
+    return view('pages.chart.bar-chart', ['title' => __('nav.bar_chart')]);
 })->name('bar-chart');
 
 // // authentication pages
@@ -73,27 +73,27 @@ Route::get('/bar-chart', function () {
 
 // // ui elements pages
 Route::get('/alerts', function () {
-    return view('pages.ui-elements.alerts', ['title' => 'Alerts']);
+    return view('pages.ui-elements.alerts', ['title' => __('nav.alerts')]);
 })->name('alerts');
 
 Route::get('/avatars', function () {
-    return view('pages.ui-elements.avatars', ['title' => 'Avatars']);
+    return view('pages.ui-elements.avatars', ['title' => __('nav.avatars')]);
 })->name('avatars');
 
 Route::get('/badge', function () {
-    return view('pages.ui-elements.badges', ['title' => 'Badges']);
+    return view('pages.ui-elements.badges', ['title' => __('nav.badges')]);
 })->name('badges');
 
 Route::get('/buttons', function () {
-    return view('pages.ui-elements.buttons', ['title' => 'Buttons']);
+    return view('pages.ui-elements.buttons', ['title' => __('nav.buttons')]);
 })->name('buttons');
 
 Route::get('/image', function () {
-    return view('pages.ui-elements.images', ['title' => 'Images']);
+    return view('pages.ui-elements.images', ['title' => __('nav.images')]);
 })->name('images');
 
 Route::get('/videos', function () {
-    return view('pages.ui-elements.videos', ['title' => 'Videos']);
+    return view('pages.ui-elements.videos', ['title' => __('nav.videos')]);
 })->name('videos');
 
 Route::get('/test', function () {
