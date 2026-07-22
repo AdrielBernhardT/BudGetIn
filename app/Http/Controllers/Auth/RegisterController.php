@@ -27,7 +27,7 @@ class RegisterController extends Controller
                 'regex:/[a-z]/',      
                 'regex:/[A-Z]/',      
                 'regex:/[0-9]/',      
-                'regex:/[@$!%*?&#_]/', 
+                'regex:/[@$!%*?&#_.]/', 
                 'confirmed'           
             ],
             'terms' => ['accepted'],

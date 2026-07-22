@@ -2,9 +2,9 @@
 
 @section('content')
     <div class="relative z-1 bg-white p-6 sm:p-0 dark:bg-gray-900">
-        <div class="flex h-screen w-full flex-col justify-center sm:p-0 lg:flex-row dark:bg-gray-900">
+        <div class="flex min-h-screen w-full flex-col justify-center sm:p-0 lg:flex-row dark:bg-gray-900">
             <!-- Form -->
-            <div class="flex w-full flex-1 flex-col lg:w-1/2">
+            <div class="flex w-full flex-1 flex-col lg:w-1/2 my-20 xl:my-0">
                 <div class="mx-auto flex w-full max-w-md flex-1 flex-col justify-center">
                     <div class="mb-5 sm:mb-8">
                         <h1 class="text-title-sm sm:text-title-md mb-2 font-semibold text-gray-800 dark:text-white/90">
@@ -126,12 +126,12 @@
                                                     fill="#98A2B3" />
                                             </svg>
                                         </span>
-                                        @error('password')
-                                        <p class="text-theme-xs text-error-500 mt-1.5">
-                                            {{ $message }}
-                                        </p>
-                                        @enderror
                                     </div>
+                                    @error('password')
+                                    <p class="text-theme-xs text-error-500 mt-1.5">
+                                        {{ $message }}
+                                    </p>
+                                    @enderror
                                 </div>
 
                                 <!-- Password Confirmation -->
@@ -157,12 +157,12 @@
                                                     fill="#98A2B3" />
                                             </svg>
                                         </span>
-                                        @error('password_confirmation')
-                                        <p class="text-theme-xs text-error-500 mt-1.5">
-                                            {{ $message }}
-                                        </p>
-                                        @enderror
                                     </div>
+                                    @error('password_confirmation')
+                                    <p class="text-theme-xs text-error-500 mt-1.5">
+                                        {{ $message }}
+                                    </p>
+                                    @enderror
                                 </div>
 
                                 <!-- Checkbox -->
@@ -171,7 +171,7 @@
                                         <label for="checkboxLabelOne"
                                             class="flex cursor-pointer items-start text-sm font-normal text-gray-700 select-none dark:text-gray-400">
                                             <div class="relative">
-                                                <input name="terms" type="checkbox" id="checkboxLabelOne" class="sr-only" required
+                                                <input name="terms" type="checkbox" id="checkboxLabelOne" class="sr-only"
                                                     @change="checkboxToggle = !checkboxToggle" />
                                                 <div :class="checkboxToggle ? 'border-main bg-main' :
                                                     'bg-transparent border-gray-300 dark:border-gray-700'"
@@ -194,6 +194,11 @@
                                             </p>
                                         </label>
                                     </div>
+                                    @error('terms')
+                                    <p class="text-theme-xs text-error-500 mt-1.5">
+                                        {{ $message }}
+                                    </p>
+                                    @enderror
                                 </div>
                                 <!-- Button -->
                                 <div>
@@ -213,7 +218,7 @@
                     </div>
                 </div>
             </div>
-            <div class="bg-[linear-gradient(to_bottom,#E4EBF1_43%,#B5CFED_100%)] relative hidden h-full w-full items-center lg:grid lg:w-1/2 dark:bg-[linear-gradient(to_bottom,#1E293B,#0F172A)]">
+            <div class="bg-[linear-gradient(to_bottom,#E4EBF1_43%,#B5CFED_100%)] relative hidden min-h-screen w-full items-center lg:grid lg:w-1/2 dark:bg-[linear-gradient(to_bottom,#1E293B,#0F172A)]">
                 <div class="z-1 flex items-center justify-center">
                     <div class="flex max-w-sm flex-col items-center">
                         <a href="/" class="mb-4 block">
