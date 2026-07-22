@@ -2,9 +2,9 @@
 
 @section('content')
     <div class="relative z-1 bg-white p-6 sm:p-0 dark:bg-gray-900">
-        <div class="relative flex h-screen w-full flex-col justify-center sm:p-0 lg:flex-row dark:bg-gray-900">
+        <div class="relative flex min-h-screen w-full flex-col justify-center sm:p-0 lg:flex-row dark:bg-gray-900">
             <!-- Form -->
-            <div class="flex w-full flex-1 flex-col lg:w-1/2">
+            <div class="flex w-full flex-1 flex-col lg:w-1/2 my-20 xl:my-0">
                 <div class="mx-auto flex w-full max-w-md flex-1 flex-col justify-center">
                     <div>
                         <div class="mb-5 sm:mb-8">
@@ -101,12 +101,12 @@
                                                         fill="#98A2B3" />
                                                 </svg>
                                             </span>
-                                            @error('password')
-                                            <p class="text-theme-xs text-error-500 mt-1.5">
-                                                {{ $message }}
-                                            </p>
-                                            @enderror
                                         </div>
+                                        @error('password')
+                                        <p class="text-theme-xs text-error-500 mt-1.5">
+                                            {{ $message }}
+                                        </p>
+                                        @enderror
                                     </div>
 
                                     <div class="flex items-center justify-between">
@@ -159,7 +159,7 @@
                 </div>
             </div>
             <div
-                class="bg-[linear-gradient(to_bottom,#E4EBF1_43%,#B5CFED_100%)] relative hidden h-full w-full items-center lg:grid lg:w-1/2 dark:bg-[linear-gradient(to_bottom,#1E293B,#0F172A)]">
+                class="bg-[linear-gradient(to_bottom,#E4EBF1_43%,#B5CFED_100%)] relative hidden min-h-screen w-full items-center lg:grid lg:w-1/2 dark:bg-[linear-gradient(to_bottom,#1E293B,#0F172A)]">
                 <div class="z-1 flex items-center justify-center">
                     <div class="flex max-w-sm flex-col items-center">
                         <a href="/" class="mb-4 block">
