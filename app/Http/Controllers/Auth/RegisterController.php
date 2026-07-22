@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Hash;
 class RegisterController extends Controller
 {
     public function index() {
-        return view('pages.auth.register', ['title' => 'Sign Up']);
+        return view('pages.auth.register', ['title' => __('auth.sign_up')]);
     }
 
     public function store(Request $request){
@@ -23,12 +23,12 @@ class RegisterController extends Controller
             'password' => [
                 'required',
                 'string',
-                'min:8',              
-                'regex:/[a-z]/',      
-                'regex:/[A-Z]/',      
-                'regex:/[0-9]/',      
-                'regex:/[@$!%*?&#_]/', 
-                'confirmed'           
+                'min:8',
+                'regex:/[a-z]/',
+                'regex:/[A-Z]/',
+                'regex:/[0-9]/',
+                'regex:/[@$!%*?&#_]/',
+                'confirmed'
             ],
             'terms' => ['accepted'],
         ]);
@@ -43,14 +43,14 @@ class RegisterController extends Controller
             ]);
 
             Auth::login($user);
-            
+
             app(OTPController::class)->generateAndSendOtp($user);
             return redirect()->route('verify.index');
 
         } catch (\Throwable $th) {
             return redirect()
                 ->back()
-                ->with('error', 'Something went wrong while creating your account')
+                ->with('error', __('auth.registration_failed'))
                 ->withInput();
         }
 

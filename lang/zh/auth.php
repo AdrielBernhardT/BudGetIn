@@ -28,4 +28,6 @@ return [
     'email_not_verified' => '邮箱尚未验证',
     'email_not_verified_description' => '请验证您的邮箱，以提高账户安全性并使用所有功能。',
     'verify_now' => '立即验证',
+    'invalid_credentials' => '凭据无效或未找到账户。',
+    'registration_failed' => '创建账户时出现问题。',
 ];
