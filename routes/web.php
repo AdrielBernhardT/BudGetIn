@@ -137,7 +137,7 @@ Route::middleware(['auth'])->group(function(){
     });
 
     // Verify Account
-    Route::prefix('/verify-account')->as('verify.')->group(function(){
+    Route::prefix('/verify-account')->middleware('not.verified')->as('verify.')->group(function(){
         Route::get('/', [OTPController::class, 'index'])->name('index');
         Route::post('/', [OTPController::class, 'verify']) ->name('verify');
         Route::post('/send', [OTPController::class, 'send']) ->name('send');
