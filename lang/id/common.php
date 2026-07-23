@@ -73,4 +73,7 @@ return [
     'total' => 'Total',
     'record' => 'Data',
     'print' => 'Cetak',
+    'report_type' => 'Jenis Laporan',
+    'all_period' => 'Semua Periode',
+    'data' => 'Data',
 ];

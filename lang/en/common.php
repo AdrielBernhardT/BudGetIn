@@ -73,4 +73,7 @@ return [
     'total' => 'Total',
     'record' => 'Record',
     'print' => 'Print',
+    'report_type' => 'Report Type',
+    'all_period' => 'All Period',
+    'data' => 'Data',
 ];

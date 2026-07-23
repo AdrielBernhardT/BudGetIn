@@ -294,4 +294,8 @@ return [
     'push_not_supported' => 'Browser kamu tidak mendukung Web Push notification.',
     'push_vapid_key_missing' => 'VAPID public key belum dikonfigurasi di server.',
     'push_permission_denied' => 'Izin notifikasi tidak diberikan.',
+
+    'financial_tracker_report' => 'Laporan Pelacakan Keuangan',
+    'no_transactions_found' => 'Tidak ada transaksi ditemukan.',
+    'total_transaction_amount' => 'Total Jumlah Transaksi',
 ];
