@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Middleware\EnsureNotVerified;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
@@ -14,6 +15,9 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->trustProxies(at: '*');
         $middleware->web(append: [
             \App\Http\Middleware\SetLocale::class,
+        ]);
+        $middleware->alias([
+            'not.verified' => EnsureNotVerified::class
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {
