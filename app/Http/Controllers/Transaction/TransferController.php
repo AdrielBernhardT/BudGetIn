@@ -29,7 +29,7 @@ class TransferController extends Controller
 
             $accounts = Account::where('user_id', Auth::id())->get();
 
-            confirmDelete('Are you sure you want to delete this transfer?');
+            confirmDelete(__('sentence.delete_transfer_confirm'));
 
             return view(
                 'pages.transaction.transfer',
@@ -39,7 +39,7 @@ class TransferController extends Controller
         } catch (\Throwable $th) {
             report($th);
 
-            toast()->error('Failed to load transfers.');
+            toast()->error(__('sentence.failed_to_load_transfers'));
 
             return redirect()->back();
         }
@@ -64,16 +64,16 @@ class TransferController extends Controller
                 'description' => ['nullable', 'string', 'max:200'],
             ],
             [
-                'from_account_id.required' => 'Please select the source account.',
-                'from_account_id.exists' => 'Selected source account is invalid.',
+                'from_account_id.required' => __('sentence.select_source_account_required'),
+                'from_account_id.exists' => __('sentence.select_source_account_invalid'),
 
-                'to_account_id.required' => 'Please select the destination account.',
-                'to_account_id.exists' => 'Selected destination account is invalid.',
-                'to_account_id.different' => 'Source and destination accounts must be different.',
+                'to_account_id.required' => __('sentence.select_destination_account_required'),
+                'to_account_id.exists' => __('sentence.select_destination_account_invalid'),
+                'to_account_id.different' => __('sentence.accounts_must_be_different'),
 
-                'amount.required' => 'Transfer amount is required.',
-                'date.required' => 'Transfer date is required.',
-                'description.max' => 'Description may not exceed 200 characters.',
+                'amount.required' => __('sentence.transfer_amount_required'),
+                'date.required' => __('sentence.transfer_date_required'),
+                'description.max' => __('sentence.description_max'),
             ]
         );
 
@@ -90,12 +90,12 @@ class TransferController extends Controller
             $amount = $this->normalizeAmount($request->amount);
 
             if ($amount <= 0) {
-                toast()->error('Transfer amount must be greater than 0.');
+                toast()->error(__('sentence.transfer_amount_must_be_positive'));
 
                 return redirect()
                     ->back()
                     ->withErrors([
-                        'amount' => 'Transfer amount must be greater than 0.',
+                        'amount' => __('sentence.transfer_amount_must_be_positive'),
                     ], 'transfer')
                     ->withInput();
             }
@@ -109,17 +109,16 @@ class TransferController extends Controller
                 ->firstOrFail();
 
             if ($amount > $fromAccount->balance) {
-                toast()->error(
-                    'Insufficient balance. Current balance: ' .
-                    number_format($fromAccount->balance, 0, ',', '.')
-                );
+                $insufficientBalanceMessage = __('sentence.insufficient_balance', [
+                    'balance' => number_format($fromAccount->balance, 0, ',', '.'),
+                ]);
+
+                toast()->error($insufficientBalanceMessage);
 
                 return redirect()
                     ->back()
                     ->withErrors([
-                        'amount' =>
-                            'Insufficient balance. Current balance: ' .
-                            number_format($fromAccount->balance, 0, ',', '.'),
+                        'amount' => $insufficientBalanceMessage,
                     ], 'transfer')
                     ->withInput();
             }
@@ -142,7 +141,7 @@ class TransferController extends Controller
 
             DB::commit();
 
-            toast()->success('Transfer created successfully!');
+            toast()->success(__('sentence.transfer_created'));
 
             return redirect()->back();
 
@@ -151,7 +150,7 @@ class TransferController extends Controller
 
             report($th);
 
-            toast()->error('Failed to create transfer.');
+            toast()->error(__('sentence.transfer_create_failed'));
 
             return redirect()->back()->withInput();
         }
@@ -181,16 +180,16 @@ class TransferController extends Controller
                 'description' => ['nullable', 'string', 'max:200'],
             ],
             [
-                'from_account_id.required' => 'Please select the source account.',
-                'from_account_id.exists' => 'Selected source account is invalid.',
+                'from_account_id.required' => __('sentence.select_source_account_required'),
+                'from_account_id.exists' => __('sentence.select_source_account_invalid'),
 
-                'to_account_id.required' => 'Please select the destination account.',
-                'to_account_id.exists' => 'Selected destination account is invalid.',
-                'to_account_id.different' => 'Source and destination accounts must be different.',
+                'to_account_id.required' => __('sentence.select_destination_account_required'),
+                'to_account_id.exists' => __('sentence.select_destination_account_invalid'),
+                'to_account_id.different' => __('sentence.accounts_must_be_different'),
 
-                'amount.required' => 'Transfer amount is required.',
-                'date.required' => 'Transfer date is required.',
-                'description.max' => 'Description may not exceed 200 characters.',
+                'amount.required' => __('sentence.transfer_amount_required'),
+                'date.required' => __('sentence.transfer_date_required'),
+                'description.max' => __('sentence.description_max'),
             ]
         );
 
@@ -207,12 +206,12 @@ class TransferController extends Controller
             $newAmount = $this->normalizeAmount($request->amount);
 
             if ($newAmount <= 0) {
-                toast()->error('Transfer amount must be greater than 0.');
+                toast()->error(__('sentence.transfer_amount_must_be_positive'));
 
                 return redirect()
                     ->back()
                     ->withErrors([
-                        'amount' => 'Transfer amount must be greater than 0.',
+                        'amount' => __('sentence.transfer_amount_must_be_positive'),
                     ], 'transfer')
                     ->withInput();
             }
@@ -245,17 +244,16 @@ class TransferController extends Controller
             if ($newAmount > $newFromAccount->balance) {
                 DB::rollBack();
 
-                toast()->error(
-                    'Insufficient balance. Current balance: ' .
-                    number_format($newFromAccount->balance, 0, ',', '.')
-                );
+                $insufficientBalanceMessage = __('sentence.insufficient_balance', [
+                    'balance' => number_format($newFromAccount->balance, 0, ',', '.'),
+                ]);
+
+                toast()->error($insufficientBalanceMessage);
 
                 return redirect()
                     ->back()
                     ->withErrors([
-                        'amount' =>
-                            'Insufficient balance. Current balance: ' .
-                            number_format($newFromAccount->balance, 0, ',', '.'),
+                        'amount' => $insufficientBalanceMessage,
                     ], 'transfer')
                     ->withInput();
             }
@@ -275,7 +273,7 @@ class TransferController extends Controller
 
             DB::commit();
 
-            toast()->success('Transfer updated successfully!');
+            toast()->success(__('sentence.transfer_updated'));
 
             return redirect()->back();
 
@@ -284,7 +282,7 @@ class TransferController extends Controller
 
             report($th);
 
-            toast()->error('Failed to update transfer.');
+            toast()->error(__('sentence.transfer_update_failed'));
 
             return redirect()->back()->withInput();
         }
@@ -316,7 +314,7 @@ class TransferController extends Controller
 
             DB::commit();
 
-            toast()->success('Transfer deleted successfully!');
+            toast()->success(__('sentence.transfer_deleted'));
 
             return redirect()->back();
 
@@ -325,7 +323,7 @@ class TransferController extends Controller
 
             report($th);
 
-            toast()->error('Failed to delete transfer.');
+            toast()->error(__('sentence.transfer_delete_failed'));
 
             return redirect()->back();
         }

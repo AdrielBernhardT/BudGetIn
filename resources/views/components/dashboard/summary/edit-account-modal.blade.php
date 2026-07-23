@@ -8,7 +8,7 @@
                 balance: '',
                 balance_display: '',
             },
-        
+
             resetModal() {
                 this.account = {
                     name: '',
@@ -30,10 +30,10 @@
             class="no-scrollbar relative w-full max-w-[700px] max-h-[80vh] rounded-3xl bg-white p-4 dark:bg-gray-900 lg:p-11 overflow-y-auto">
             <div class="px-2 pr-14">
                 <h4 class="mb-2 text-2xl font-semibold text-gray-800 dark:text-white/90">
-                    Edit Account
+                    {{ __('sentence.edit_account') }}
                 </h4>
                 <p class="mb-2 text-sm text-gray-500 dark:text-gray-400 lg:mb-7">
-                    Modify your account information.
+                    {{ __('sentence.edit_account_description') }}
                 </p>
             </div>
             <form class="flex flex-col" method="POST" :action="`/account/update/${account.id}`">
