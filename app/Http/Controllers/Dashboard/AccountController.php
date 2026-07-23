@@ -39,15 +39,15 @@ class AccountController extends Controller
                 ],
             ],
             [
-                'name.required' => 'Account name is required.',
-                'name.max' => 'Account name may not exceed 100 characters.',
+                'name.required' => __('sentence.account_name_required'),
+                'name.max' => __('sentence.account_name_max'),
 
-                'account_identifier.unique' => 'This account number is already in use.',
-                'account_identifier.max' => 'Account number may not exceed 100 characters.',
+                'account_identifier.unique' => __('sentence.account_number_unique'),
+                'account_identifier.max' => __('sentence.account_number_max'),
 
-                'balance.required' => 'Initial balance is required.',
-                'balance.numeric' => 'Balance must be a number.',
-                'balance.min' => 'Balance cannot be negative.',
+                'balance.required' => __('sentence.account_balance_required'),
+                'balance.numeric' => __('sentence.account_balance_numeric'),
+                'balance.min' => __('sentence.account_balance_min'),
             ]
         );
 
@@ -68,7 +68,7 @@ class AccountController extends Controller
                 'balance' => $request->balance,
             ]);
 
-            toast()->success('Account created successfully!');
+            toast()->success(__('sentence.account_created'));
 
             return redirect()->back();
 
@@ -78,7 +78,7 @@ class AccountController extends Controller
             toast()->error(
                 app()->environment('local')
                     ? $th->getMessage()
-                    : 'Failed to create account.'
+                    : __('sentence.account_create_failed')
             );
 
             return redirect()->back()->withInput();
@@ -109,11 +109,11 @@ class AccountController extends Controller
                     ]
                 ],
                 [
-                    'name.required' => 'Account name is required.',
-                    'name.max' => 'Account name may not exceed 100 characters.',
+                    'name.required' => __('sentence.account_name_required'),
+                    'name.max' => __('sentence.account_name_max'),
 
-                    'account_identifier.unique' => 'This account number is already in use.',
-                    'account_identifier.max' => 'Account number may not exceed 100 characters.'
+                    'account_identifier.unique' => __('sentence.account_number_unique'),
+                    'account_identifier.max' => __('sentence.account_number_max')
                 ]
             );
 
@@ -131,7 +131,7 @@ class AccountController extends Controller
                 'account_identifier' => $request->account_identifier
             ]);
 
-            toast()->success('Account updated successfully!');
+            toast()->success(__('sentence.account_updated'));
 
             return redirect()->back();
 
@@ -141,7 +141,7 @@ class AccountController extends Controller
             toast()->error(
                 app()->environment('local')
                     ? $th->getMessage()
-                    : 'Failed to update account.'
+                    : __('sentence.account_update_failed')
             );
 
             return redirect()->back()->withInput();
@@ -159,14 +159,14 @@ class AccountController extends Controller
                 $account->outgoingTransactions()->exists() ||
                 $account->incomingTransactions()->exists()
             ) {
-                toast()->error('This account cannot be deleted because it still has transactions.');
+                toast()->error(__('sentence.account_has_transactions'));
 
                 return redirect()->back();
             }
 
             $account->delete();
 
-            toast()->success('Account deleted successfully!');
+            toast()->success(__('sentence.account_deleted'));
 
             return redirect()->back();
 
@@ -176,7 +176,7 @@ class AccountController extends Controller
             toast()->error(
                 app()->environment('local')
                     ? $th->getMessage()
-                    : 'Failed to delete account.'
+                    : __('sentence.account_delete_failed')
             );
 
             return redirect()->back();

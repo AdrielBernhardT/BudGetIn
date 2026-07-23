@@ -36,4 +36,6 @@ return [
     'otp_not_received' => "Didn't receive the code?",
     'resend_available_in' => 'Resend available in',
     'resend_code' => 'Resend Code',
+    'invalid_credentials' => 'Invalid credential or account not found.',
+    'registration_failed' => 'Something went wrong while creating your account.',
 ];

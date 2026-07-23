@@ -6,6 +6,11 @@ return [
     |--------------------------------------------------------------------------
     | Validation Language Lines
     |--------------------------------------------------------------------------
+    |
+    | The following language lines contain the default error messages used by
+    | the validator class. Some of these rules have multiple versions such
+    | as the size rules. Feel free to tweak each of these messages here.
+    |
     */
 
     'accepted' => ':attribute 必须接受。',
@@ -18,9 +23,9 @@ return [
     'alpha_num' => ':attribute 只能包含字母和数字。',
     'any_of' => ':attribute 无效。',
     'array' => ':attribute 必须是数组。',
-    'ascii' => ':attribute 只能包含 ASCII 字符。',
+    'ascii' => ':attribute 只能包含单字节字母数字字符和符号。',
     'before' => ':attribute 必须是 :date 之前的日期。',
-    'before_or_equal' => ':attribute 必须是 :date 当天或之前的日期.',
+    'before_or_equal' => ':attribute 必须是 :date 当天或之前的日期。',
 
     'between' => [
         'array' => ':attribute 必须包含 :min 到 :max 个项目。',
@@ -172,11 +177,33 @@ return [
     'ulid' => ':attribute 必须是有效 ULID。',
     'uuid' => ':attribute 必须是有效 UUID。',
 
+    /*
+    |--------------------------------------------------------------------------
+    | Custom Validation Language Lines
+    |--------------------------------------------------------------------------
+    |
+    | Here you may specify custom validation messages for attributes using the
+    | convention "attribute.rule" to name the lines. This makes it quick to
+    | specify a specific custom language line for a given attribute rule.
+    |
+    */
+
     'custom' => [
         'attribute-name' => [
             'rule-name' => '自定义错误信息',
         ],
     ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Custom Validation Attributes
+    |--------------------------------------------------------------------------
+    |
+    | The following language lines are used to swap our attribute placeholder
+    | with something more reader friendly such as "E-Mail Address" instead
+    | of "email". This simply helps us make our message more expressive.
+    |
+    */
 
     'attributes' => [
         // Auth

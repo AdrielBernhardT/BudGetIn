@@ -14,7 +14,7 @@ return [
     'enter_email_password_sign_in' => 'Masukkan email dan kata sandi Anda untuk masuk!',
     'enter_email' => 'Masukkan email Anda',
     'enter_password' => 'Masukkan kata sandi Anda',
-    'enter_password_confirmation' => 'Konfirmasi kata sandi Anda',
+    'enter_password_confirmation' => 'Konfirmasi kata sandi anda',
     'password_confirmation' => 'Konfirmasi Kata Sandi',
     'password_input' => 'Masukkan Kata Sandi',
     'forgot_password' => 'Lupa kata sandi?',
@@ -36,4 +36,6 @@ return [
     'otp_not_received' => 'Tidak menerima kode?',
     'resend_available_in' => 'Kirim ulang tersedia dalam',
     'resend_code' => 'Kirim Ulang Kode',
+    'invalid_credentials' => 'Kredensial tidak valid atau akun tidak ditemukan.',
+    'registration_failed' => 'Terjadi kesalahan saat membuat akun Anda.',
 ];
