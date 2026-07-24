@@ -11,7 +11,12 @@ use Illuminate\Support\Facades\Mail;
 class OTPController extends Controller
 {
     public function index(){
+        if (auth()->user()->email_verified_at) {
+            return redirect()->route('dashboard');
+        }
+
         $user = auth()->user();
+
         $expiresAt = Cache::get("otp_expire_{$user->id}");
         $remainingSeconds = 0;
 
@@ -24,19 +29,28 @@ class OTPController extends Controller
 
         return view('pages.auth.verify-account', [
             'otpExpiresIn' => $remainingSeconds,
-            'title' => 'Verify Account'
+            'title' => 'Verify Account',
+            'user' => $user
         ]);
     }
 
     public function send()
     {
-        $this->generateAndSendOtp(auth()->user());
+        $user = auth()->user();
 
-        toast()->success('OTP sent successfully');
+        if ($user->email_verified_at) {
+            return redirect()->route('dashboard');
+        }
+
+        if (!Cache::has("otp_{$user->id}")) {
+            $this->generateAndSendOtp($user);
+            toast()->success('OTP sent successfully');
+        } else {
+            toast()->info('An OTP is already active. Please check your email.');
+        }
 
         return redirect()
-            ->route('verify.index')
-            ->with('success', 'OTP sent successfully');
+            ->route('verify.index');
     }
 
     public function generateAndSendOtp($user): void
@@ -84,6 +98,7 @@ class OTPController extends Controller
         ]);
 
         Cache::forget("otp_{$user->id}");
+        Cache::forget("otp_expire_{$user->id}");
 
         return redirect()->route('dashboard')
             ->with('success', 'Account verified successfully');
@@ -91,7 +106,12 @@ class OTPController extends Controller
 
     public function resend()
     {
-        $this->generateAndSendOtp(auth()->user());
+        $user = auth()->user();
+        if ($user->email_verified_at) {
+            return redirect()->route('dashboard');
+        }
+
+        $this->generateAndSendOtp($user);
 
         toast()->success('A new OTP has been sent');
 
