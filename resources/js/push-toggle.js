@@ -17,7 +17,7 @@ window.pushToggle = (config) => ({
 
     async toggle() {
         if (!window.PushNotifications.isSupported()) {
-            alert(config.notSupportedMessage);
+            this.notify(config.notSupportedMessage);
             this.subscribed = false;
             return;
         }
@@ -33,9 +33,23 @@ window.pushToggle = (config) => ({
         } catch (error) {
             console.error(error);
             this.subscribed = !this.subscribed; // revert the switch on failure
-            alert(config.failedMessage);
+            this.notify(config.failedMessage);
         } finally {
             this.loading = false;
         }
+    },
+    notify(message) {
+        window.Swal.fire({
+            toast: true,
+            position: 'top-end',
+            icon: 'error',
+            title: message,
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true,
+            customClass: {
+                popup: 'custom-popup'
+            },
+        });
     },
 });
