@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <x-common.page-breadcrumb pageTitle="Settings" />
+    <x-common.page-breadcrumb pageTitle=" {{ __('nav.settings') }}" />
 
     <div class="rounded-2xl border border-gray-200 bg-white p-5 dark:border-gray-800 dark:bg-white/[0.03] lg:p-6">
 
@@ -9,17 +9,17 @@
         <div class="flex items-center justify-between pb-2 border-b border-gray-200 dark:border-gray-800">
             <div>
                 <h4 class="text-base font-semibold text-gray-800 dark:text-white/90">
-                    Password
+                    {{ __('settings.password') }}
                 </h4>
 
                 <p class="text-sm text-gray-500 dark:text-gray-400 py-3">
-                    Set a unique password to protect your account.
+                    {{ __('settings.password_subtitle') }}
                 </p>
             </div>
 
             <button type="button" @click="$dispatch('open-password-modal')"
                 class="rounded-lg border border-gray-300 px-5 py-2 text-sm font-medium text-gray-700 transition hover:bg-gray-100 dark:border-gray-700 dark:text-white/90 dark:hover:bg-white/5">
-                Change Password
+                {{ __('settings.change_password') }}
             </button>
         </div>
 
@@ -27,11 +27,11 @@
         <div class="flex items-center justify-between py-2 border-b border-gray-200 dark:border-gray-800">
             <div>
                 <h4 class="text-base font-semibold text-gray-800 dark:text-white/90 pt-2">
-                    Notification
+                    {{ __('settings.notifications') }}
                 </h4>
 
                 <p class="text-sm text-gray-500 dark:text-gray-400 py-3">
-                    Manage how you receive notifications and account updates.
+                    {{ __('settings.notifications_subtitle') }}
                 </p>
             </div>
 
@@ -53,21 +53,21 @@
         <div class="flex items-center justify-between pt-2">
             <div>
                 <h4 class="text-base font-semibold text-gray-800 dark:text-white/90 pt-2">
-                    Delete Account
+                    {{ __('settings.delete_account') }}
                 </h4>
 
                 <p class="text-sm text-gray-500 dark:text-gray-400 pt-2">
-                    Permanently remove your account and all associated data.
+                    {{ __('settings.delete_account_subtitle') }}
                 </p>
             </div>
 
             <button type="button" @click="$dispatch('open-delete-modal')"
                 class="rounded-lg border border-red-300 px-5 py-2 text-sm font-medium text-red-600 transition hover:bg-red-50 dark:border-red-800 dark:text-red-400 dark:hover:bg-red-500/10">
-                Delete Account
+                {{ __('settings.delete_account') }}
             </button>
             {{-- <a href="{{ route('settings.delete-account') }}" type="submit" data-confirm-delete="true"
                 class="rounded-lg border border-red-300 px-5 py-2 text-sm font-medium text-red-600 transition hover:bg-red-50 dark:border-red-800 dark:text-red-400 dark:hover:bg-red-500/10">
-                Delete Account
+                {{ __('settings.delete_account') }}
             </a> --}}
         </div>
 
@@ -82,11 +82,11 @@
 
             <div class="mb-6">
                 <h4 class="mb-2 text-2xl font-semibold text-gray-800 dark:text-white/90">
-                    Change Password
+                    {{ __('settings.change_password') }}
                 </h4>
 
                 <p class="text-sm text-gray-500 dark:text-gray-400">
-                    Update your password to keep your account secure.
+                    {{ __('settings.update_password') }}
                 </p>
             </div>
 
@@ -97,11 +97,11 @@
 
                 <div>
                     <label class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400">
-                        Current Password
+                        {{ __('settings.current_password') }}
                     </label>
 
                     <input name="currentPassword" value="{{ old('currentPassword') }}" type="password"
-                        placeholder="Enter current password"
+                        placeholder="{{ __('settings.current_password_placeholder') }}"
                         class="h-11 w-full rounded-lg border border-gray-300 bg-transparent px-4 py-2.5 text-sm text-gray-800 shadow-theme-xs placeholder:text-gray-400 focus:border-brand-300 focus:outline-hidden focus:ring-3 focus:ring-brand-500/10 dark:border-gray-700 dark:bg-gray-900 dark:text-white/90" />
 
                     @error('currentPassword')
@@ -111,11 +111,11 @@
 
                 <div>
                     <label class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400">
-                        New Password
+                        {{ __('settings.new_password') }}
                     </label>
 
                     <input name="newPassword" value="{{ old('newPassword') }}" type="password"
-                        placeholder="Enter new password"
+                        placeholder="{{ __('settings.new_password_placeholder') }}"
                         class="h-11 w-full rounded-lg border border-gray-300 bg-transparent px-4 py-2.5 text-sm text-gray-800 shadow-theme-xs placeholder:text-gray-400 focus:border-brand-300 focus:outline-hidden focus:ring-3 focus:ring-brand-500/10 dark:border-gray-700 dark:bg-gray-900 dark:text-white/90" />
 
                     @error('newPassword')
@@ -125,11 +125,11 @@
 
                 <div>
                     <label class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400">
-                        Confirm Password
+                        {{ __('settings.confirm_password') }}
                     </label>
 
                     <input name="confirmPassword" value="{{ old('confirmPassword') }}" type="password"
-                        placeholder="Confirm new password"
+                        placeholder="{{ __('settings.confirm_password_placeholder') }}"
                         class="h-11 w-full rounded-lg border border-gray-300 bg-transparent px-4 py-2.5 text-sm text-gray-800 shadow-theme-xs placeholder:text-gray-400 focus:border-brand-300 focus:outline-hidden focus:ring-3 focus:ring-brand-500/10 dark:border-gray-700 dark:bg-gray-900 dark:text-white/90" />
 
                     @error('confirmPassword')
@@ -140,12 +140,12 @@
                 <div class="mt-4 flex items-center justify-end gap-3">
                     <button type="button" @click="open = false"
                         class="rounded-lg border border-gray-300 bg-white px-4 py-2.5 text-sm font-medium text-gray-700 hover:bg-gray-50 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400">
-                        Cancel
+                        {{ __('common.cancel') }}
                     </button>
 
                     <button type="submit"
                         class="rounded-lg bg-main px-4 py-2.5 text-sm font-medium text-white hover:bg-main-hover">
-                        Update Password
+                        {{ __('settings.update_password_button') }}
                     </button>
                 </div>
 
@@ -174,12 +174,11 @@
 
             <div @open-delete-modal.window="clearModal()" class="mb-6">
                 <h4 class="mb-2 text-2xl font-semibold text-red-600">
-                    Delete Account
+                    {{ __('settings.delete_account') }}
                 </h4>
 
                 <p class="text-sm text-gray-500 dark:text-gray-400">
-                    This action cannot be undone. All your data will be permanently deleted.
-                    Please enter your password to confirm.
+                    {{ __('settings.delete_account_warning') }}
                 </p>
             </div>
 
@@ -191,10 +190,10 @@
 
                 <div>
                     <label class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400">
-                        Password
+                        {{ __('common.password') }}
                     </label>
 
-                    <input name="password" type="password" placeholder="Enter your password"
+                    <input name="password" type="password" placeholder="{{ __('auth.enter_password') }}"
                         class="h-11 w-full rounded-lg border border-gray-300 bg-transparent px-4 py-2.5 text-sm text-gray-800 shadow-theme-xs placeholder:text-gray-400 focus:border-red-300 focus:outline-hidden focus:ring-3 focus:ring-red-500/10 dark:border-gray-700 dark:bg-gray-900 dark:text-white/90" />
 
                     @error('password')
@@ -206,13 +205,13 @@
 
                     <button type="button" @click="open = false"
                         class="rounded-lg border border-gray-300 bg-white px-4 py-2.5 text-sm font-medium text-gray-700 hover:bg-gray-50 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400">
-                        Cancel
+                        {{ __('common.cancel') }}
                     </button>
 
                     <button type="submit" {{-- onclick="event.preventDefault(); this.closest('form').submit();" --}} {{-- onclick="return confirm('Are you sure want to delete this account?')" --}} {{-- onclick="return {{ confirmDelete('Are you sure want to delete this account?') }}" --}}
                         data-confirm-delete="true"
                         class="rounded-lg bg-red-600 px-4 py-2.5 text-sm font-medium text-white hover:bg-red-700">
-                        Delete Account
+                        {{ __('settings.delete_account') }}
                     </button>
 
                 </div>
