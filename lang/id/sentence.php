@@ -141,6 +141,7 @@ return [
     'max_allocation_error' => 'Alokasi maksimal 100%',
     'target_amount' => 'Jumlah Target',
     'bio_placeholder' => 'Tulis bio Anda di sini...',
+    'view_all_notifications' => 'Lihat Semua Notifikasi',
 
     // Landing Page
     'landing_page_title' => 'Ambil kendali atas keuangan Anda dengan mudah.',
@@ -298,4 +299,9 @@ return [
     'financial_tracker_report' => 'Laporan Pelacakan Keuangan',
     'no_transactions_found' => 'Tidak ada transaksi ditemukan.',
     'total_transaction_amount' => 'Total Jumlah Transaksi',
+
+    'time_just_now' => 'baru saja',
+    'time_minutes_ago' => ':count menit lalu',
+    'time_hours_ago' => ':count jam lalu',
+    'time_days_ago' => ':count hari lalu',
 ];
