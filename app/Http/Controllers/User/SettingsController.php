@@ -11,7 +11,10 @@ class SettingsController extends Controller
 {
     public function index() {
         confirmDelete(__('settings.delete_account_confirm'));
-        return(view('pages.user.settings', ['title' => __('nav.settings')]));
+        return(view('pages.user.settings',[
+            'title' => __('nav.settings'),
+            'pushEnabled' => Auth::user()->pushSubscriptions()->exists()
+        ]));
     }
 
     public function changePassword(Request $request){
@@ -20,7 +23,7 @@ class SettingsController extends Controller
             'newPassword' => ['required', 'different:currentPassword'],
             'confirmPassword' => ['required', 'same:newPassword']
         ]);
-        
+
         $user = Auth::user();
 
         if(!Hash::check($request->currentPassword, $user->password)){
@@ -40,7 +43,7 @@ class SettingsController extends Controller
         $request->validate([
             'password' => ['required'],
         ]);
-        
+
         $user = Auth::user();
 
         if(!Hash::check($request->password, $user->password)){

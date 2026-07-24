@@ -19,4 +19,5 @@ return [
     'confirm_password' => 'Konfirmasi Kata Sandi',
     'confirm_password_placeholder' => 'Masukkan ulang kata sandi baru',
     'update_password_button' => 'Perbarui Kata Sandi',
+    'delete_account_warning' => 'Tindakan ini tidak dapat dibatalkan. Seluruh data Anda akan dihapus secara permanen. Masukkan kata sandi Anda untuk konfirmasi.',
 ];

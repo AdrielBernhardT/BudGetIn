@@ -19,4 +19,5 @@ return [
     'confirm_password' => 'Confirm Password',
     'confirm_password_placeholder' => 'Re-enter new password',
     'update_password_button' => 'Update Password',
+    'delete_account_warning' => 'This action cannot be undone. All your data will be permanently deleted. Please enter your password to confirm.',
 ];
