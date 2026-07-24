@@ -1,23 +1,38 @@
 @props([
     'id' => 'datepicker-' . uniqid(),
     'mode' => 'single', // 'single', 'multiple', 'range', 'time'
+    'picker' => 'day', // 'day', 'month', 'year'
     'defaultDate' => null,
     'label' => null,
     'placeholder' => 'Select date',
     'name' => null,
-    'dateFormat' => 'd-m-Y',
+    'dateFormat' => null,
+    'altFormat' => null,
 ])
+
+@php
+    $finalDateFormat = $dateFormat ?? 'Y-m-d';
+
+    $finalAltFormat = $altFormat ?? match ($picker) {
+        'month' => 'F Y',
+        default => 'd F Y',
+    };
+
+    $defaultDate = $defaultDate ?? now()->format($finalDateFormat);
+@endphp
 
 <div x-data="{
     flatpickrInstance: null,
     init() {
         this.$nextTick(() => {
-            this.flatpickrInstance = flatpickr(this.$refs.dateInput, {
-                mode: '{{ $mode }}',
+            let config = {
+                mode: @js($mode),
                 static: true,
                 monthSelectorType: 'static',
-                dateFormat: '{{ $dateFormat }}',
-                defaultDate: {{ $defaultDate ? (is_array($defaultDate) ? json_encode($defaultDate) : "'" . $defaultDate . "'") : 'null' }},
+                dateFormat: @js($finalDateFormat),
+                altInput: true,
+                altFormat: @js($finalAltFormat),
+                defaultDate: @js($defaultDate),
                 onChange: (selectedDates, dateStr, instance) => {
                     this.$dispatch('date-change', {
                         selectedDates,
@@ -25,7 +40,19 @@
                         instance
                     });
                 }
-            });
+            };
+
+            if (@js($picker) === 'month') {
+                config.plugins = [
+                    new monthSelectPlugin({
+                        shorthand: false,
+                        dateFormat: @js($finalDateFormat),
+                        altFormat: @js($finalAltFormat)
+                    })
+                ];
+            }
+
+            this.flatpickrInstance = flatpickr(this.$refs.dateInput, config);
         });
     },
     destroy() {
@@ -48,6 +75,7 @@
             id="{{ $id }}"
             name="{{ $name }}"
             placeholder="{{ $placeholder }}"
+            {{ $attributes }}
             class="h-11 w-full rounded-lg border appearance-none px-4 py-2.5 text-sm shadow-theme-xs placeholder:text-gray-400 focus:outline-hidden focus:ring-3 dark:bg-gray-900 dark:text-white/90 dark:placeholder:text-white/30 bg-transparent text-gray-800 border-gray-300 focus:border-brand-300 focus:ring-brand-500/20 dark:border-gray-700 dark:focus:border-brand-800"
             autocomplete="off"
         />

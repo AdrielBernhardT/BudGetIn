@@ -1,172 +1,175 @@
 @extends('layouts.app')
 
 @section('content')
-    <x-common.page-breadcrumb pageTitle="Alerts" />
+    <x-common.page-breadcrumb pageTitle="{{ __('nav.alerts') }}" />
 
     <div class="space-y-5 sm:space-y-6">
         {{-- Success Alert --}}
-        <x-common.component-card title="Success Alert">
+        <x-common.component-card title="{{ __('alerts.success_alert') }}">
             <div class="space-y-4">
                 <x-ui.alert
                     variant="success"
-                    title="Success Message"
-                    message="Be cautious when performing this action."
+                    title="{{ __('alerts.success_message') }}"
+                    message="{{ __('alerts.be_cautious_message') }}"
                     :showLink="true"
                     linkHref="/"
-                    linkText="Learn more"
+                    linkText="{{ __('alerts.learn_more') }}"
                 />
 
                 <x-ui.alert
                     variant="success"
-                    title="Success Message"
-                    message="Be cautious when performing this action."
+                    title="{{ __('alerts.success_message') }}"
+                    message="{{ __('alerts.be_cautious_message') }}"
                     :showLink="false"
                 />
             </div>
         </x-common.component-card>
 
         {{-- Warning Alert --}}
-        <x-common.component-card title="Warning Alert">
+        <x-common.component-card title="{{ __('alerts.warning_alert') }}">
             <div class="space-y-4">
                 <x-ui.alert
                     variant="warning"
-                    title="Warning Message"
-                    message="Be cautious when performing this action."
+                    title="{{ __('alerts.warning_message') }}"
+                    message="{{ __('alerts.be_cautious_message') }}"
                     :showLink="true"
                     linkHref="/"
-                    linkText="Learn more"
+                    linkText="{{ __('alerts.learn_more') }}"
                 />
 
                 <x-ui.alert
                     variant="warning"
-                    title="Warning Message"
-                    message="Be cautious when performing this action."
+                    title="{{ __('alerts.warning_message') }}"
+                    message="{{ __('alerts.be_cautious_message') }}"
                     :showLink="false"
                 />
             </div>
         </x-common.component-card>
 
         {{-- Error Alert --}}
-        <x-common.component-card title="Error Alert">
+        <x-common.component-card title="{{ __('alerts.error_alert') }}">
             <div class="space-y-4">
                 <x-ui.alert
                     variant="error"
-                    title="Error Message"
-                    message="Be cautious when performing this action."
+                    title="{{ __('alerts.error_message') }}"
+                    message="{{ __('alerts.be_cautious_message') }}"
                     :showLink="true"
                     linkHref="/"
-                    linkText="Learn more"
+                    linkText="{{ __('alerts.learn_more') }}"
                 />
 
                 <x-ui.alert
                     variant="error"
-                    title="Error Message"
-                    message="Be cautious when performing this action."
+                    title="{{ __('alerts.error_message') }}"
+                    message="{{ __('alerts.be_cautious_message') }}"
                     :showLink="false"
                 />
             </div>
         </x-common.component-card>
 
         {{-- Info Alert --}}
-        <x-common.component-card title="Info Alert">
+        <x-common.component-card title="{{ __('alerts.info_alert') }}">
             <div class="space-y-4">
                 <x-ui.alert
                     variant="info"
-                    title="Info Message"
-                    message="Be cautious when performing this action."
+                    title="{{ __('alerts.info_message') }}"
+                    message="{{ __('alerts.be_cautious_message') }}"
                     :showLink="true"
                     linkHref="/"
-                    linkText="Learn more"
+                    linkText="{{ __('alerts.learn_more') }}"
                 />
 
                 <x-ui.alert
                     variant="info"
-                    title="Info Message"
-                    message="Be cautious when performing this action."
+                    title="{{ __('alerts.info_message') }}"
+                    message="{{ __('alerts.be_cautious_message') }}"
                     :showLink="false"
                 />
             </div>
         </x-common.component-card>
 
         {{-- Additional Examples --}}
-        <x-common.component-card title="Alert Variations">
+        <x-common.component-card title="{{ __('alerts.alert_variations') }}">
             <div class="space-y-4">
                 {{-- With Slot Content --}}
-                <x-ui.alert variant="success" title="Custom Content Alert">
+                <x-ui.alert variant="success" title="{{ __('alerts.custom_content_alert') }}">
                     <p class="text-sm text-gray-500 dark:text-gray-400">
-                        This alert uses <strong class="text-gray-900 dark:text-white">custom slot content</strong>
-                        instead of the message prop.
+                        {!! __('alerts.custom_content_description', [
+                            'slot' => '<strong class="text-gray-900 dark:text-white">' . __('alerts.custom_content_slot_label') . '</strong>',
+                        ]) !!}
                     </p>
                     <ul class="mt-2 text-sm text-gray-500 dark:text-gray-400 list-disc list-inside">
-                        <li>You can add any HTML content</li>
-                        <li>Including lists and formatting</li>
-                        <li>Perfect for complex messages</li>
+                        <li>{{ __('alerts.custom_content_point_1') }}</li>
+                        <li>{{ __('alerts.custom_content_point_2') }}</li>
+                        <li>{{ __('alerts.custom_content_point_3') }}</li>
                     </ul>
-                </x-alert>
+                </x-ui.alert>
 
                 {{-- Minimal Alert --}}
                 <x-ui.alert
                     variant="info"
-                    title="Quick Info"
-                    message="Sometimes you just need a simple message."
+                    title="{{ __('alerts.quick_info') }}"
+                    message="{{ __('alerts.quick_info_message') }}"
                 />
 
                 {{-- Alert with Long Message --}}
                 <x-ui.alert
                     variant="warning"
-                    title="Important Notice"
-                    message="This is a longer message that provides more detailed information about the warning. You should read this carefully before proceeding with your action."
+                    title="{{ __('alerts.important_notice') }}"
+                    message="{{ __('alerts.important_notice_message') }}"
                     :showLink="true"
                     linkHref="/docs"
-                    linkText="View documentation"
+                    linkText="{{ __('alerts.view_documentation') }}"
                 />
             </div>
         </x-common.component-card>
 
         {{-- Interactive Demo --}}
-        <x-common.component-card title="Real-World Examples">
+        <x-common.component-card title="{{ __('alerts.real_world_examples') }}">
             <div class="space-y-4">
                 {{-- Payment Success --}}
-                <x-ui.alert variant="success" title="Payment Successful">
+                <x-ui.alert variant="success" title="{{ __('alerts.payment_successful') }}">
                     <p class="text-sm text-gray-500 dark:text-gray-400 mb-2">
-                        Your payment of <strong class="text-gray-900 dark:text-white">$99.00</strong> has been processed successfully.
+                        {!! __('alerts.payment_successful_message', [
+                            'amount' => '<strong class="text-gray-900 dark:text-white">$99.00</strong>',
+                        ]) !!}
                     </p>
                     <div class="text-sm text-gray-500 dark:text-gray-400">
-                        <p><strong>Order ID:</strong> #TAILADMIN-0014</p>
-                        <p><strong>Transaction ID:</strong> TXN-1234567890</p>
+                        <p><strong>{{ __('alerts.order_id') }}</strong> #TAILADMIN-0014</p>
+                        <p><strong>{{ __('alerts.transaction_id') }}</strong> TXN-1234567890</p>
                     </div>
                     <a href="/orders" class="inline-block mt-3 text-sm font-medium text-green-600 dark:text-green-400 underline hover:text-green-700">
-                        View Order Details
+                        {{ __('alerts.view_order_details') }}
                     </a>
-                </x-alert>
+                </x-ui.alert>
 
                 {{-- Account Warning --}}
                 <x-ui.alert
                     variant="warning"
-                    title="Your trial is ending soon"
-                    message="Your 14-day trial will expire in 3 days. Upgrade now to continue using all features."
+                    title="{{ __('alerts.trial_ending_soon') }}"
+                    message="{{ __('alerts.trial_ending_message') }}"
                     :showLink="true"
                     linkHref="/billing"
-                    linkText="Upgrade now"
+                    linkText="{{ __('alerts.upgrade_now') }}"
                 />
 
                 {{-- Validation Error --}}
-                <x-ui.alert variant="error" title="Form Validation Failed">
+                <x-ui.alert variant="error" title="{{ __('alerts.form_validation_failed') }}">
                     <ul class="text-sm text-gray-500 dark:text-gray-400 list-disc list-inside space-y-1">
-                        <li>Email field is required</li>
-                        <li>Password must be at least 8 characters</li>
-                        <li>Please accept the terms and conditions</li>
+                        <li>{{ __('alerts.validation_email_required') }}</li>
+                        <li>{{ __('alerts.validation_password_min') }}</li>
+                        <li>{{ __('alerts.validation_accept_terms') }}</li>
                     </ul>
-                </x-alert>
+                </x-ui.alert>
 
                 {{-- System Info --}}
                 <x-ui.alert
                     variant="info"
-                    title="Scheduled Maintenance"
-                    message="Our system will undergo maintenance on November 15, 2025 from 2:00 AM to 4:00 AM EST. Some features may be unavailable during this time."
+                    title="{{ __('alerts.scheduled_maintenance') }}"
+                    message="{{ __('alerts.scheduled_maintenance_message') }}"
                     :showLink="true"
                     linkHref="/status"
-                    linkText="Check status page"
+                    linkText="{{ __('alerts.check_status_page') }}"
                 />
             </div>
         </x-common.component-card>

@@ -1,12 +1,15 @@
 @extends('layouts.app')
 
 @section('content')
-    <x-common.page-breadcrumb pageTitle="Income" />
+    <x-common.page-breadcrumb pageTitle="{{ __('nav.income') }}" />
     <div
         class="min-h-screen rounded-2xl border border-gray-200 bg-white px-5 py-7 dark:border-gray-800 dark:bg-white/[0.03] xl:px-10 xl:py-12">
         <div x-data="incomePage()">
+            @if ($accounts->isEmpty())
+                <x-income.no-account-card />
+            @endif
             <div class="rounded-2xl border border-gray-200 bg-white pt-4 dark:border-gray-800 dark:bg-white/[0.03]">
-                <x-income.header />
+                <x-income.header :accounts="$accounts" />
                 <x-income.table />
                 <x-income.pagination />
             </div>
@@ -20,6 +23,7 @@
         function incomePage() {
             return {
                 incomes: @js($incomes),
+                accounts: @js($accounts),
                 itemsPerPage: 5,
                 currentPage: 1,
                 dropdownOpen: null,

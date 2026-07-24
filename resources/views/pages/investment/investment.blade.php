@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <x-common.page-breadcrumb pageTitle="Investment" />
+    <x-common.page-breadcrumb pageTitle="{{ __('nav.investment') }}" />
 
     <div x-data="investmentPage()">
         <x-investment.top-summary :datas="$datas" />
@@ -11,17 +11,17 @@
                 <button @click="tab='allocation'"
                     :class="tab === 'allocation' ? 'border-b-2 border-main text-main' : 'text-gray-500 dark:text-gray-400'"
                     class="pb-2 text-theme-sm font-medium transition-colors duration-300">
-                    Allocation
+                    {{ __('common.allocation') }}
                 </button>
                 <button @click="tab='goals'"
                     :class="tab === 'goals' ? 'border-b-2 border-main text-main' : 'text-gray-500 dark:text-gray-400'"
                     class="pb-2 text-theme-sm font-medium transition-colors duration-300">
-                    Goals
+                    {{ __('common.goals') }}
                 </button>
                 <button @click="tab='history'"
                     :class="tab === 'history' ? 'border-b-2 border-main text-main' : 'text-gray-500 dark:text-gray-400'"
                     class="pb-2 text-theme-sm font-medium transition-colors duration-300">
-                    History
+                    {{ __('common.history') }}
                 </button>
             </div>
             <div class="flex flex-col gap-2 lg:flex-row lg:w-auto">
@@ -29,18 +29,18 @@
                     <button @click="$dispatch('add-goal')"
                         class="w-full lg:w-auto whitespace-nowrap justify-center inline-flex items-center gap-3 rounded-lg border border-gray-300 bg-white/90 px-4 py-2 text-theme-xs md:text-theme-sm font-medium text-gray-800 shadow-theme-xs hover:bg-gray-50 hover:text-gray-800 dark:border-gray-700 dark:bg-white/[0.03] dark:text-white dark:hover:bg-white/[0.07] dark:hover:text-white/90">
                         <i data-lucide="goal" class="w-3 h-3 md:w-4 md:h-4 shrink-0 text-gray-800 dark:text-white"></i>
-                        Add Goal
+                        {{__('sentence.add_goal')}}
                     </button>
                     <button @click="$dispatch('add-investment')"
                         class="w-full lg:w-auto whitespace-nowrap justify-center inline-flex items-center gap-3 rounded-lg border border-gray-300 bg-white/90 px-4 py-2 text-theme-xs md:text-theme-sm font-medium text-gray-800 shadow-theme-xs hover:bg-gray-50 hover:text-gray-800 dark:border-gray-700 dark:bg-white/[0.03] dark:text-white dark:hover:bg-white/[0.07] dark:hover:text-white/90">
                         <i data-lucide="plus" class="w-3 h-3 md:w-4 md:h-4 shrink-0 text-gray-800 dark:text-white"></i>
-                        Add Investment
+                        {{ __('sentence.add_investment') }}
                     </button>
                 </div>
                 <button @click="$dispatch('record-investment')"
                     class="w-full lg:w-auto whitespace-nowrap justify-center inline-flex items-center gap-3 rounded-lg border border-gray-300 bg-main px-4 py-2 text-theme-xs md:text-theme-sm font-medium text-white shadow-theme-xs hover:bg-main-hover hover:text-white/90 dark:border-gray-700 dark:bg-main dark:text-white dark:hover:bg-main-hover dark:hover:text-white/90">
                     <i data-lucide="pencil-line" class="w-3 h-3 md:w-4 md:h-4 shrink-0 text-white dark:text-white"></i>
-                    Record Investment
+                    {{ __('sentence.record_investment') }}
                 </button>
             </div>
         </div>
@@ -50,16 +50,17 @@
                 <x-investment.allocation.allocation :goals="$goals" :datas="$datas" />
             </div>
             <div x-show="tab === 'goals'">
-                {{-- <x-investment.goals.goals :datas="$goals" /> --}}
+                <x-investment.goals.goals :targets="$datas['targets']" />
             </div>
             <div x-show="tab === 'history'">
-                Transaction History content goes here...
+                <x-investment.history.history :histories="$histories" />
             </div>
         </div>
 
         <x-investment.add-goal-modal />
         <x-investment.add-investment-modal :goals="$goals" />
         <x-investment.record-investment-modal :goals="$goals" :accounts="$accounts" />
+        <x-investment.allocation.edit-modal :goals="$goals" />
     </div>
 
 @endsection
@@ -67,8 +68,24 @@
 @push('scripts')
     <script>
         function investmentPage() {
+            const today = new Date();
             return {
                 tab: 'allocation',
+                filterType: 'day',
+                selectedDate: today.toISOString().slice(0, 10),
+                selectedMonth: today.toISOString().slice(0, 7),
+                printHistory() {
+                    const params = new URLSearchParams({
+                        filter: this.filterType,
+                        date: this.selectedDate,
+                        month: this.selectedMonth,
+                    });
+
+                    window.open(
+                        `/investment/print/record-investment?${params.toString()}`,
+                        "_blank"
+                    );
+                },
                 formatRupiah(value) {
                     value = value.toString();
                     let number = value.replace(/[^,\d]/g, '').toString();

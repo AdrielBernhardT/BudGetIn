@@ -1,25 +1,27 @@
 <?php
 
+use App\Http\Controllers\Auth\GoogleController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\OTPController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\ResetPasswordController;
-use App\Http\Controllers\Investment\GoalController;
-use App\Http\Controllers\Investment\RecordInvestmentController;
-use App\Http\Controllers\Transaction\CategoryController;
+use App\Http\Controllers\Dashboard\AccountController;
 use App\Http\Controllers\Dashboard\DashboardController;
-use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Investment\GoalController;
 use App\Http\Controllers\Investment\InvestmentController;
+use App\Http\Controllers\Investment\RecordInvestmentController;
 use App\Http\Controllers\Landing\LandingController;
-use App\Http\Controllers\User\ProfileControlller;
+use App\Http\Controllers\Language\LanguageController;
+use App\Http\Controllers\NotificationController;
+use App\Http\Controllers\PushSubscriptionController;
 use App\Http\Controllers\Report\ReportController;
-use App\Http\Controllers\User\SettingsController;
+use App\Http\Controllers\Transaction\CategoryController;
 use App\Http\Controllers\Transaction\ExpenseController;
 use App\Http\Controllers\Transaction\IncomeController;
 use App\Http\Controllers\Transaction\TransferController;
-use App\Http\Controllers\Auth\GoogleController;
-use App\Http\Controllers\NotificationController;
-use App\Http\Controllers\PushSubscriptionController;
+use App\Http\Controllers\User\ProfileControlller;
+use App\Http\Controllers\User\SettingsController;
+use Illuminate\Support\Facades\Route;
 
 // // dashboard pages
 // Route::get('/', function () {
@@ -94,6 +96,10 @@ Route::get('/videos', function () {
     return view('pages.ui-elements.videos', ['title' => 'Videos']);
 })->name('videos');
 
+Route::get('/test', function () {
+    return view('pages.dashboard.ecommerce', ['title' => 'test']);
+})->name('test');
+
 // Landing Page
 Route::get('/logout', [LoginController::class, 'destroy'])->name('logout');
 
@@ -121,6 +127,14 @@ Route::post('/reset-password', [ResetPasswordController::class, 'resetPassword']
 Route::middleware(['auth'])->group(function(){
     // Dashboard
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+
+    // Account
+    Route::prefix('/account')->as('account.')->group(function(){
+        // Investment
+        Route::post('/store', [AccountController::class, 'store'])->name('store');
+        Route::delete('/delete/{id}', [AccountController::class, 'destroy'])->name('delete');
+        Route::post('/update/{id}', [AccountController::class, 'update'])->name('update');
+    });
 
     // Verify Account
     Route::prefix('/verify-account')->as('verify.')->group(function(){
@@ -169,13 +183,21 @@ Route::middleware(['auth'])->group(function(){
 
         // Goal
         Route::post('/store/goal', [GoalController::class, 'store'])->name('goal.store');
+        Route::post('/update/goal/{id}', [GoalController::class, 'update'])
+        ->name('goal.update');
+        Route::delete('/delete/goal/{id}', [GoalController::class, 'destroy'])
+            ->name('goal.delete');
 
         // Record
         Route::post('/store/record-investment', [RecordInvestmentController::class, 'store'])->name('record-investment.store');
+        Route::get('/print/record-investment', [RecordInvestmentController::class, 'print'])->name('record-investment.print');
     });
 
     // Report
-    Route::get('/report', [ReportController::class, 'index'])->name('report');
+    Route::prefix('/report')->as('report.')->group(function () {
+        Route::get('/', [ReportController::class, 'index'])->name('index');
+        Route::get('/print', [ReportController::class, 'print'])->name('print');
+    });
 
     // Notifications (in-app bell icon)
     Route::prefix('/notifications')->as('notifications.')->group(function(){
@@ -206,3 +228,8 @@ Route::middleware(['auth'])->group(function(){
     });
 
 });
+
+// Locale Switcher
+Route::get('/locale/{locale}', [LanguageController::class, 'switch'])
+    ->whereIn('locale', ['en', 'id', 'zh'])
+    ->name('locale.switch');

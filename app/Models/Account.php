@@ -12,13 +12,25 @@ class Account extends Model
         'user_id',
         'name',
         'balance',
+        'account_identifier'
     ];
 
     public function user(){
         return $this->belongsTo(User::class);
     }
 
-    public function transaction(){
-        return $this->hasMany(Transaction::class);
+    public function outgoingTransactions()
+    {
+        return $this->hasMany(Transaction::class, 'from_account_id');
+    }
+
+    public function incomingTransactions()
+    {
+        return $this->hasMany(Transaction::class, 'to_account_id');
+    }
+
+    public function investmentRecords()
+    {
+        return $this->hasMany(RecordInvestment::class);
     }
 }

@@ -48,16 +48,16 @@
     >
         <!-- Dropdown Header -->
         <div class="flex items-center justify-between pb-3 mb-3 border-b border-gray-100 dark:border-gray-800">
-            <h5 class="text-lg font-semibold text-gray-800 dark:text-white/90">Notification</h5>
+            <h5 class="text-lg font-semibold text-gray-800 dark:text-white/90">{{ __('nav.notifications') }}</h5>
 
             <div class="flex items-center gap-3">
-                <button
+               <button
                     x-show="unreadCount > 0"
                     @click="markAllAsRead()"
                     type="button"
                     class="text-xs font-medium text-main hover:underline"
                 >
-                    Mark all as read
+                    {{ __('sentence.mark_all_as_read') }}
                 </button>
 
                 <button @click="closeDropdown()" class="text-gray-500 dark:text-gray-400" type="button">
@@ -109,7 +109,7 @@
             </template>
 
             <li x-show="!loading && notifications.length === 0" class="py-10 text-sm text-center text-gray-400 dark:text-gray-500">
-                No notifications yet.
+                {{ __('sentence.no_notifications_yet') }}
             </li>
         </ul>
 
@@ -118,7 +118,7 @@
             href="{{ route('notifications.index') }}"
             class="mt-3 flex justify-center rounded-lg border border-gray-300 bg-white p-3 text-theme-sm font-medium text-gray-700 shadow-theme-xs hover:bg-gray-50 hover:text-gray-800 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-white/[0.03] dark:hover:text-gray-200"
         >
-            View All Notifications
+            {{ __('sentence.all_notifications') }}
         </a>
     </div>
     <!-- Dropdown End -->
@@ -132,6 +132,12 @@ function notificationDropdown() {
         notifications: [],
         unreadCount: 0,
         pollTimer: null,
+        i18n: {
+            justNow: @js(__('sentence.time_just_now')),
+            minutesAgo: @js(__('sentence.time_minutes_ago')),
+            hoursAgo: @js(__('sentence.time_hours_ago')),
+            daysAgo: @js(__('sentence.time_days_ago')),
+        },
 
         init() {
             this.fetchFeed();
@@ -192,13 +198,13 @@ function notificationDropdown() {
 
         timeAgo(dateStr) {
             const seconds = Math.floor((Date.now() - new Date(dateStr).getTime()) / 1000);
-            if (seconds < 60) return 'just now';
+            if (seconds < 60) return this.i18n.justNow;
             const minutes = Math.floor(seconds / 60);
-            if (minutes < 60) return `${minutes} minutes ago`;
+            if (minutes < 60) return this.i18n.minutesAgo.replace(':count', minutes);
             const hours = Math.floor(minutes / 60);
-            if (hours < 24) return `${hours} hours ago`;
+            if (hours < 24) return this.i18n.hoursAgo.replace(':count', hours);
             const days = Math.floor(hours / 24);
-            return `${days} days ago`;
+            return this.i18n.daysAgo.replace(':count', days);
         },
 
         iconFor(category) {

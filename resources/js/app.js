@@ -5,6 +5,8 @@ import ApexCharts from 'apexcharts';
 // flatpickr
 import flatpickr from 'flatpickr';
 import 'flatpickr/dist/flatpickr.min.css';
+import monthSelectPlugin from "flatpickr/dist/plugins/monthSelect";
+import "flatpickr/dist/plugins/monthSelect/style.css";
 // FullCalendar
 import { Calendar } from '@fullcalendar/core';
 
@@ -15,6 +17,7 @@ import './push-notifications';
 window.Alpine = Alpine;
 window.ApexCharts = ApexCharts;
 window.flatpickr = flatpickr;
+window.monthSelectPlugin = monthSelectPlugin;
 window.FullCalendar = Calendar;
 window.createIcons = () => createIcons({ icons });;
 
@@ -26,6 +29,8 @@ if ('serviceWorker' in navigator) {
 // initial render
 window.createIcons();
 
+import statisticsChart from './components/chart/statisticsChart';
+Alpine.data("statisticsChart", statisticsChart);
 Alpine.start();
 
 // Initialize components on DOM ready
