@@ -297,4 +297,8 @@ return [
     'push_not_supported' => 'Your browser does not support Web Push notifications.',
     'push_vapid_key_missing' => 'VAPID public key has not been configured on the server.',
     'push_permission_denied' => 'Notification permission was not granted.',
+
+    'financial_tracker_report' => 'Financial Tracker Report',
+    'no_transactions_found' => 'No transactions found.',
+    'total_transaction_amount' => 'Total Transaction Amount',
 ];

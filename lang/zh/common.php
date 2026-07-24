@@ -73,4 +73,7 @@ return [
     'total' => '总计',
     'record' => '记录',
     'print' => '打印',
+    'report_type' => '报表类型',
+    'all_period' => '所有时段',
+    'data' => '数据',
 ];
