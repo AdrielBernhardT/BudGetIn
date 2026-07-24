@@ -36,7 +36,7 @@
                                         </label>
 
                                         <p class="mb-4 text-sm text-gray-500 dark:text-gray-400">
-                                            {{ __('auth.verification_code_instruction') }}
+                                            {{ __('auth.verification_code_instruction') }} {{ $user->email }}
                                         </p>
 
                                         <div

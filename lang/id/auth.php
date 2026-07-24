@@ -31,7 +31,7 @@ return [
     'verify_account_title' => 'Verifikasi Akun Anda',
     'verification_failed' => 'Verifikasi Gagal!',
     'verification_code' => 'Kode Verifikasi',
-    'verification_code_instruction' => 'Masukkan kode 6 digit yang dikirim ke alamat email Anda.',
+    'verification_code_instruction' => 'Masukkan kode 6 digit yang dikirim ke',
     'verify_otp' => 'Verifikasi OTP',
     'otp_not_received' => 'Tidak menerima kode?',
     'resend_available_in' => 'Kirim ulang tersedia dalam',
