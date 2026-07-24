@@ -31,7 +31,7 @@ return [
     'verify_account_title' => '验证您的账户',
     'verification_failed' => '验证失败！',
     'verification_code' => '验证码',
-    'verification_code_instruction' => '请输入发送到您邮箱的 6 位验证码。',
+    'verification_code_instruction' => '请输入发送至以下邮箱的 6 位验证码',
     'verify_otp' => '验证 OTP',
     'otp_not_received' => '没有收到验证码？',
     'resend_available_in' => '重新发送倒计时',

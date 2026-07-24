@@ -142,7 +142,7 @@
 
 <body>
 
-@php(\Carbon\Carbon::setLocale('id'))
+@php(\Carbon\Carbon::setLocale(app()->getLocale()))
 
 <div class="watermark">BUDGETIN</div>
 
@@ -167,7 +167,7 @@
 
             <td align="right">
                 <strong>{{ __('common.generated') }} :</strong><br>
-                {{ now()->format('d F Y H:i') }}
+                {{ now()->translatedFormat('d F Y H:i') }}
             </td>
 
         </tr>
@@ -209,9 +209,9 @@
             <strong>{{ __('common.period') }} :</strong>
 
             @if($filter=="day")
-                {{ \Carbon\Carbon::parse($selectedDate)->format('d F Y') }}
+                {{ \Carbon\Carbon::parse($selectedDate)->translatedFormat('d F Y') }}
             @else
-                {{ \Carbon\Carbon::parse($selectedMonth.'-01')->format('F Y') }}
+                {{ \Carbon\Carbon::parse($selectedMonth.'-01')->translatedFormat('F Y') }}
             @endif
 
         </td>
@@ -303,7 +303,7 @@
             </td>
 
             <td class="text-center">
-                {{ \Carbon\Carbon::parse($record->date)->format('d M Y') }}
+                {{ \Carbon\Carbon::parse($record->date)->translatedFormat('d M Y') }}
             </td>
 
             <td>

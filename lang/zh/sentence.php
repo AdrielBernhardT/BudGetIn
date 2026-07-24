@@ -297,4 +297,8 @@ return [
     'push_not_supported' => '您的浏览器不支持网页推送通知。',
     'push_vapid_key_missing' => '服务器尚未配置 VAPID 公钥。',
     'push_permission_denied' => '未获得通知权限。',
+
+    'financial_tracker_report' => '财务追踪报告',
+    'no_transactions_found' => '未找到交易记录。',
+    'total_transaction_amount' => '交易总金额',
 ];
