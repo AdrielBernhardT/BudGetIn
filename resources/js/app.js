@@ -12,6 +12,7 @@ import { Calendar } from '@fullcalendar/core';
 
 import { createIcons, icons } from 'lucide';
 import './push-notifications';
+import './push-toggle';
 
 
 window.Alpine = Alpine;

@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <x-common.page-breadcrumb pageTitle=" {{ __('nav.settings') }}" />
+    <x-common.page-breadcrumb pageTitle="{{ __('nav.settings') }}" />
 
     <div class="rounded-2xl border border-gray-200 bg-white p-5 dark:border-gray-800 dark:bg-white/[0.03] lg:p-6">
 
@@ -35,8 +35,17 @@
                 </p>
             </div>
 
-            <label class="relative inline-flex cursor-pointer items-center">
-                <input type="checkbox" class="peer sr-only" checked>
+            <label
+                x-data="pushToggle({
+                    initialSubscribed: @js($pushEnabled),
+                    notSupportedMessage: @js(__('settings.push_not_supported')),
+                    failedMessage: @js(__('settings.push_toggle_failed')),
+                })"
+                x-init="init()"
+                :class="{ 'opacity-50 pointer-events-none': loading }"
+                class="relative inline-flex cursor-pointer items-center"
+            >
+                <input type="checkbox" class="peer sr-only" x-model="subscribed" @change="toggle()" :disabled="loading">
 
                 <div
                     class="peer h-7 w-12 rounded-full bg-gray-300 transition-all
