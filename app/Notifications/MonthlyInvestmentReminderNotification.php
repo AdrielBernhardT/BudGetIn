@@ -26,7 +26,7 @@ class MonthlyInvestmentReminderNotification extends Notification implements Shou
      */
     public function via(object $notifiable): array
     {
-        return ['mail', 'database', WebPushChannel::class];
+        return ['database', 'mail', WebPushChannel::class];
     }
 
     protected function monthLabel(): string
