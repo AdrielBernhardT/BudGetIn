@@ -28,7 +28,7 @@ class GoalDeadlineApproachingNotification extends Notification implements Should
 
     protected function dayLabel(): string
     {
-        return $this->daysLeft <= 0 ? 'hari ini' : "{$this->daysLeft} hari lagi";
+        return $this->daysLeft <= 0 ? 'today' : "{$this->daysLeft} days left";
     }
 
     public function toMail(object $notifiable): MailMessage
