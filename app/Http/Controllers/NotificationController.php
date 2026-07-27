@@ -24,8 +24,8 @@ class NotificationController extends Controller
     {
         $user = Auth::user();
 
-        return response()->json([
-            'notifications' => $user->notifications()->latest()->limit(8)->get(),
+         return response()->json([
+            'notifications' => $user->unreadNotifications()->latest()->limit(8)->get(),
             'unread_count' => $user->unreadNotifications()->count(),
         ]);
     }

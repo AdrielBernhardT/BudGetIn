@@ -37,9 +37,14 @@ class CheckGoalDeadlines extends Command
 
         foreach ($goals as $goal) {
             if ($goal->isReached()) {
-                $goal->user?->notify(new GoalReachedNotification($goal->withoutRelations())); // <-- fix
-                $goal->forceFill(['reached_notified_at' => now()])->save();
-                $reached++;
+                $claimed = Goal::whereKey($goal->id)
+                    ->whereNull('reached_notified_at')
+                    ->update(['reached_notified_at' => now()]);
+
+                if ($claimed) {
+                    $goal->user?->notify(new GoalReachedNotification($goal->withoutRelations()));
+                    $reached++;
+                }
                 continue;
             }
 
