@@ -28,7 +28,9 @@
             }
 
             this.$nextTick(() => {
-                this.$dispatch('category-icon-set', this.category.icon || 'home');
+                requestAnimationFrame(() => {
+                    this.$dispatch('category-icon-set', this.category.icon || 'home');
+                });
             });
         },
     }" @open-category-modal.window="openModal($event.detail)"

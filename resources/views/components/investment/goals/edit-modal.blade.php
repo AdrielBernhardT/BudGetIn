@@ -44,7 +44,9 @@
                     });
 
                     this.$nextTick(() => {
-                        this.$dispatch('target-icon-set', this.goal.icon || 'home');
+                        requestAnimationFrame(() => {
+                            this.$dispatch('target-icon-set', this.goal.icon || 'home');
+                        });
                     });
                 }
             }"
@@ -74,7 +76,7 @@
                         </label>
 
                         <div class="relative flex items-center gap-2">
-                            <x-icon.icon-picker @target-icon-set.window="selected = $event.detail; refresh()" />
+                            <x-icon.icon-picker @target-icon-set.window="selected = $event.detail; requestAnimationFrame(() => refresh());" />
 
                             <input
                                 type="text"
