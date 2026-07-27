@@ -118,7 +118,7 @@
             href="{{ route('notifications.index') }}"
             class="mt-3 flex justify-center rounded-lg border border-gray-300 bg-white p-3 text-theme-sm font-medium text-gray-700 shadow-theme-xs hover:bg-gray-50 hover:text-gray-800 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-white/[0.03] dark:hover:text-gray-200"
         >
-            {{ __('sentence.all_notifications') }}
+            {{ __('sentence.view_all_notifications') }}
         </a>
     </div>
     <!-- Dropdown End -->
@@ -173,7 +173,7 @@ function notificationDropdown() {
             if (!notification.read_at) {
                 try {
                     await axios.post(`/notifications/${notification.id}/read`);
-                    notification.read_at = new Date().toISOString();
+                    this.notifications = this.notifications.filter(n => n.id !== notification.id);
                     this.unreadCount = Math.max(0, this.unreadCount - 1);
                 } catch (e) {
                     console.error('Failed to mark notification as read', e);
@@ -188,8 +188,7 @@ function notificationDropdown() {
         async markAllAsRead() {
             try {
                 await axios.post('{{ route('notifications.read-all') }}');
-                const now = new Date().toISOString();
-                this.notifications = this.notifications.map(n => ({ ...n, read_at: n.read_at || now }));
+                this.notifications = [];
                 this.unreadCount = 0;
             } catch (e) {
                 console.error('Failed to mark all notifications as read', e);
