@@ -141,6 +141,7 @@ return [
     'max_allocation_error' => 'Maximum allocation is 100%',
     'target_amount' => 'Target Amount',
     'bio_placeholder' => 'Write your bio here...',
+    'view_all_notifications' => 'View All Notifications',
 
     // Landing Page
     'landing_page_title' => 'Take Control of Your Finances, Effortlessly',
@@ -301,4 +302,9 @@ return [
     'financial_tracker_report' => 'Financial Tracker Report',
     'no_transactions_found' => 'No transactions found.',
     'total_transaction_amount' => 'Total Transaction Amount',
+
+    'time_just_now' => 'just now',
+    'time_minutes_ago' => ':count minutes ago',
+    'time_hours_ago' => ':count hours ago',
+    'time_days_ago' => ':count days ago',
 ];

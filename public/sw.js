@@ -17,18 +17,21 @@ self.addEventListener('push', (event) => {
     try {
         payload = event.data.json();
     } catch (e) {
-        payload = { notification: { title: 'BudGetIn', body: event.data.text() } };
+        payload = { title: 'BudGetIn', body: event.data.text() };
     }
 
-    const notification = payload.notification || {};
-    const title = notification.title || 'BudGetIn';
+    // WebPushMessage::toArray() (laravel-notification-channels/webpush) sends a FLAT
+    // payload — {title, body, icon, badge, data, actions, ...} at the top level, not
+    // nested under a "notification" key. Read fields directly from `payload`.
+    const title = payload.title || 'BudGetIn';
     const options = {
-        body: notification.body || '',
-        icon: notification.icon || '/images/logo/logo-icon.png',
-        badge: notification.badge || '/images/logo/logo-icon.png',
-        data: notification.data || {},
-        tag: notification.tag || undefined,
-        requireInteraction: notification.requireInteraction || false,
+        body: payload.body || '',
+        icon: payload.icon || '/images/logo/logo-icon.png',
+        badge: payload.badge || '/images/logo/logo-icon.png',
+        data: payload.data || {},
+        tag: payload.tag || undefined,
+        requireInteraction: payload.requireInteraction || false,
+        actions: payload.actions || [],
     };
 
     event.waitUntil(self.registration.showNotification(title, options));

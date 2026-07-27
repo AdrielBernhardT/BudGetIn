@@ -139,6 +139,7 @@ return [
     'max_allocation_error' => '最大分配比例为100%',
     'target_amount' => '目标金额',
     'bio_placeholder' => '在这里填写您的个人简介...',
+    'view_all_notifications' => '查看所有通知',
 
     // Landing Page
     'landing_page_title' => '轻松掌控您的财务。',
@@ -301,4 +302,9 @@ return [
     'financial_tracker_report' => '财务追踪报告',
     'no_transactions_found' => '未找到交易记录。',
     'total_transaction_amount' => '交易总金额',
+
+    'time_just_now' => '刚刚',
+    'time_minutes_ago' => ':count分钟前',
+    'time_hours_ago' => ':count小时前',
+    'time_days_ago' => ':count天前',
 ];

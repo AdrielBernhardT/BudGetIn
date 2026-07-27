@@ -6,6 +6,7 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
+use Illuminate\Queue\Middleware\RateLimited;
 use NotificationChannels\WebPush\WebPushChannel;
 use NotificationChannels\WebPush\WebPushMessage;
 
@@ -16,6 +17,20 @@ class DailyTransactionReminderNotification extends Notification implements Shoul
     public function via(object $notifiable): array
     {
         return ['database', 'mail', WebPushChannel::class];
+    }
+
+    /**
+     * Each channel is dispatched as its own queued job (Laravel dispatches one
+     * SendQueuedNotifications job per channel, per notifiable). Throttle only the
+     * channels that actually hit an external service — 'database' just writes to
+     * our own table and doesn't need throttling.
+     */
+    public function middleware(object $notifiable, string $channel): array
+    {
+        return match ($channel) {
+            'mail', WebPushChannel::class => [new RateLimited('daily-reminder')],
+            default => [],
+        };
     }
 
     public function toMail(object $notifiable): MailMessage

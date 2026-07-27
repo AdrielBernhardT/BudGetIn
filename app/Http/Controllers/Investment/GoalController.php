@@ -117,14 +117,40 @@ class GoalController extends Controller
 
         try {
 
-            $goal->update([
+            $newTargetAmount = $request->target_amount;
+            $newTargetDate = !empty($request->target_date)
+                ? $request->target_date
+                : null;
+
+            $amountChanged = number_format((float) $goal->target_amount, 2, '.', '')
+                !== number_format((float) $newTargetAmount, 2, '.', '');
+
+            $oldDate = $goal->target_date?->toDateString();
+            $dateChanged = $oldDate !== $newTargetDate;
+
+            $payload = [
                 'icon' => $request->icon,
                 'name' => $request->name,
-                'target_amount' => $request->target_amount,
-                'target_date' => !empty($request->target_date)
-                    ? $request->target_date
-                    : null,
-            ]);
+                'target_amount' => $newTargetAmount,
+                'target_date' => $newTargetDate,
+            ];
+
+            // Target amount changed: whether the goal is "reached" must be
+            // re-evaluated against the new target, so the old notification
+            // flag is stale and needs to be cleared.
+            if ($amountChanged) {
+                $payload['reached_notified_at'] = null;
+            }
+
+            // Target date changed (or removed): deadline-approaching / missed
+            // notifications were tied to the old date, so those flags are
+            // stale and need to be cleared as well.
+            if ($dateChanged) {
+                $payload['deadline_notified_at'] = null;
+                $payload['missed_notified_at'] = null;
+            }
+
+            $goal->update($payload);
 
             toast()->success(__('sentence.goal_updated'));
 
@@ -146,14 +172,15 @@ class GoalController extends Controller
             ->where('user_id', Auth::id())
             ->first();
 
-        if ($goal->investments()->exists()) {
-            toast()->error(__('sentence.goal_has_investments'));
+
+        if (!$goal) {
+            toast()->error(__('sentence.goal_not_found'));
 
             return redirect()->back();
         }
 
-        if (!$goal) {
-            toast()->error(__('sentence.goal_not_found'));
+        if ($goal->investments()->exists()) {
+            toast()->error(__('sentence.goal_has_investments'));
 
             return redirect()->back();
         }
