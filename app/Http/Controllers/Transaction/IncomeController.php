@@ -30,17 +30,17 @@ class IncomeController extends Controller
 
             $accounts = Account::where('user_id', Auth::id())->get();
 
-            confirmDelete('Are you sure you want to delete this income?');
+            confirmDelete(__('sentence.delete_income_confirm'));
 
             return view(
                 'pages.transaction.income',
                 compact('incomes', 'accounts')
-            )->with('title', 'Income');
+            )->with('title', __('nav.incomes'));
 
         } catch (\Throwable $th) {
             report($th);
 
-            toast()->error('Failed to load incomes.');
+            toast()->error(__('sentence.failed_to_load_incomes'));
 
             return redirect()->back();
         }
@@ -61,13 +61,13 @@ class IncomeController extends Controller
                 'description' => ['nullable', 'string', 'max:200'],
             ],
             [
-                'title.required' => 'Income title is required.',
-                'title.max' => 'Income title may not exceed 100 characters.',
-                'to_account_id.required' => 'Please select an account.',
-                'to_account_id.exists' => 'Selected account is invalid.',
-                'amount.required' => 'Amount is required.',
-                'date.required' => 'Date is required.',
-                'description.max' => 'Description may not exceed 200 characters.',
+                'title.required' => __('sentence.income_title_required'),
+                'title.max' => __('sentence.income_title_max'),
+                'to_account_id.required' => __('sentence.select_account_required'),
+                'to_account_id.exists' => __('sentence.select_account_invalid'),
+                'amount.required' => __('sentence.amount_required'),
+                'date.required' => __('sentence.date_required'),
+                'description.max' => __('sentence.description_max'),
             ]
         );
 
@@ -86,7 +86,7 @@ class IncomeController extends Controller
             $amount = $this->normalizeAmount($request->amount);
 
             if ($amount <= 0) {
-                toast()->error('Amount must be greater than 0.');
+                toast()->error(__('sentence.amount_must_be_positive'));
 
                 return redirect()
                     ->back()
@@ -111,7 +111,7 @@ class IncomeController extends Controller
 
             DB::commit();
 
-            toast()->success('Income created successfully!');
+            toast()->success(__('sentence.income_created'));
 
             return redirect()->back();
 
@@ -120,7 +120,7 @@ class IncomeController extends Controller
 
             report($th);
 
-            toast()->error('Failed to create income.');
+            toast()->error(__('sentence.income_create_failed'));
 
             return redirect()->back()->withInput();
         }
@@ -146,13 +146,13 @@ class IncomeController extends Controller
                 'description' => ['nullable', 'string', 'max:200'],
             ],
             [
-                'title.required' => 'Income title is required.',
-                'title.max' => 'Income title may not exceed 100 characters.',
-                'to_account_id.required' => 'Please select an account.',
-                'to_account_id.exists' => 'Selected account is invalid.',
-                'amount.required' => 'Amount is required.',
-                'date.required' => 'Date is required.',
-                'description.max' => 'Description may not exceed 200 characters.',
+                'title.required' => __('sentence.income_title_required'),
+                'title.max' => __('sentence.income_title_max'),
+                'to_account_id.required' => __('sentence.select_account_required'),
+                'to_account_id.exists' => __('sentence.select_account_invalid'),
+                'amount.required' => __('sentence.amount_required'),
+                'date.required' => __('sentence.date_required'),
+                'description.max' => __('sentence.description_max'),
             ]
         );
 
@@ -179,7 +179,7 @@ class IncomeController extends Controller
             if ($newAmount <= 0) {
                 DB::rollBack();
 
-                toast()->error('Amount must be greater than 0.');
+                toast()->error(__('sentence.amount_must_be_positive'));
 
                 return redirect()
                     ->back()
@@ -202,7 +202,7 @@ class IncomeController extends Controller
 
             DB::commit();
 
-            toast()->success('Income updated successfully!');
+            toast()->success(__('sentence.income_updated'));
 
             return redirect()->back();
 
@@ -211,7 +211,7 @@ class IncomeController extends Controller
 
             report($th);
 
-            toast()->error('Failed to update income.');
+            toast()->error(__('sentence.income_update_failed'));
 
             return redirect()->back()->withInput();
         }
@@ -235,7 +235,7 @@ class IncomeController extends Controller
 
             DB::commit();
 
-            toast()->success('Income deleted!');
+            toast()->success(__('sentence.income_deleted'));
 
             return redirect()->back();
 
@@ -244,7 +244,7 @@ class IncomeController extends Controller
 
             report($th);
 
-            toast()->error('Delete failed!');
+            toast()->error(__('sentence.income_delete_failed'));
 
             return redirect()->back();
         }

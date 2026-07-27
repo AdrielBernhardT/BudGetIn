@@ -18,13 +18,16 @@ class RecordInvestmentObserver
     {
         $goal = Goal::with(['investments.records', 'user'])->find($record->goal_id);
 
-        if (!$goal || $goal->reached_notified_at) {
+        if (!$goal || $goal->reached_notified_at || !$goal->isReached()) {
             return;
         }
+        
+        $claimed = Goal::whereKey($goal->id)
+            ->whereNull('reached_notified_at')
+            ->update(['reached_notified_at' => now()]);
 
-        if ($goal->isReached()) {
-            $goal->user?->notify(new GoalReachedNotification($goal->withoutRelations())); // <-- fix
-            $goal->forceFill(['reached_notified_at' => now()])->save();
+        if ($claimed) {
+            $goal->user?->notify(new GoalReachedNotification($goal->withoutRelations()));
         }
     }
 }

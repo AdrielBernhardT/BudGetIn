@@ -33,17 +33,17 @@ class ExpenseController extends Controller
 
             $accounts = Account::where('user_id', Auth::id())->get();
 
-            confirmDelete('Are you sure you want to delete this expense?');
+            confirmDelete(__('sentence.delete_expense_confirm'));
 
             return view(
                 'pages.transaction.expense',
                 compact('expenses', 'categories', 'accounts')
-            )->with('title', 'Expense');
+            )->with('title', __('nav.expenses'));
 
         } catch (\Throwable $th) {
             report($th);
 
-            toast()->error('Failed to load expenses.');
+            toast()->error(__('sentence.failed_to_load_expenses'));
 
             return redirect()->back();
         }
@@ -68,15 +68,15 @@ class ExpenseController extends Controller
                 'description' => ['nullable', 'string', 'max:200'],
             ],
             [
-                'title.required' => 'Expense title is required.',
-                'title.max' => 'Expense title may not exceed 100 characters.',
-                'from_account_id.required' => 'Please select an account.',
-                'from_account_id.exists' => 'Selected account is invalid.',
-                'category_id.required' => 'Please select a category.',
-                'category_id.exists' => 'Selected category is invalid.',
-                'amount.required' => 'Amount is required.',
-                'date.required' => 'Date is required.',
-                'description.max' => 'Description may not exceed 200 characters.',
+                'title.required' => __('sentence.expense_title_required'),
+                'title.max' => __('sentence.expense_title_max'),
+                'from_account_id.required' => __('sentence.select_account_required'),
+                'from_account_id.exists' => __('sentence.select_account_invalid'),
+                'category_id.required' => __('sentence.select_category_required'),
+                'category_id.exists' => __('sentence.select_category_invalid'),
+                'amount.required' => __('sentence.amount_required'),
+                'date.required' => __('sentence.date_required'),
+                'description.max' => __('sentence.description_max'),
             ]
         );
 
@@ -93,12 +93,12 @@ class ExpenseController extends Controller
             $amount = $this->normalizeAmount($request->amount);
 
             if ($amount <= 0) {
-                toast()->error('Amount must be greater than 0.');
+                toast()->error(__('sentence.amount_must_be_positive'));
 
                 return redirect()
                     ->back()
                     ->withErrors([
-                        'amount' => 'Amount must be greater than 0.',
+                        'amount' => __('sentence.amount_must_be_positive'),
                     ], 'expense')
                     ->withInput();
             }
@@ -108,17 +108,16 @@ class ExpenseController extends Controller
                 ->firstOrFail();
 
             if ($amount > $account->balance) {
-                toast()->error(
-                    'Insufficient balance. Current balance: ' .
-                    number_format($account->balance, 0, ',', '.')
-                );
+                $insufficientBalanceMessage = __('sentence.insufficient_balance', [
+                    'balance' => number_format($account->balance, 0, ',', '.'),
+                ]);
+
+                toast()->error($insufficientBalanceMessage);
 
                 return redirect()
                     ->back()
                     ->withErrors([
-                        'amount' =>
-                            'Insufficient balance. Current balance: ' .
-                            number_format($account->balance, 0, ',', '.'),
+                        'amount' => $insufficientBalanceMessage,
                     ], 'expense')
                     ->withInput();
             }
@@ -144,7 +143,7 @@ class ExpenseController extends Controller
 
             DB::commit();
 
-            toast()->success('Expense created successfully!');
+            toast()->success(__('sentence.expense_created'));
 
             return redirect()->back();
 
@@ -153,7 +152,7 @@ class ExpenseController extends Controller
 
             report($th);
 
-            toast()->error('Failed to create expense.');
+            toast()->error(__('sentence.expense_create_failed'));
 
             return redirect()->back()->withInput();
         }
@@ -183,15 +182,15 @@ class ExpenseController extends Controller
                 'description' => ['nullable', 'string', 'max:200'],
             ],
             [
-                'title.required' => 'Expense title is required.',
-                'title.max' => 'Expense title may not exceed 100 characters.',
-                'from_account_id.required' => 'Please select an account.',
-                'from_account_id.exists' => 'Selected account is invalid.',
-                'category_id.required' => 'Please select a category.',
-                'category_id.exists' => 'Selected category is invalid.',
-                'amount.required' => 'Amount is required.',
-                'date.required' => 'Date is required.',
-                'description.max' => 'Description may not exceed 200 characters.',
+                'title.required' => __('sentence.expense_title_required'),
+                'title.max' => __('sentence.expense_title_max'),
+                'from_account_id.required' => __('sentence.select_account_required'),
+                'from_account_id.exists' => __('sentence.select_account_invalid'),
+                'category_id.required' => __('sentence.select_category_required'),
+                'category_id.exists' => __('sentence.select_category_invalid'),
+                'amount.required' => __('sentence.amount_required'),
+                'date.required' => __('sentence.date_required'),
+                'description.max' => __('sentence.description_max'),
             ]
         );
 
@@ -208,12 +207,12 @@ class ExpenseController extends Controller
             $newAmount = $this->normalizeAmount($request->amount);
 
             if ($newAmount <= 0) {
-                toast()->error('Amount must be greater than 0.');
+                toast()->error(__('sentence.amount_must_be_positive'));
 
                 return redirect()
                     ->back()
                     ->withErrors([
-                        'amount' => 'Amount must be greater than 0.',
+                        'amount' => __('sentence.amount_must_be_positive'),
                     ], 'expense')
                     ->withInput();
             }
@@ -239,17 +238,16 @@ class ExpenseController extends Controller
             if ($newAmount > $newAccount->balance) {
                 DB::rollBack();
 
-                toast()->error(
-                    'Insufficient balance. Current balance: ' .
-                    number_format($newAccount->balance, 0, ',', '.')
-                );
+                $insufficientBalanceMessage = __('sentence.insufficient_balance', [
+                    'balance' => number_format($newAccount->balance, 0, ',', '.'),
+                ]);
+
+                toast()->error($insufficientBalanceMessage);
 
                 return redirect()
                     ->back()
                     ->withErrors([
-                        'amount' =>
-                            'Insufficient balance. Current balance: ' .
-                            number_format($newAccount->balance, 0, ',', '.'),
+                        'amount' => $insufficientBalanceMessage,
                     ], 'expense')
                     ->withInput();
             }
@@ -267,7 +265,7 @@ class ExpenseController extends Controller
 
             DB::commit();
 
-            toast()->success('Expense updated successfully!');
+            toast()->success(__('sentence.expense_updated'));
 
             return redirect()->back();
 
@@ -276,7 +274,7 @@ class ExpenseController extends Controller
 
             report($th);
 
-            toast()->error('Failed to update expense.');
+            toast()->error(__('sentence.expense_update_failed'));
 
             return redirect()->back()->withInput();
         }
@@ -300,7 +298,7 @@ class ExpenseController extends Controller
 
             DB::commit();
 
-            toast()->success('Expense deleted successfully!');
+            toast()->success(__('sentence.expense_deleted'));
 
             return redirect()->back();
 
@@ -309,7 +307,7 @@ class ExpenseController extends Controller
 
             report($th);
 
-            toast()->error('Failed to delete expense.');
+            toast()->error(__('sentence.expense_delete_failed'));
 
             return redirect()->back();
         }

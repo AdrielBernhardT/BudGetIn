@@ -92,7 +92,7 @@
                         </button>
                         <button type="submit"
                             class="flex w-full justify-center rounded-lg bg-main px-4 py-2.5 text-sm font-medium text-white hover:bg-main-hover sm:w-auto">
-                            {{ __('common.save_changes') }}
+                            {{ __('sentence.save_changes') }}
                         </button>
                     </div>
                 </div>

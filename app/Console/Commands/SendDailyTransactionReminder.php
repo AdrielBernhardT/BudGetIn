@@ -17,14 +17,15 @@ class SendDailyTransactionReminder extends Command
     {
         $today = Carbon::today();
 
-        User::whereDoesntHave('transactions', function ($query) use ($today) {
-            $query->whereDate('date', $today);
-        })->chunk(5, function ($users) {
-            foreach ($users as $user) {
-                $user->notify(new DailyTransactionReminderNotification());
-            }
-            sleep(3); // tunggu 3 detik tiap 5 user
-        });
+        User::whereNotNull('email_verified_at') // skip accounts that never finished OTP verification
+            ->whereDoesntHave('transactions', function ($query) use ($today) {
+                $query->whereDate('date', $today);
+            })
+            ->chunk(200, function ($users) {
+                foreach ($users as $user) {
+                    $user->notify(new DailyTransactionReminderNotification());
+                }
+            });
 
         $this->info("Daily reminder sent.");
 

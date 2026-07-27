@@ -1,4 +1,4 @@
-<div x-data="iconPicker()" class="relative icon-picker" @click.stop @click.capture.window="if (open && !$el.contains($event.target)) open = false" @modal-closed.window="open = false" @category-icon-set.window="selected = $event.detail; refresh()">
+<div x-data="iconPicker()" class="relative icon-picker" @click.stop @click.capture.window="if (open && !$el.contains($event.target)) open = false" @modal-closed.window="open = false" @category-icon-set.window="selected = $event.detail; refresh()" @target-icon-set.window="selected = $event.detail; refresh();">
 
     <button type="button" @click.stop="toggle()" class="dark:bg-dark-900 shadow-theme-xs focus:border-brand-300 focus:ring-brand-500/10 dark:focus:border-brand-800 rounded-lg border border-gray-300 bg-transparent w-11 h-11 flex items-center justify-center focus:ring-3 focus:outline-hidden dark:border-gray-700 dark:bg-gray-900">
         <i :data-lucide="selected" class="w-5 h-5 text-gray-800 dark:text-white/90"></i>

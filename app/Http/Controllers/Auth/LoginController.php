@@ -10,7 +10,7 @@ class LoginController extends Controller
 {
     //
     public function index() {
-        return view('pages.auth.login', ['title' => 'Sign In']);
+        return view('pages.auth.login', ['title' => __('auth.sign_in')]);
     }
 
     public function store(Request $request){
@@ -29,7 +29,7 @@ class LoginController extends Controller
 
         return redirect()
             ->back()
-            ->with('error', 'Invalid credential or account not found')
+            ->with('error', __('auth.invalid_credentials'))
             ->withInput();;
     }
 
@@ -38,7 +38,7 @@ class LoginController extends Controller
 
         $request->session()->invalidate();
         $request->session()->regenerateToken();
-        
+
         return redirect()->route('login');
     }
 }

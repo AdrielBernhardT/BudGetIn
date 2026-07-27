@@ -27,12 +27,12 @@ class GoalController extends Controller
                 'target_date' => ['nullable'],
             ],
             [
-                'icon.required' => 'Please select an icon.',
-                'name.required' => 'Goal name is required.',
-                'name.unique' => 'You already have a goal with this name.',
-                'target_amount.required' => 'Target amount is required.',
-                'target_amount.numeric' => 'Target amount must be a number.',
-                'target_amount.min' => 'Target amount must be greater than 0.',
+                'icon.required' => __('sentence.goal_icon_required'),
+                'name.required' => __('sentence.goal_name_required'),
+                'name.unique' => __('sentence.goal_name_unique'),
+                'target_amount.required' => __('sentence.goal_target_amount_required'),
+                'target_amount.numeric' => __('sentence.goal_target_amount_numeric'),
+                'target_amount.min' => __('sentence.goal_target_amount_min'),
             ]
         );
 
@@ -58,14 +58,14 @@ class GoalController extends Controller
                     : null,
             ]);
 
-            toast()->success('Goal created successfully!');
+            toast()->success(__('sentence.goal_created'));
 
             return redirect()->back();
 
         } catch (\Throwable $th) {
             report($th);
 
-            toast()->error('Failed to create goal.');
+            toast()->error(__('sentence.goal_create_failed'));
 
             return redirect()->back()->withInput();
         }
@@ -78,7 +78,7 @@ class GoalController extends Controller
             ->first();
 
         if (!$goal) {
-            toast()->error('Goal not found.');
+            toast()->error(__('sentence.goal_not_found'));
 
             return redirect()->back();
         }
@@ -97,12 +97,12 @@ class GoalController extends Controller
                 'target_date' => ['nullable'],
             ],
             [
-                'icon.required' => 'Please select an icon.',
-                'name.required' => 'Goal name is required.',
-                'name.unique' => 'You already have a goal with this name.',
-                'target_amount.required' => 'Target amount is required.',
-                'target_amount.numeric' => 'Target amount must be a number.',
-                'target_amount.min' => 'Target amount must be greater than 0.',
+                'icon.required' => __('sentence.goal_icon_required'),
+                'name.required' => __('sentence.goal_name_required'),
+                'name.unique' => __('sentence.goal_name_unique'),
+                'target_amount.required' => __('sentence.goal_target_amount_required'),
+                'target_amount.numeric' => __('sentence.goal_target_amount_numeric'),
+                'target_amount.min' => __('sentence.goal_target_amount_min'),
             ]
         );
 
@@ -117,16 +117,42 @@ class GoalController extends Controller
 
         try {
 
-            $goal->update([
+            $newTargetAmount = $request->target_amount;
+            $newTargetDate = !empty($request->target_date)
+                ? $request->target_date
+                : null;
+
+            $amountChanged = number_format((float) $goal->target_amount, 2, '.', '')
+                !== number_format((float) $newTargetAmount, 2, '.', '');
+
+            $oldDate = $goal->target_date?->toDateString();
+            $dateChanged = $oldDate !== $newTargetDate;
+
+            $payload = [
                 'icon' => $request->icon,
                 'name' => $request->name,
-                'target_amount' => $request->target_amount,
-                'target_date' => !empty($request->target_date)
-                    ? $request->target_date
-                    : null,
-            ]);
+                'target_amount' => $newTargetAmount,
+                'target_date' => $newTargetDate,
+            ];
 
-            toast()->success('Goal updated successfully!');
+            // Target amount changed: whether the goal is "reached" must be
+            // re-evaluated against the new target, so the old notification
+            // flag is stale and needs to be cleared.
+            if ($amountChanged) {
+                $payload['reached_notified_at'] = null;
+            }
+
+            // Target date changed (or removed): deadline-approaching / missed
+            // notifications were tied to the old date, so those flags are
+            // stale and need to be cleared as well.
+            if ($dateChanged) {
+                $payload['deadline_notified_at'] = null;
+                $payload['missed_notified_at'] = null;
+            }
+
+            $goal->update($payload);
+
+            toast()->success(__('sentence.goal_updated'));
 
             return redirect()->back();
 
@@ -134,7 +160,7 @@ class GoalController extends Controller
 
             report($th);
 
-            toast()->error('Failed to update goal.');
+            toast()->error(__('sentence.goal_update_failed'));
 
             return redirect()->back()->withInput();
         }
@@ -146,16 +172,15 @@ class GoalController extends Controller
             ->where('user_id', Auth::id())
             ->first();
 
-        if ($goal->investments()->exists()) {
-            toast()->error(
-                'This goal cannot be deleted because it already contains investment data.'
-            );
+
+        if (!$goal) {
+            toast()->error(__('sentence.goal_not_found'));
 
             return redirect()->back();
         }
 
-        if (!$goal) {
-            toast()->error('Goal not found.');
+        if ($goal->investments()->exists()) {
+            toast()->error(__('sentence.goal_has_investments'));
 
             return redirect()->back();
         }
@@ -164,7 +189,7 @@ class GoalController extends Controller
 
             $goal->delete();
 
-            toast()->success('Goal deleted successfully!');
+            toast()->success(__('sentence.goal_deleted'));
 
             return redirect()->back();
 
@@ -172,7 +197,7 @@ class GoalController extends Controller
 
             report($th);
 
-            toast()->error('Failed to delete goal.');
+            toast()->error(__('sentence.goal_delete_failed'));
 
             return redirect()->back();
         }

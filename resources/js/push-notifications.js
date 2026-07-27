@@ -35,19 +35,19 @@ const PushNotifications = {
 
     async subscribe() {
         if (!this.isSupported()) {
-            throw new Error('Browser kamu tidak mendukung Web Push notification.');
+            throw new Error('Your browser does not support Web Push notifications.');
         }
 
         const vapidPublicKey = document.querySelector('meta[name="vapid-public-key"]')?.content;
 
         if (!vapidPublicKey) {
-            throw new Error('VAPID public key belum dikonfigurasi di server.');
+            throw new Error('VAPID public key has not been configured on the server.');
         }
 
         const permission = await Notification.requestPermission();
 
         if (permission !== 'granted') {
-            throw new Error('Izin notifikasi tidak diberikan.');
+            throw new Error('Notification permission was not granted.');
         }
 
         const registration = await this.register();

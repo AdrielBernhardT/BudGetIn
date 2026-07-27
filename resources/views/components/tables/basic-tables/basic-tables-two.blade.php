@@ -66,6 +66,11 @@
             status: 'Complete',
         },
     ],
+    statusLabels: @js([
+        'Complete' => __('tables.status_complete'),
+        'Pending' => __('tables.status_pending'),
+        'Cancel' => __('tables.status_cancel'),
+    ]),
     selectedRows: [],
     selectAll: false,
     handleSelectAll() {
@@ -92,7 +97,7 @@
         return classes[status] || '';
     },
     deleteRow(id) {
-        if (confirm('Are you sure you want to delete this order?')) {
+        if (confirm(@js(__('sentence.delete_order_confirm')))) {
             this.tableRowData = this.tableRowData.filter(row => row.id !== id);
             this.selectedRows = this.selectedRows.filter(rowId => rowId !== id);
         }
@@ -103,7 +108,7 @@
         <div class="flex flex-col gap-4 px-6 mb-4 sm:flex-row sm:items-center sm:justify-between">
             <div>
                 <h3 class="text-lg font-semibold text-gray-800 dark:text-white/90">
-                    Recent Orders
+                    {{ __('tables.recent_orders') }}
                 </h3>
             </div>
             <div class="flex items-center gap-3">
@@ -114,10 +119,10 @@
                         <path d="M12.0826 3.33331C13.5024 3.33331 14.6534 4.48431 14.6534 5.90414C14.6534 7.32398 13.5024 8.47498 12.0826 8.47498C10.6627 8.47498 9.51172 7.32398 9.51172 5.90415C9.51172 4.48432 10.6627 3.33331 12.0826 3.33331Z" fill="" stroke="" stroke-width="1.5"/>
                         <path d="M7.91745 11.525C6.49762 11.525 5.34662 12.676 5.34662 14.0959C5.34661 15.5157 6.49762 16.6667 7.91745 16.6667C9.33728 16.6667 10.4883 15.5157 10.4883 14.0959C10.4883 12.676 9.33728 11.525 7.91745 11.525Z" fill="" stroke="" stroke-width="1.5"/>
                     </svg>
-                    Filter
+                    {{ __('common.filter') }}
                 </button>
                 <button class="inline-flex items-center gap-2 rounded-lg border border-gray-300 bg-white px-4 py-3 text-theme-sm font-medium text-gray-700 shadow-theme-xs hover:bg-gray-50 hover:text-gray-800 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-white/[0.03] dark:hover:text-gray-200">
-                    See all
+                    {{ __('common.see_all') }}
                 </button>
             </div>
         </div>
@@ -136,15 +141,15 @@
                                         <path d="M11.6668 3.5L5.25016 9.91667L2.3335 7" stroke="white" stroke-width="1.94437" stroke-linecap="round" stroke-linejoin="round"/>
                                     </svg>
                                 </div>
-                                <span class="font-medium text-gray-500 text-theme-xs dark:text-gray-400">Deal ID</span>
+                                <span class="font-medium text-gray-500 text-theme-xs dark:text-gray-400">{{ __('tables.deal_id') }}</span>
                             </div>
                         </th>
-                        <th class="px-6 py-3 font-medium text-gray-500 sm:px-6 text-theme-xs dark:text-gray-400 text-start">Customer</th>
-                        <th class="px-6 py-3 font-medium text-gray-500 sm:px-6 text-theme-xs dark:text-gray-400 text-start">Product/Service</th>
-                        <th class="px-6 py-3 font-medium text-gray-500 sm:px-6 text-theme-xs dark:text-gray-400 text-start">Deal Value</th>
-                        <th class="px-6 py-3 font-medium text-gray-500 sm:px-6 text-theme-xs dark:text-gray-400 text-start">Close Date</th>
-                        <th class="px-6 py-3 font-medium text-gray-500 sm:px-6 text-theme-xs dark:text-gray-400 text-start">Status</th>
-                        <th class="px-6 py-3 font-medium text-gray-500 sm:px-6 text-theme-xs dark:text-gray-400 text-start">Action</th>
+                        <th class="px-6 py-3 font-medium text-gray-500 sm:px-6 text-theme-xs dark:text-gray-400 text-start">{{ __('tables.customer') }}</th>
+                        <th class="px-6 py-3 font-medium text-gray-500 sm:px-6 text-theme-xs dark:text-gray-400 text-start">{{ __('tables.product_service') }}</th>
+                        <th class="px-6 py-3 font-medium text-gray-500 sm:px-6 text-theme-xs dark:text-gray-400 text-start">{{ __('tables.deal_value') }}</th>
+                        <th class="px-6 py-3 font-medium text-gray-500 sm:px-6 text-theme-xs dark:text-gray-400 text-start">{{ __('tables.close_date') }}</th>
+                        <th class="px-6 py-3 font-medium text-gray-500 sm:px-6 text-theme-xs dark:text-gray-400 text-start">{{ __('common.status') }}</th>
+                        <th class="px-6 py-3 font-medium text-gray-500 sm:px-6 text-theme-xs dark:text-gray-400 text-start">{{ __('common.actions') }}</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -186,13 +191,13 @@
                                 <p class="text-gray-700 text-theme-sm dark:text-gray-400" x-text="row.closeDate"></p>
                             </td>
                             <td class="px-4 sm:px-6 py-3.5">
-                                <span class="text-theme-xs inline-block rounded-full px-2 py-0.5 font-medium" 
-                                    :class="getStatusClass(row.status)" 
-                                    x-text="row.status"></span>
+                                <span class="text-theme-xs inline-block rounded-full px-2 py-0.5 font-medium"
+                                    :class="getStatusClass(row.status)"
+                                    x-text="statusLabels[row.status] ?? row.status"></span>
                             </td>
                             <td class="px-4 sm:px-6 py-3.5">
                                 <button @click="deleteRow(row.id)">
-                                    <svg class="text-gray-700 cursor-pointer size-5 hover:text-red-500 dark:text-gray-400 dark:hover:text-red-500" 
+                                    <svg class="text-gray-700 cursor-pointer size-5 hover:text-red-500 dark:text-gray-400 dark:hover:text-red-500"
                                         fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
                                     </svg>

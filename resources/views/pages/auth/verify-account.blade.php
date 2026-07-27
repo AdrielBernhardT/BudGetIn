@@ -36,7 +36,7 @@
                                         </label>
 
                                         <p class="mb-4 text-sm text-gray-500 dark:text-gray-400">
-                                            {{ __('auth.verification_code_instruction') }}
+                                            {{ __('auth.verification_code_instruction') }} {{ $user->email }}
                                         </p>
 
                                         <div
@@ -68,7 +68,7 @@
                                                         this.value = this.value.replace(/[^0-9]/g, '');
                                                         if(this.value) this.nextElementSibling?.focus();
                                                     "
-                                                    class="otp-input h-14 w-14 rounded-lg border text-center text-xl font-semibold">
+                                                    class="otp-input dark:bg-dark-900 shadow-theme-xs focus:border-brand-300 focus:ring-brand-500/10 dark:focus:border-brand-800 h-14 w-14 rounded-lg border border-gray-300 bg-transparent text-xl text-center font-semibold text-gray-800 placeholder:text-gray-400 focus:ring-3 focus:outline-hidden dark:border-gray-700 dark:bg-gray-900 dark:text-white/90 dark:placeholder:text-white/30">
 
                                                 <input type="text" maxlength="1" inputmode="numeric" pattern="[0-9]*"
                                                     name="otp2"
@@ -78,7 +78,7 @@
                                                         if(this.value) this.nextElementSibling?.focus();
                                                     "
                                                     onkeydown="if(event.key==='Backspace' && !this.value) this.previousElementSibling.focus()"
-                                                    class="otp-input h-14 w-14 rounded-lg border text-center text-xl font-semibold">
+                                                    class="otp-input dark:bg-dark-900 shadow-theme-xs focus:border-brand-300 focus:ring-brand-500/10 dark:focus:border-brand-800 h-14 w-14 rounded-lg border border-gray-300 bg-transparent text-xl text-center font-semibold text-gray-800 placeholder:text-gray-400 focus:ring-3 focus:outline-hidden dark:border-gray-700 dark:bg-gray-900 dark:text-white/90 dark:placeholder:text-white/30">
 
                                                 <input type="text" maxlength="1" inputmode="numeric" pattern="[0-9]*"
                                                     name="otp3"
@@ -88,7 +88,7 @@
                                                         if(this.value) this.nextElementSibling?.focus();
                                                     "
                                                     onkeydown="if(event.key==='Backspace' && !this.value) this.previousElementSibling.focus()"
-                                                    class="otp-input h-14 w-14 rounded-lg border text-center text-xl font-semibold">
+                                                    class="otp-input dark:bg-dark-900 shadow-theme-xs focus:border-brand-300 focus:ring-brand-500/10 dark:focus:border-brand-800 h-14 w-14 rounded-lg border border-gray-300 bg-transparent text-xl text-center font-semibold text-gray-800 placeholder:text-gray-400 focus:ring-3 focus:outline-hidden dark:border-gray-700 dark:bg-gray-900 dark:text-white/90 dark:placeholder:text-white/30">
 
                                                 <input type="text" maxlength="1" inputmode="numeric" pattern="[0-9]*"
                                                     name="otp4"
@@ -98,7 +98,7 @@
                                                         if(this.value) this.nextElementSibling?.focus();
                                                     "
                                                     onkeydown="if(event.key==='Backspace' && !this.value) this.previousElementSibling.focus()"
-                                                    class="otp-input h-14 w-14 rounded-lg border text-center text-xl font-semibold">
+                                                    class="otp-input dark:bg-dark-900 shadow-theme-xs focus:border-brand-300 focus:ring-brand-500/10 dark:focus:border-brand-800 h-14 w-14 rounded-lg border border-gray-300 bg-transparent text-xl text-center font-semibold text-gray-800 placeholder:text-gray-400 focus:ring-3 focus:outline-hidden dark:border-gray-700 dark:bg-gray-900 dark:text-white/90 dark:placeholder:text-white/30">
 
                                                 <input type="text" maxlength="1" inputmode="numeric" pattern="[0-9]*"
                                                     name="otp5"
@@ -108,7 +108,7 @@
                                                         if(this.value) this.nextElementSibling?.focus();
                                                     "
                                                     onkeydown="if(event.key==='Backspace' && !this.value) this.previousElementSibling.focus()"
-                                                    class="otp-input h-14 w-14 rounded-lg border text-center text-xl font-semibold">
+                                                    class="otp-input dark:bg-dark-900 shadow-theme-xs focus:border-brand-300 focus:ring-brand-500/10 dark:focus:border-brand-800 h-14 w-14 rounded-lg border border-gray-300 bg-transparent text-xl text-center font-semibold text-gray-800 placeholder:text-gray-400 focus:ring-3 focus:outline-hidden dark:border-gray-700 dark:bg-gray-900 dark:text-white/90 dark:placeholder:text-white/30">
 
                                                 <input type="text" maxlength="1" inputmode="numeric"
                                                     name="otp6"
@@ -118,7 +118,7 @@
                                                         if(this.value) this.nextElementSibling?.focus();
                                                     "
                                                     onkeydown="if(event.key==='Backspace' && !this.value) this.previousElementSibling.focus()"
-                                                    class="otp-input h-14 w-14 rounded-lg border text-center text-xl font-semibold">
+                                                    class="otp-input dark:bg-dark-900 shadow-theme-xs focus:border-brand-300 focus:ring-brand-500/10 dark:focus:border-brand-800 h-14 w-14 rounded-lg border border-gray-300 bg-transparent text-xl text-center font-semibold text-gray-800 placeholder:text-gray-400 focus:ring-3 focus:outline-hidden dark:border-gray-700 dark:bg-gray-900 dark:text-white/90 dark:placeholder:text-white/30">
 
                                             </div>
                                             <input type="hidden" name="otp" :value="otp.join('')">
@@ -193,9 +193,9 @@
                 class="bg-[linear-gradient(to_bottom,#E4EBF1_43%,#B5CFED_100%)] relative hidden h-full w-full items-center lg:grid lg:w-1/2 dark:bg-[linear-gradient(to_bottom,#1E293B,#0F172A)]">
                 <div class="z-1 flex items-center justify-center">
                     <div class="flex max-w-sm flex-col items-center">
-                        <a href="/" class="mb-4 block">
+                        <div class="mb-4 block">
                             <img src="./images/logo/logo.png" alt="{{ __('auth.logo_alt') }}" class="w-80" />
-                        </a>
+                        </div>
                         <p class="text-center text-gray-500 dark:text-white/60">
                             {{ __('sentence.landing_page_description') }}
                         </p>

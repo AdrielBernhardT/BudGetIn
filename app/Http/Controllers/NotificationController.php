@@ -14,7 +14,7 @@ class NotificationController extends Controller
     {
         $notifications = Auth::user()->notifications()->latest()->paginate(20);
 
-        return view('pages.notifications.index', ['title' => 'Notifications'], compact('notifications'));
+        return view('pages.notifications.index', ['title' => __('nav.notifications')], compact('notifications'));
     }
 
     /**
@@ -24,8 +24,8 @@ class NotificationController extends Controller
     {
         $user = Auth::user();
 
-        return response()->json([
-            'notifications' => $user->notifications()->latest()->limit(8)->get(),
+         return response()->json([
+            'notifications' => $user->unreadNotifications()->latest()->limit(8)->get(),
             'unread_count' => $user->unreadNotifications()->count(),
         ]);
     }

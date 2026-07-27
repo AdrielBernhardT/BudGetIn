@@ -50,7 +50,7 @@ class CategoryController extends Controller
             return view(
                 'pages.transaction.category',
                 compact('categories')
-            )->with('title', 'Category');
+            )->with('title', __('nav.categories'));
 
         } catch (\Throwable $th) {
             report($th);

@@ -31,9 +31,11 @@ return [
     'verify_account_title' => 'Verify Your Account',
     'verification_failed' => 'Verification Failed!',
     'verification_code' => 'Verification Code',
-    'verification_code_instruction' => 'Enter the 6-digit code sent to your email address.',
+    'verification_code_instruction' => 'Enter the 6-digit code sent to',
     'verify_otp' => 'Verify OTP',
     'otp_not_received' => "Didn't receive the code?",
     'resend_available_in' => 'Resend available in',
     'resend_code' => 'Resend Code',
+    'invalid_credentials' => 'Invalid credential or account not found.',
+    'registration_failed' => 'Something went wrong while creating your account.',
 ];

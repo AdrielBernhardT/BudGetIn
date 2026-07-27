@@ -27,4 +27,10 @@ return [
     'form_elements' => 'Form Elements',
     'notifications' => 'Notifications',
     'alerts' => 'Alerts',
+    'basic_tables' => 'Basic Tables',
+    'avatars' => 'Avatars',
+    'badges' => 'Badges',
+    'buttons' => 'Buttons',
+    'images' => 'Images',
+    'videos' => 'Videos',
 ];
