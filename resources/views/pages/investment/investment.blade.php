@@ -3,8 +3,13 @@
 @section('content')
     <x-common.page-breadcrumb pageTitle="{{ __('nav.investment') }}" />
 
+
     <div x-data="investmentPage()">
         <x-investment.top-summary :datas="$datas" />
+
+        @if ($accounts->isEmpty())
+            <x-investment.no-account-card />
+        @endif
 
         <div class="mt-8 flex flex-col gap-4 lg:flex-row lg:justify-between lg:items-center">
             <div class="flex gap-10 overflow-x-auto whitespace-nowrap no-scrollbar ">
@@ -37,9 +42,22 @@
                         {{ __('sentence.add_investment') }}
                     </button>
                 </div>
-                <button @click="$dispatch('record-investment')"
-                    class="w-full lg:w-auto whitespace-nowrap justify-center inline-flex items-center gap-3 rounded-lg border border-gray-300 bg-main px-4 py-2 text-theme-xs md:text-theme-sm font-medium text-white shadow-theme-xs hover:bg-main-hover hover:text-white/90 dark:border-gray-700 dark:bg-main dark:text-white dark:hover:bg-main-hover dark:hover:text-white/90">
-                    <i data-lucide="pencil-line" class="w-3 h-3 md:w-4 md:h-4 shrink-0 text-white dark:text-white"></i>
+                <button
+                    @click="accounts.length > 0 && $dispatch('record-investment')"
+                    :disabled="accounts.length === 0"
+                    :class="accounts.length === 0
+                        ? 'bg-gray-300 border-gray-300 text-gray-500 cursor-not-allowed'
+                        : 'bg-main border-main text-white hover:bg-main-hover'"
+                    class="w-full lg:w-auto whitespace-nowrap justify-center inline-flex items-center gap-3 rounded-lg border px-4 py-2 text-theme-xs md:text-theme-sm font-medium transition-colors">
+
+                    <i
+                        data-lucide="pencil-line"
+                        :class="accounts.length === 0
+                            ? 'text-gray-500'
+                            : 'text-white'"
+                        class="w-3 h-3 md:w-4 md:h-4 shrink-0">
+                    </i>
+
                     {{ __('sentence.record_investment') }}
                 </button>
             </div>
@@ -70,6 +88,8 @@
         function investmentPage() {
             const today = new Date();
             return {
+                accounts: @js($accounts),
+
                 tab: 'allocation',
                 filterType: 'day',
                 selectedDate: today.toISOString().slice(0, 10),

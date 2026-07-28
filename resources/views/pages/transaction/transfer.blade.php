@@ -4,13 +4,16 @@
     <x-common.page-breadcrumb pageTitle="{{ __('nav.transfer') }}" />
     <div
         class="min-h-screen rounded-2xl border border-gray-200 bg-white px-5 py-7 dark:border-gray-800 dark:bg-white/[0.03] xl:px-10 xl:py-12">
+        @if (! $accounts->contains(fn ($account) => $account->balance > 0))
+            <x-transfer.no-balance-card />
+        @endif
         <div x-data="transferPage()">
             <div class="rounded-2xl border border-gray-200 bg-white pt-4 dark:border-gray-800 dark:bg-white/[0.03]">
                 <x-transfer.header />
                 <x-transfer.table />
                 <x-transfer.pagination />
             </div>
-            <x-transfer.modal :accounts="$accounts" />
+            <x-transfer.modal :accounts="$accounts" :incomes="$incomes" />
         </div>
     </div>
 @endsection
@@ -20,10 +23,16 @@
         function transferPage() {
             return {
                 transfers: @js($transfers),
+                incomes: @js($incomes),
                 itemsPerPage: 5,
                 currentPage: 1,
                 dropdownOpen: null,
                 search: '',
+                accounts: @js($accounts),
+
+                get hasBalance() {
+                    return this.accounts.some(acc => parseFloat(acc.balance) > 0);
+                },
                 get totalPages() {
                     return this.totalEntries === 0 ? 1 : Math.ceil(this.totalEntries / this.itemsPerPage);
                 },

@@ -76,8 +76,15 @@
                         <label class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400">
                             {{ __('common.deadline') }} ({{ __('common.optional') }})
                         </label>
-                        <x-form.date-picker id="goal_target_date" name="target_date" placeholder="Pilih deadline goal"
-                            x-model="target.target_date" />
+                        <x-form.date-picker
+                            id="date"
+                            name="target_date"
+                            picker="day"
+                            placeholder="{{ __('sentence.date_picker_input') }}"
+                            dateFormat="Y-m-d"
+                            altFormat="d F Y"
+                            defaultDate="{{ old('date', now()->format('Y-m-d')) }}"
+                        />
                         <p class="mt-1 text-xs text-gray-400">
                             {{ __('sentence.deadline_description') }}
                         </p>

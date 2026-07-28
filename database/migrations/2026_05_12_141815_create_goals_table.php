@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('icon')->default('home');
 
-            $table->decimal('target_amount', 15, 2); 
+            $table->unsignedBigInteger('target_amount'); 
 
             $table->date('target_date')->nullable();
             $table->timestamps();
