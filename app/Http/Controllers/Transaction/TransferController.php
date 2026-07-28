@@ -28,12 +28,22 @@ class TransferController extends Controller
                 });
 
             $accounts = Account::where('user_id', Auth::id())->get();
+            $incomes = Transaction::with('toAccount')
+                ->where('user_id', Auth::id())
+                ->where('type', 'income')
+                ->latest()
+                ->get()
+                ->map(function ($income) {
+                    $income->display_date = Carbon::parse($income->date)->format('d F Y');
+
+                    return $income;
+                });
 
             confirmDelete(__('sentence.delete_transfer_confirm'));
 
             return view(
                 'pages.transaction.transfer',
-                compact('transfers', 'accounts')
+                compact('transfers', 'accounts', 'incomes')
             )->with('title', __('nav.transfers'));
 
         } catch (\Throwable $th) {

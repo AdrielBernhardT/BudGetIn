@@ -307,4 +307,17 @@ return [
     'time_minutes_ago' => ':count minutes ago',
     'time_hours_ago' => ':count hours ago',
     'time_days_ago' => ':count days ago',
+
+    'no_balance_available' => 'No Balance Available',
+    'create_balance_before_expense' => 'You need to add a balance before you can make a transfer.',
+    'add_balance' => 'Add Balance',
+
+    'no_account_available' => 'No account available',
+    'create_account_before_record_investment' => 'Please create an account before adding an investment record.',
+
+    'goal_target_less_than_current' => 'The target amount cannot be lower than the current invested amount.',
+
+    'investment_progress' => 'Investment Progress',
+    'current_amount' => 'Current Amount',
+    'remaining_amount' => 'Remaining Amount',
 ];

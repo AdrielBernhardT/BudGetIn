@@ -28,6 +28,24 @@
                 return selected ? selected.investments : []
             },
 
+            get selectedInvestment() {
+                return this.filteredInvestments.find(inv =>
+                    String(inv.id) === String(this.investment.investment_id)
+                ) || null
+            },
+
+            get investmentCurrentAmount() {
+                if (!this.selectedInvestment || !this.selectedInvestment.records) return 0;
+                return this.selectedInvestment.records.reduce(
+                    (sum, r) => sum + parseInt(r.transaction_amount || 0), 0
+                );
+            },
+
+            get investmentRemaining() {
+                if (!this.selectedInvestment) return 0;
+                return parseInt(this.selectedInvestment.planned_amount || 0) - this.investmentCurrentAmount;
+            },
+
             resetModal() {
                 this.investment = {
                     investment_id: '',
@@ -65,7 +83,7 @@
                                 x-model="investment.goal"
                                 class="dark:bg-dark-900 shadow-theme-xs focus:border-brand-300 focus:ring-brand-500/10 dark:focus:border-brand-800 h-11 w-full appearance-none rounded-lg border border-gray-300 bg-transparent bg-none px-4 py-2.5 pr-11 text-sm text-gray-800 placeholder:text-gray-400 focus:ring-3 focus:outline-hidden dark:border-gray-700 dark:bg-gray-900 dark:text-white/90 dark:placeholder:text-white/30"
                                 :class="isOptionSelected && 'text-gray-800 dark:text-white/90'"
-                                @change="isOptionSelected = true">
+                                @change="isOptionSelected = true; investment.investment_id = ''">
                                 <option disabled value="" class="text-gray-700 dark:bg-gray-900 dark:text-gray-400">
                                     {{ __('sentence.select_option') }}
                                 </option>
@@ -121,6 +139,24 @@
                         @enderror
                     </div>
 
+                    <div x-show="selectedInvestment">
+                        <x-ui.alert variant="info" :showLink="false">
+                            <div>
+                                <p class="font-medium text-blue-800 dark:text-blue-200">
+                                    {{ __('sentence.investment_progress') }} <span x-text="selectedInvestment?.name"></span>:
+                                </p>
+                                <p class="text-sm text-blue-700 dark:text-blue-300">
+                                    {{ __('sentence.current_amount') }}: {{ __('common.idr') }}
+                                    <span x-text="formatRupiah(investmentCurrentAmount)"></span>
+                                </p>
+                                <p class="text-sm text-blue-700 dark:text-blue-300 font-medium">
+                                    {{ __('sentence.remaining_amount') }}: {{ __('common.idr') }}
+                                    <span x-text="formatRupiah(investmentRemaining)"></span>
+                                </p>
+                            </div>
+                        </x-ui.alert>
+                    </div>
+
                     <div>
                         <label class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400">
                             {{ __('common.account_bank') }}<span class="text-red-500">*</span>
@@ -162,14 +198,14 @@
                             </label>
                             <div class="relative w-full">
                                 <x-form.date-picker
-                                        id="date_pick"
-                                        name="date"
-                                        placeholder="{{ __('sentence.date_picker_input') }}"
-                                        x-model="investment.date"
-                                        dateFormat="Y-m-d"
-                                        altFormat="d F Y"
-                                        defaultDate="{{ old('date', now()->format('Y-m-d')) }}"
-                                    />
+                                    id="date"
+                                    name="date"
+                                    picker="day"
+                                    placeholder="{{ __('sentence.date_picker_input') }}"
+                                    dateFormat="Y-m-d"
+                                    altFormat="d F Y"
+                                    defaultDate="{{ old('date', now()->format('Y-m-d')) }}"
+                                />
                             </div>
                             @error('date', 'record_investment')
                                 <p class="mt-1 text-sm text-red-500">{{ $message }}</p>

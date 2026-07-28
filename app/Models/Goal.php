@@ -22,7 +22,7 @@ class Goal extends Model
     ];
 
     protected $casts = [
-        'target_amount' => 'decimal:2',
+        'target_amount' => 'integer',
         'target_date' => 'date',
         'reached_notified_at' => 'datetime',
         'deadline_notified_at' => 'datetime',
