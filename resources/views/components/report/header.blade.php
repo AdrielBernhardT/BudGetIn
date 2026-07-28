@@ -1,8 +1,8 @@
 <style>
-.flatpickr-calendar{
-    transform: scale(0.9) !important;
-    transform-origin: top left !important;
-}
+    .flatpickr-calendar{
+        transform: scale(0.8) !important;
+        transform-origin: top left !important;
+    }
 </style>
 
 <div class="flex flex-col gap-2 px-5 mb-4 sm:flex-row sm:items-center sm:justify-between sm:px-6">

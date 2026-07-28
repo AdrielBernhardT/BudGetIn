@@ -1,6 +1,6 @@
 <style>
 .flatpickr-calendar {
-    transform: scale(0.9) !important;
+    transform: scale(0.8) !important;
     transform-origin: top left !important;
 }
 </style>
