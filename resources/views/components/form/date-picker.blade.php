@@ -43,6 +43,8 @@
             };
 
             if (@js($picker) === 'month') {
+                config.disableMobile: true;
+
                 config.plugins = [
                     new monthSelectPlugin({
                         shorthand: false,
