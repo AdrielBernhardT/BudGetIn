@@ -29,9 +29,9 @@ use Illuminate\Support\Facades\Route;
 // })->name('dashboard');
 
 // calender pages
-Route::get('/calendar', function () {
-    return view('pages.calender', ['title' => __('nav.calender')]);
-})->name('calendar');
+// Route::get('/calendar', function () {
+//     return view('pages.calender', ['title' => __('nav.calender')]);
+// })->name('calendar');
 
 // profile pages
 // Route::get('/profile', function () {
@@ -39,28 +39,28 @@ Route::get('/calendar', function () {
 // })->name('profile');
 
 // form pages
-Route::get('/form-elements', function () {
-    return view('pages.form.form-elements', ['title' => __('nav.form_elements')]);
-})->name('form-elements');
+// Route::get('/form-elements', function () {
+//     return view('pages.form.form-elements', ['title' => __('nav.form_elements')]);
+// })->name('form-elements');
 
 // tables pages
-Route::get('/basic-tables', function () {
-    return view('pages.tables.basic-tables', ['title' => __('nav.basic_tables')]);
-})->name('basic-tables');
+// Route::get('/basic-tables', function () {
+//     return view('pages.tables.basic-tables', ['title' => __('nav.basic_tables')]);
+// })->name('basic-tables');
 
 // pages
-Route::get('/blank', function () {
-    return view('pages.blank', ['title' => __('nav.blank')]);
-})->name('blank');
+// Route::get('/blank', function () {
+//     return view('pages.blank', ['title' => __('nav.blank')]);
+// })->name('blank');
 
 // chart pages
-Route::get('/line-chart', function () {
-    return view('pages.chart.line-chart', ['title' => __('nav.line_chart')]);
-})->name('line-chart');
+// Route::get('/line-chart', function () {
+//     return view('pages.chart.line-chart', ['title' => __('nav.line_chart')]);
+// })->name('line-chart');
 
-Route::get('/bar-chart', function () {
-    return view('pages.chart.bar-chart', ['title' => __('nav.bar_chart')]);
-})->name('bar-chart');
+// Route::get('/bar-chart', function () {
+//     return view('pages.chart.bar-chart', ['title' => __('nav.bar_chart')]);
+// })->name('bar-chart');
 
 // // authentication pages
 // Route::get('/signin', function () {
@@ -72,33 +72,33 @@ Route::get('/bar-chart', function () {
 // })->name('signup');
 
 // // ui elements pages
-Route::get('/alerts', function () {
-    return view('pages.ui-elements.alerts', ['title' => __('nav.alerts')]);
-})->name('alerts');
+// Route::get('/alerts', function () {
+//     return view('pages.ui-elements.alerts', ['title' => __('nav.alerts')]);
+// })->name('alerts');
 
-Route::get('/avatars', function () {
-    return view('pages.ui-elements.avatars', ['title' => __('nav.avatars')]);
-})->name('avatars');
+// Route::get('/avatars', function () {
+//     return view('pages.ui-elements.avatars', ['title' => __('nav.avatars')]);
+// })->name('avatars');
 
-Route::get('/badge', function () {
-    return view('pages.ui-elements.badges', ['title' => __('nav.badges')]);
-})->name('badges');
+// Route::get('/badge', function () {
+//     return view('pages.ui-elements.badges', ['title' => __('nav.badges')]);
+// })->name('badges');
 
-Route::get('/buttons', function () {
-    return view('pages.ui-elements.buttons', ['title' => __('nav.buttons')]);
-})->name('buttons');
+// Route::get('/buttons', function () {
+//     return view('pages.ui-elements.buttons', ['title' => __('nav.buttons')]);
+// })->name('buttons');
 
-Route::get('/image', function () {
-    return view('pages.ui-elements.images', ['title' => __('nav.images')]);
-})->name('images');
+// Route::get('/image', function () {
+//     return view('pages.ui-elements.images', ['title' => __('nav.images')]);
+// })->name('images');
 
-Route::get('/videos', function () {
-    return view('pages.ui-elements.videos', ['title' => __('nav.videos')]);
-})->name('videos');
+// Route::get('/videos', function () {
+//     return view('pages.ui-elements.videos', ['title' => __('nav.videos')]);
+// })->name('videos');
 
-Route::get('/test', function () {
-    return view('pages.dashboard.ecommerce', ['title' => 'test']);
-})->name('test');
+// Route::get('/test', function () {
+//     return view('pages.dashboard.ecommerce', ['title' => 'test']);
+// })->name('test');
 
 // Landing Page
 Route::get('/logout', [LoginController::class, 'destroy'])->name('logout');
@@ -117,7 +117,7 @@ Route::middleware(['guest'])->group(function(){
     Route::post('/forgot-password', [ResetPasswordController::class, 'sendResetLink'])->name('forgot-password.send-reset-link');
 
     Route::get('/reset-password/{token}', [ResetPasswordController::class, 'resetForm'])->name('password.reset');
-Route::post('/reset-password', [ResetPasswordController::class, 'resetPassword'])->name('password.update');
+    Route::post('/reset-password', [ResetPasswordController::class, 'resetPassword'])->name('password.update');
 
     // Google OAuth
     Route::get('/auth/google', [GoogleController::class, 'redirect'])->name('auth.google');
