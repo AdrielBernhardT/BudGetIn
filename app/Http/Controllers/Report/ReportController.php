@@ -17,7 +17,7 @@ class ReportController extends Controller
             ->orderBy('created_at', 'desc')
             ->get();
 
-        return view('pages.report.report', compact('reports'));
+        return view('pages.report.report', compact('reports'))->with('title', __('nav.report'));
     }
 
     public function print(Request $request)
