@@ -304,4 +304,17 @@ return [
     'time_minutes_ago' => ':count menit lalu',
     'time_hours_ago' => ':count jam lalu',
     'time_days_ago' => ':count hari lalu',
+
+    'no_balance_available' => 'Tidak Ada Saldo Tersedia',
+    'create_balance_before_expense' => 'Anda perlu menambahkan saldo terlebih dahulu sebelum dapat melakukan transfer.',
+    'add_balance' => 'Tambah Saldo',
+
+    'no_account_available' => 'Belum ada akun tersedia',
+    'create_account_before_record_investment' => 'Silakan buat akun terlebih dahulu sebelum menambahkan catatan investasi.',
+
+    'goal_target_less_than_current' => 'Target tujuan tidak boleh lebih kecil dari total investasi saat ini.',
+
+    'investment_progress' => 'Progres Investasi',
+    'current_amount' => 'Jumlah Terkumpul',
+    'remaining_amount' => 'Sisa yang Dibutuhkan',
 ];

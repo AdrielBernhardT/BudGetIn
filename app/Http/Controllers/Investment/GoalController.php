@@ -150,6 +150,13 @@ class GoalController extends Controller
                 $payload['missed_notified_at'] = null;
             }
 
+            $currentAmount = $goal->currentAmount();
+            if ($request->target_amount < $currentAmount) {
+                toast()->error(__('sentence.goal_target_less_than_current'));
+
+                return redirect()->back()->withInput();
+            }
+
             $goal->update($payload);
 
             toast()->success(__('sentence.goal_updated'));

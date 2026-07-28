@@ -99,10 +99,7 @@ class RecordInvestmentController extends Controller
                 'investment_id' => $investment->id,
                 'goal_id' => $goal->id,
                 'account_id' => $validated['account_id'],
-                'date' => Carbon::createFromFormat(
-                    'd-m-Y',
-                    $validated['date']
-                )->format('Y-m-d'),
+                'date' => Carbon::createFromFormat('Y-m-d', $validated['date'])->format('Y-m-d'),
                 'transaction_amount' => $validated['transaction_amount'],
                 'description' => $validated['description'],
             ]);

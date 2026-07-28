@@ -307,4 +307,17 @@ return [
     'time_minutes_ago' => ':count分钟前',
     'time_hours_ago' => ':count小时前',
     'time_days_ago' => ':count天前',
+
+    'no_balance_available' => '暂无可用余额',
+    'create_balance_before_expense' => '您需要先添加余额才能进行转账。',
+    'add_balance' => '添加余额',
+
+    'no_account_available' => '暂无账户',
+    'create_account_before_record_investment' => '请先创建账户，然后再添加投资记录。',
+
+    'goal_target_less_than_current' => '目标金额不能低于当前已投资金额。',
+
+    'investment_progress' => '投资进度',
+    'current_amount' => '已投入金额',
+    'remaining_amount' => '剩余所需金额',
 ];
