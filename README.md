@@ -32,8 +32,8 @@ In addition to transaction recording and financial monitoring, BudGetIn aims to 
 - **Profile Management**  
   Manage personal profile information and account settings.
 
-- **Multi-Account Management**
-Organize finances across multiple accounts, including:
+- **Multi-Account Management**  
+  Organize finances across multiple accounts, including:
   - Bank accounts
   - E-wallets
   - Cash accounts
@@ -49,7 +49,7 @@ Organize finances across multiple accounts, including:
   - Edit income and expense records
   - Delete income and expense records
 
-- **Financial Dashboard**
+- **Financial Dashboard**  
   View a comprehensive summary of personal finances, including:
   - Current balance
   - Total income
@@ -57,14 +57,14 @@ Organize finances across multiple accounts, including:
   - Financial Insight
   - Financial Statistic
 
-- **Investment Management**
-Track and manage investment portfolios by:
+- **Investment Management**  
+  Track and manage investment portfolios by:
   - Recording investment assets
   - Monitoring portfolio growth
   - Setting investment goals and reminders
 
-- **Financial Reports**
-Export financial reports in PDF format for documentation, analysis, and future reference.
+- **Financial Reports**  
+  Export financial reports in PDF format for documentation, analysis, and future reference.
 
 ## How It Works
 
