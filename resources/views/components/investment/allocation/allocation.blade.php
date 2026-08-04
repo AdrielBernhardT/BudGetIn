@@ -14,7 +14,7 @@
                 </h5>
             @else
                 <div class="flex justify-center items-center">
-                    <div id="allocationChart" class="w-full" data-chart='@json($datas['allocation_chart'])'></div>
+                    <div id="allocationChart" class="w-full" data-chart='@json($datas['allocation_chart'])' data-total-label="{{ __('common.total') }}"></div>
                 </div>
             @endif
         </div>

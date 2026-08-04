@@ -3,6 +3,7 @@ export const pieChart = () => {
 
     if (chartElement) {
         const value = parseFloat(chartElement.dataset.value) || 0;
+        const label = chartElement.dataset.label || 'Progress';
 
         const option = {
             chart: {
@@ -39,7 +40,7 @@ export const pieChart = () => {
             },
             series: [value],
             colors: ['#097AEC'],
-            labels: ['Progress'],
+            labels: [label],
             stroke: {
                 lineCap: 'round'
             },
