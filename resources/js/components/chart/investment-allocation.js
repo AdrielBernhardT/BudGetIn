@@ -5,6 +5,8 @@
         const raw = chartElement.dataset.chart;
         const data = raw ? JSON.parse(raw) : [];
 
+        const totalLabel = chartElement.dataset.totalLabel || "Total";
+
         const labels = data.map((item) => item.label);
         const series = data.map((item) => item.value);
 
@@ -66,7 +68,7 @@
 
                                     return `IDR ${formatted}`;
                                 },
-                                label: "Total",
+                                label: totalLabel,
                                 // fontSize: "14px",
                                 // fontWeight: "600",
                                 // color: "#1D2939",
@@ -81,7 +83,7 @@
                 // show: false,
                 position: "bottom",
                 // floating: false,
-                
+
                 // width: "100%",
                 // height: 70,
                 // offsetX: -35,

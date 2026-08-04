@@ -31,7 +31,7 @@
                 </div>
             </div>
             <div class="flex flex-col pt-5 lg:pt-0 pb-5 lg:pb-0">
-                <div id="targetPieChart" class="flex" data-value="{{ $datas['summary']['percentage'] }}"></div>
+                <div id="targetPieChart" class="flex" data-value="{{ $datas['summary']['percentage'] }}" data-label="{{ __('common.progress') }}"></div>
                 <div class="flex flex-col justify-center items-center">
                     <span class="text-sm font-medium text-gray-800 dark:text-white/90">{{ __('common.idr') }}
                         {{ number_format($datas['summary']['total_investment'], 0, ',', '.') }} / {{ __('common.idr') }}
