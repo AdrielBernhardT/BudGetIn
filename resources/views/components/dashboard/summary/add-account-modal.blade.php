@@ -53,7 +53,7 @@
                         </div>
                         <div>
                             <label class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400">
-                                {{ __('sentence.initial_amount') }}<span class="text-red-500">*</span>
+                                {{ __('sentence.initial_amount') }}
                             </label>
                             <div class="relative">
                                 <span
