@@ -1,17 +1,17 @@
 <div x-data="investmentPage()">
     <x-ui.modal
         x-data="{
-            open: {{ $errors->investment->any() ? 'true' : 'false' }},
-            showErrors: {{ $errors->investment->any() ? 'true' : 'false' }},
+            open: {{ $errors->investment_edit->any() ? 'true' : 'false' }},
+            showErrors: {{ $errors->investment_edit->any() ? 'true' : 'false' }},
             errors: {
-                allocation: @js($errors->investment->first('allocation_percent') ?? '')
+                allocation: @js($errors->investment_edit->first('allocation_percent') ?? '')
             },
             resetErrors() {
                 this.errors = { allocation: '' }
             }
         }"
         @edit-investment-item.window="open = true"
-        :isOpen="$errors->investment->any()"
+        :isOpen="$errors->investment_edit->any()"
         class="max-w-[700px]"
     >
         <div x-data="{
@@ -120,7 +120,7 @@
                                 </span>
                             </div>
 
-                            @error('allocation_percent', 'investment')
+                            @error('allocation_percent', 'investment_edit')
                                 <p class="mt-1 text-sm text-red-500">{{ $message }}</p>
                             @enderror
 
@@ -161,7 +161,7 @@
                                 <input type="hidden" name="id" :value="investment.id" />
                             </div>
 
-                            @error('planned_amount', 'investment')
+                            @error('planned_amount', 'investment_edit')
                                 <p class="mt-1 text-sm text-red-500">{{ $message }}</p>
                             @enderror
                         </div>

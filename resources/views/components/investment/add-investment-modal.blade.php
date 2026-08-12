@@ -1,5 +1,5 @@
 <div x-data="investmentPage()">
-    <x-ui.modal x-data="{ open: {{ $errors->investment->any() ? 'true' : 'false' }} }" @add-investment.window="open = true" :isOpen="$errors->investment->any()" class="max-w-[700px]">
+    <x-ui.modal x-data="{ open: {{ $errors->investment_add->any() ? 'true' : 'false' }} }" @add-investment.window="open = true" :isOpen="$errors->investment_add->any()" class="max-w-[700px]">
         <div x-data="{
             goals: @js($goals),
             selectedGoal: null,
@@ -45,7 +45,7 @@
                         </label>
                         <input type="text" name="name" x-model="investment.name"
                             class="dark:bg-dark-900 shadow-theme-xs focus:border-brand-300 focus:ring-brand-500/10 dark:focus:border-brand-800 h-11 w-full rounded-lg border border-gray-300 bg-transparent px-4 py-2.5 text-sm text-gray-800 placeholder:text-gray-400 focus:ring-3 focus:outline-hidden dark:border-gray-700 dark:bg-gray-900 dark:text-white/90 dark:placeholder:text-white/30" />
-                        @error('name', 'investment')
+                        @error('name', 'investment_add')
                             <p class="mt-1 text-sm text-red-500">{{ $message }}</p>
                         @enderror
                     </div>
@@ -81,7 +81,7 @@
                                         stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
                                 </svg>
                             </span>
-                            @error('goal_id', 'investment')
+                            @error('goal_id', 'investment_add')
                                 <p class="mt-1 text-sm text-red-500">{{ $message }}</p>
                             @enderror
                         </div>
@@ -138,7 +138,7 @@
                                         %
                                     </span>
                                 </div>
-                                @error('allocation_percent', 'investment')
+                                @error('allocation_percent', 'investment_add')
                                     <p class="mt-1 text-sm text-red-500">{{ $message }}</p>
                                 @enderror
                             </div>
@@ -174,7 +174,7 @@
                                     <input type="hidden" name="planned_amount" :value="investment.amount" />
 
                                 </div>
-                                @error('planned_amount', 'investment')
+                                @error('planned_amount', 'investment_add')
                                     <p class="mt-1 text-sm text-red-500">{{ $message }}</p>
                                 @enderror
                             </div>

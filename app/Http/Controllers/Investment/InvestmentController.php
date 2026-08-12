@@ -170,7 +170,7 @@ class InvestmentController extends Controller
 
     public function store(Request $request)
     {
-        $validated = $request->validateWithBag('investment', [
+        $validated = $request->validateWithBag('investment_add', [
             'name' => [
                 'required',
                 'string',
@@ -201,7 +201,7 @@ class InvestmentController extends Controller
                 return back()
                     ->withErrors([
                         'name' => 'Investment name already exists in this goal.'
-                    ], 'investment')
+                    ], 'investment_add')
                     ->withInput();
             }
 
@@ -220,7 +220,7 @@ class InvestmentController extends Controller
                     ->withErrors([
                         'allocation_percent' =>
                             'Total allocation cannot exceed 100%. Remaining: ' . $remaining . '%'
-                    ], 'investment')
+                    ], 'investment_add')
                     ->withInput();
             }
 
@@ -235,7 +235,7 @@ class InvestmentController extends Controller
                     ->withErrors([
                         'planned_amount' =>
                             'Total investment cannot exceed goal target amount.'
-                    ], 'investment')
+                    ], 'investment_add')
                     ->withInput();
             }
 
@@ -271,7 +271,7 @@ class InvestmentController extends Controller
 
     public function update(Request $request, $id)
     {
-        $validated = $request->validateWithBag('investment', [
+        $validated = $request->validateWithBag('investment_edit', [
             'name' => ['required', 'string', 'max:100'],
             'goal_id' => ['required'],
             'allocation_percent' => ['required', 'numeric'],
@@ -304,7 +304,7 @@ class InvestmentController extends Controller
                 return back()
                     ->withErrors([
                         'name' => 'Investment name already exists in this goal.'
-                    ], 'investment')
+                    ], 'investment_edit')
                     ->withInput();
             }
 
@@ -326,7 +326,7 @@ class InvestmentController extends Controller
                     ->withErrors([
                         'allocation_percent' =>
                             'Total allocation cannot exceed 100%. Remaining: ' . $remaining . '%'
-                    ], 'investment')
+                    ], 'investment_edit')
                     ->withInput();
             }
 
@@ -341,7 +341,7 @@ class InvestmentController extends Controller
                 return back()
                     ->withErrors([
                         'planned_amount' => 'Total investment exceeds goal target.'
-                    ], 'investment')
+                    ], 'investment_edit')
                     ->withInput();
             }
 
